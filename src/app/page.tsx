@@ -30,6 +30,7 @@ export default function Home() {
               <span className="text-2xl font-bold text-yellow-500">ConnecTech</span>
               <span className="text-sm text-gray-500">#27757</span>
             </div>
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <a href="#problem" className="text-gray-600 hover:text-yellow-500 transition">Problem</a>
               <a href="#solution" className="text-gray-600 hover:text-yellow-500 transition">Solution</a>
@@ -38,12 +39,26 @@ export default function Home() {
               <a href="#team" className="text-gray-600 hover:text-yellow-500 transition">Team</a>
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-medium transition">Survey</a>
             </div>
+            {/* Mobile Survey Button */}
+            <div className="md:hidden">
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-medium text-sm transition">Survey</a>
+            </div>
+          </div>
+        </div>
+        {/* Mobile Navigation Links */}
+        <div className="md:hidden border-t border-gray-100 bg-white/95">
+          <div className="flex overflow-x-auto gap-4 px-4 py-2 text-sm">
+            <a href="#problem" className="text-gray-600 whitespace-nowrap">Problem</a>
+            <a href="#solution" className="text-gray-600 whitespace-nowrap">Solution</a>
+            <a href="#iterations" className="text-gray-600 whitespace-nowrap">Iterations</a>
+            <a href="#impact" className="text-gray-600 whitespace-nowrap">Impact</a>
+            <a href="#team" className="text-gray-600 whitespace-nowrap">Team</a>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50">
+      <section className="pt-32 md:pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
