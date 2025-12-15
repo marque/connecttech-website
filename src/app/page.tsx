@@ -420,12 +420,12 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
             {teamMembers.map((member, index) => (
               <div key={index} className="bg-gray-50 rounded-xl p-4 text-center hover:bg-yellow-50 transition group">
-                <div className="aspect-square rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg group-hover:shadow-xl transition">
+                <div className="aspect-[3/4] rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg group-hover:shadow-xl transition">
                   <Image
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <h4 className="font-semibold text-gray-900">{member.name}</h4>
