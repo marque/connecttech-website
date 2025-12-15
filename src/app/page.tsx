@@ -36,7 +36,7 @@ export default function Home() {
               <a href="#iterations" className="text-gray-600 hover:text-yellow-500 transition">Iterations</a>
               <a href="#impact" className="text-gray-600 hover:text-yellow-500 transition">Impact</a>
               <a href="#team" className="text-gray-600 hover:text-yellow-500 transition">Team</a>
-              <a href="#contact" className="bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded-full font-medium transition">Contact</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-medium transition">Survey</a>
             </div>
           </div>
         </div>
