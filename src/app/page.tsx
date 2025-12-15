@@ -342,6 +342,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Product Demo QR Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-gray-900 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="text-center md:text-left">
+              <h2 className="text-3xl font-bold text-white mb-4">See GridLock in Action</h2>
+              <p className="text-gray-300 text-lg max-w-md">
+                Scan the QR code to watch our product demonstration and see how GridLock transforms archaeological excavation.
+              </p>
+            </div>
+            <div className="bg-white p-4 rounded-xl shadow-lg">
+              <Image
+                src="/images/QR.png"
+                alt="Product Demo QR Code"
+                width={180}
+                height={180}
+                className="w-40 h-40 md:w-44 md:h-44"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Impact Section */}
       <section id="impact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-yellow-400 via-green-400 to-blue-400">
         <div className="max-w-7xl mx-auto">
@@ -546,7 +569,7 @@ export default function Home() {
               <span className="text-gray-500 ml-2">#27757</span>
             </div>
             <div className="text-gray-400 text-sm">
-              FIRST LEGO League Challenge 2024 - Submerged
+              FIRST LEGO League Challenge 2025 - Unearthed
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
