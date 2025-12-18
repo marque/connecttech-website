@@ -81,6 +81,15 @@ export default function Home() {
             <div className="inline-block bg-yellow-400 text-black text-lg font-bold px-6 py-2 rounded-full mb-6 shadow-lg">
               FIRST LEGO League Challenge 2025
             </div>
+            <div className="mb-6">
+              <Image
+                src="/images/logo.png"
+                alt="ConnecTech Logo"
+                width={200}
+                height={200}
+                className="mx-auto rounded-xl shadow-lg"
+              />
+            </div>
             <h1 className="text-6xl sm:text-8xl font-bold text-gray-900 mb-4">
               <span className="text-yellow-500">ConnecTech</span>
             </h1>
