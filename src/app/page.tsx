@@ -541,8 +541,8 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Attachments</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {robotAttachments.map((attachment, index) => (
-                <div key={index} className="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3 relative">
+                <div key={index} className="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition border-2 border-gray-200">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3 relative bg-gray-100">
                     <Image
                       src={attachment.image}
                       alt={attachment.name}
@@ -642,7 +642,7 @@ export default function Home() {
           </div>
 
           {/* Team Members with Core Values */}
-          <div id="team" className="mb-16">
+          <div id="team" className="mb-16 scroll-mt-28">
             <h3 className="text-3xl font-bold text-gray-900 mb-2 text-center">Meet the ConnecTech Family</h3>
             <p className="text-lg text-gray-600 mb-8 text-center">8 innovative students from Bayview Glen School, grades 6-8</p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
