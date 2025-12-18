@@ -2,14 +2,32 @@ import Image from "next/image";
 
 export default function Home() {
   const teamMembers = [
-    { name: "Luke LIDAR", role: "Navigation Expert", image: "/images/img_58_1.jpeg" },
-    { name: "Grace Grid", role: "Precision Engineer", image: "/images/img_56_1.jpeg" },
-    { name: "Salima Sand", role: "Excavation Specialist", image: "/images/img_55_1.jpeg" },
-    { name: "Sarina Stone", role: "Materials Expert", image: "/images/img_57_1.jpeg" },
-    { name: "Naya Natural", role: "Environmental Lead", image: "/images/img_62_1.jpeg" },
-    { name: "Ivan Identify", role: "Documentation Chief", image: "/images/img_59_1.jpeg" },
-    { name: "Andrew Artifact", role: "Discovery Specialist", image: "/images/img_60_1.jpeg" },
-    { name: "Eric Excavate", role: "Field Operations", image: "/images/img_61_1.jpeg" },
+    { name: "Luke LIDAR", coreValue: "Discovery", image: "/images/img_58_1.jpeg" },
+    { name: "Grace Grid", coreValue: "Innovation", image: "/images/img_56_1.jpeg" },
+    { name: "Salima Sand", coreValue: "Impact", image: "/images/img_55_1.jpeg" },
+    { name: "Sarina Stone", coreValue: "Inclusion", image: "/images/img_57_1.jpeg" },
+    { name: "Naya Natural", coreValue: "Teamwork", image: "/images/img_62_1.jpeg" },
+    { name: "Ivan Identify", coreValue: "Fun", image: "/images/img_59_1.jpeg" },
+    { name: "Andrew Artifact", coreValue: "Impact", image: "/images/img_60_1.jpeg" },
+    { name: "Eric Excavate", coreValue: "Innovation", image: "/images/img_61_1.jpeg" },
+  ];
+
+  const robotAttachments = [
+    { name: "The Snake", image: "/images/the-snake.png" },
+    { name: "The Scorpion", image: "/images/the-scorpion.png" },
+    { name: "Lionel Meshi", image: "/images/lionel-meshi.png" },
+    { name: "The Thwacker", image: "/images/the-thwacker.png" },
+    { name: "The Fangs", image: "/images/the-fangs.png" },
+    { name: "The Smasher", image: "/images/the-smasher.png" },
+  ];
+
+  const coreValues = [
+    { name: "Discovery", emoji: "🔍", description: "We explore new skills and ideas" },
+    { name: "Innovation", emoji: "💡", description: "We use creativity and persistence to solve problems" },
+    { name: "Impact", emoji: "🌍", description: "We apply what we learn to improve our world" },
+    { name: "Inclusion", emoji: "🤝", description: "We respect each other and embrace our differences" },
+    { name: "Teamwork", emoji: "👥", description: "We are stronger when we work together" },
+    { name: "Fun", emoji: "🎉", description: "We enjoy and celebrate what we do!" },
   ];
 
   const howItWorksSteps = [
@@ -32,80 +50,84 @@ export default function Home() {
             </div>
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              <a href="#problem" className="text-gray-600 hover:text-yellow-500 transition">Problem</a>
-              <a href="#solution" className="text-gray-600 hover:text-yellow-500 transition">Solution</a>
-              <a href="#iterations" className="text-gray-600 hover:text-yellow-500 transition">Iterations</a>
-              <a href="#impact" className="text-gray-600 hover:text-yellow-500 transition">Impact</a>
-              <a href="#team" className="text-gray-600 hover:text-yellow-500 transition">Team</a>
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-medium transition">Survey</a>
+              <a href="#innovation" className="text-gray-600 hover:text-yellow-500 transition">Innovation</a>
+              <a href="#robot" className="text-gray-600 hover:text-yellow-500 transition">Robot</a>
+              <a href="#core-values" className="text-gray-600 hover:text-yellow-500 transition">Core Values</a>
+              <a href="#team" className="text-gray-600 hover:text-yellow-500 transition">Family</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full font-medium transition">Survey</a>
             </div>
             {/* Mobile Survey Button */}
             <div className="md:hidden">
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-full font-medium text-sm transition">Survey</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full font-medium text-sm transition">Survey</a>
             </div>
           </div>
         </div>
         {/* Mobile Navigation Links */}
         <div className="md:hidden border-t border-gray-100 bg-white/95">
           <div className="flex overflow-x-auto gap-4 px-4 py-2 text-sm">
-            <a href="#problem" className="text-gray-600 whitespace-nowrap">Problem</a>
-            <a href="#solution" className="text-gray-600 whitespace-nowrap">Solution</a>
-            <a href="#iterations" className="text-gray-600 whitespace-nowrap">Iterations</a>
-            <a href="#impact" className="text-gray-600 whitespace-nowrap">Impact</a>
-            <a href="#team" className="text-gray-600 whitespace-nowrap">Team</a>
+            <a href="#innovation" className="text-gray-600 whitespace-nowrap">Innovation</a>
+            <a href="#robot" className="text-gray-600 whitespace-nowrap">Robot</a>
+            <a href="#core-values" className="text-gray-600 whitespace-nowrap">Core Values</a>
+            <a href="#team" className="text-gray-600 whitespace-nowrap">Family</a>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <section className="pt-32 md:pt-24 pb-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-block bg-yellow-400 text-black text-sm font-semibold px-3 py-1 rounded-full mb-4">
-                FIRST LEGO League Team #27757
-              </div>
-              <h1 className="text-5xl sm:text-6xl font-bold text-gray-900 mb-6">
-                Introducing{" "}
-                <span className="text-yellow-500">GridLock</span>
-              </h1>
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                A revolutionary precision gridding tool that transforms archaeological excavation.
-                Built by students, designed for professionals.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <a href="#solution" className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-3 rounded-full font-semibold text-lg transition shadow-lg shadow-yellow-200">
-                  Discover GridLock
-                </a>
-                <a href="#team" className="border-2 border-gray-300 hover:border-yellow-400 text-gray-700 px-8 py-3 rounded-full font-semibold text-lg transition">
-                  Meet the Team
-                </a>
-              </div>
+      {/* Entry Slide / Hero Section */}
+      <section className="min-h-screen pt-20 flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-100 via-yellow-50 to-amber-50">
+        <div className="max-w-5xl mx-auto text-center">
+          {/* Team Logo/Badge */}
+          <div className="mb-8">
+            <div className="inline-block bg-yellow-400 text-black text-lg font-bold px-6 py-2 rounded-full mb-6 shadow-lg">
+              FIRST LEGO League Challenge 2025
             </div>
-            <div className="relative">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <Image
-                  src="/images/img_11_1.jpeg"
-                  alt="ConnecTech Team"
-                  width={800}
-                  height={500}
-                  className="w-full h-auto object-cover"
-                  priority
-                />
-              </div>
-              <div className="absolute -bottom-4 -left-4 bg-green-500 text-white px-4 py-2 rounded-lg font-semibold shadow-lg">
-                Bayview Glen School
-              </div>
-            </div>
+            <h1 className="text-6xl sm:text-8xl font-bold text-gray-900 mb-4">
+              <span className="text-yellow-500">ConnecTech</span>
+            </h1>
+            <p className="text-3xl sm:text-4xl font-semibold text-gray-700 mb-4">#27757</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Bayview Glen School - Toronto, Ontario
+            </p>
+          </div>
+
+          {/* Team Photo */}
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl mb-12 max-w-3xl mx-auto">
+            <Image
+              src="/images/img_11_1.jpeg"
+              alt="ConnecTech Team"
+              width={800}
+              height={450}
+              className="w-full h-auto object-cover"
+              priority
+            />
+          </div>
+
+          {/* Three Main Navigation Buttons */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <a href="#innovation" className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-6 rounded-2xl font-bold text-xl transition shadow-lg hover:shadow-xl flex flex-col items-center gap-2">
+              <span className="text-3xl">💡</span>
+              <span>Innovation</span>
+            </a>
+            <a href="#robot" className="bg-amber-400 hover:bg-amber-500 text-black px-8 py-6 rounded-2xl font-bold text-xl transition shadow-lg hover:shadow-xl flex flex-col items-center gap-2">
+              <span className="text-3xl">🤖</span>
+              <span>Robot</span>
+            </a>
+            <a href="#core-values" className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-6 rounded-2xl font-bold text-xl transition shadow-lg hover:shadow-xl flex flex-col items-center gap-2">
+              <span className="text-3xl">⭐</span>
+              <span>Core Values</span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* Problem Section */}
-      <section id="problem" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
+      {/* Innovation Section - GridLock Project */}
+      <section id="innovation" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">The Problem</h2>
+            <div className="inline-block bg-yellow-400 text-black text-sm font-semibold px-4 py-1 rounded-full mb-4">
+              INNOVATION PROJECT
+            </div>
+            <h2 className="text-4xl font-bold mb-4">GridLock: The Problem</h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Traditional archaeological gridding methods are slow, inaccurate, and require multiple workers
             </p>
@@ -162,8 +184,8 @@ export default function Home() {
               </p>
               <div className="space-y-4">
                 <div className="flex items-start gap-4">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-yellow-100 p-2 rounded-lg">
+                    <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -173,8 +195,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-yellow-100 p-2 rounded-lg">
+                    <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -184,8 +206,8 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="bg-green-100 p-2 rounded-lg">
-                    <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="bg-yellow-100 p-2 rounded-lg">
+                    <svg className="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -220,7 +242,7 @@ export default function Home() {
               </p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition">
-              <div className="bg-green-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
+              <div className="bg-amber-100 w-14 h-14 rounded-xl flex items-center justify-center mb-4">
                 <span className="text-2xl">⚖️</span>
               </div>
               <h3 className="text-lg font-semibold mb-2 text-gray-900">Bubble Levels</h3>
@@ -278,18 +300,18 @@ export default function Home() {
               <h4 className="font-semibold text-gray-900 mb-2">Concept & Wood Frame</h4>
               <p className="text-gray-600 text-sm">Initial sketches and wooden prototype to test basic structure</p>
             </div>
-            <div className="bg-green-50 rounded-xl p-6 border-2 border-green-200">
-              <div className="text-green-600 font-bold text-sm mb-2">ITERATION 3</div>
+            <div className="bg-amber-50 rounded-xl p-6 border-2 border-amber-200">
+              <div className="text-amber-600 font-bold text-sm mb-2">ITERATION 3</div>
               <h4 className="font-semibold text-gray-900 mb-2">PVC Pipes</h4>
               <p className="text-gray-600 text-sm">Lightweight PVC frame for portability testing</p>
             </div>
-            <div className="bg-blue-50 rounded-xl p-6 border-2 border-blue-200">
-              <div className="text-blue-600 font-bold text-sm mb-2">ITERATION 4-5</div>
+            <div className="bg-yellow-100 rounded-xl p-6 border-2 border-yellow-300">
+              <div className="text-yellow-700 font-bold text-sm mb-2">ITERATION 4-5</div>
               <h4 className="font-semibold text-gray-900 mb-2">Aluminum Extrusion</h4>
               <p className="text-gray-600 text-sm">Professional aluminum frame with battery pack integration</p>
             </div>
-            <div className="bg-purple-50 rounded-xl p-6 border-2 border-purple-200">
-              <div className="text-purple-600 font-bold text-sm mb-2">ITERATION 6-7</div>
+            <div className="bg-amber-100 rounded-xl p-6 border-2 border-amber-300">
+              <div className="text-amber-700 font-bold text-sm mb-2">ITERATION 6-7</div>
               <h4 className="font-semibold text-gray-900 mb-2">Final Refinements</h4>
               <p className="text-gray-600 text-sm">Improved threading and 3D-printed brackets for precision</p>
             </div>
@@ -366,7 +388,7 @@ export default function Home() {
       </section>
 
       {/* Impact Section */}
-      <section id="impact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-yellow-400 via-green-400 to-blue-400">
+      <section id="impact" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-500">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-white">Real Impact</h2>
@@ -376,15 +398,15 @@ export default function Home() {
           </div>
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             <div className="bg-white rounded-xl p-8 text-center">
-              <div className="text-5xl font-bold text-yellow-500 mb-2">75%</div>
+              <div className="text-5xl font-bold text-yellow-600 mb-2">75%</div>
               <p className="text-gray-600">Time Savings on Grid Setup</p>
             </div>
             <div className="bg-white rounded-xl p-8 text-center">
-              <div className="text-5xl font-bold text-green-500 mb-2">1</div>
+              <div className="text-5xl font-bold text-amber-500 mb-2">1</div>
               <p className="text-gray-600">Person Instead of 2 Required</p>
             </div>
             <div className="bg-white rounded-xl p-8 text-center">
-              <div className="text-5xl font-bold text-blue-500 mb-2">$40</div>
+              <div className="text-5xl font-bold text-yellow-500 mb-2">$40</div>
               <p className="text-gray-600">Materials Cost to Build</p>
             </div>
           </div>
@@ -443,71 +465,239 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* Innovation Gallery */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Innovation Gallery</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                { src: "/images/img_1_1.jpeg", alt: "Team brainstorming" },
+                { src: "/images/img_2_1.jpeg", alt: "Building process" },
+                { src: "/images/img_3_1.jpeg", alt: "GridLock assembly" },
+                { src: "/images/img_26_1.jpeg", alt: "Field testing" },
+                { src: "/images/img_28_2.jpeg", alt: "Outdoor testing" },
+                { src: "/images/img_12_1.jpeg", alt: "Final product" },
+              ].map((image, index) => (
+                <div key={index} className="relative aspect-square rounded-xl overflow-hidden group">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover group-hover:scale-110 transition duration-500"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Team Section */}
-      <section id="team" className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* Robot Section */}
+      <section id="robot" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-gray-900">Meet the Team</h2>
+            <div className="inline-block bg-amber-400 text-black text-sm font-semibold px-4 py-1 rounded-full mb-4">
+              ROBOT DESIGN
+            </div>
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">Our Robot</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              8 innovative students from Bayview Glen School, grades 6-8
+              Precision engineering meets creative problem-solving
             </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-            {teamMembers.map((member, index) => (
-              <div key={index} className="bg-gray-50 rounded-xl p-4 text-center hover:bg-yellow-50 transition group">
-                <div className="aspect-[3/4] rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg group-hover:shadow-xl transition">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover object-top"
-                  />
-                </div>
-                <h4 className="font-semibold text-gray-900">{member.name}</h4>
-                <p className="text-sm text-gray-500">{member.role}</p>
-              </div>
-            ))}
+
+          {/* Mission Stats */}
+          <div className="grid md:grid-cols-4 gap-6 mb-16">
+            <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
+              <div className="text-4xl font-bold text-yellow-500 mb-2">545</div>
+              <p className="text-gray-600 font-medium">Max Points</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
+              <div className="text-4xl font-bold text-amber-500 mb-2">15</div>
+              <p className="text-gray-600 font-medium">Missions</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
+              <div className="text-4xl font-bold text-yellow-600 mb-2">2</div>
+              <p className="text-gray-600 font-medium">Home Areas</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
+              <div className="text-4xl font-bold text-amber-600 mb-2">6</div>
+              <p className="text-gray-600 font-medium">Attachments</p>
+            </div>
           </div>
-          <div className="relative rounded-2xl overflow-hidden">
+
+          {/* Robot Photo */}
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl mb-16 max-w-4xl mx-auto">
             <Image
-              src="/images/img_11_1.jpeg"
-              alt="ConnecTech Team Photo"
-              width={1200}
+              src="/images/img_10_1.jpeg"
+              alt="ConnecTech Robot"
+              width={1000}
               height={600}
               className="w-full h-auto object-cover"
             />
           </div>
+
+          {/* Attachments */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Attachments</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+              {robotAttachments.map((attachment, index) => (
+                <div key={index} className="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition">
+                  <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3 relative">
+                    <Image
+                      src={attachment.image}
+                      alt={attachment.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 text-sm">{attachment.name}</h4>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Coding Approach */}
+          <div className="bg-gray-900 rounded-2xl p-8 md:p-12 text-white">
+            <h3 className="text-2xl font-bold mb-6 text-center">Our Coding Approach</h3>
+            <div className="grid md:grid-cols-4 gap-8">
+              <div className="text-center">
+                <div className="bg-yellow-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🧭</span>
+                </div>
+                <h4 className="font-semibold mb-2">Gyro Sensor Navigation</h4>
+                <p className="text-gray-400 text-sm">We use gyro sensors instead of color sensors since there are only 3 black and white lines on the mat</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-amber-400 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">📐</span>
+                </div>
+                <h4 className="font-semibold mb-2">Precision Movements</h4>
+                <p className="text-gray-400 text-sm">Every motor rotation is calculated for exact positioning</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-yellow-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🔄</span>
+                </div>
+                <h4 className="font-semibold mb-2">Iterative Testing</h4>
+                <p className="text-gray-400 text-sm">We test, measure, adjust, and repeat until perfect</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-amber-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">🎯</span>
+                </div>
+                <h4 className="font-semibold mb-2">Mission Optimization</h4>
+                <p className="text-gray-400 text-sm">Strategic run planning to maximize points per trip</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Robot Gallery */}
+          <div className="mt-16">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Robot Gallery</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                { src: "/images/img_10_1.jpeg", alt: "Robot with attachments" },
+                { src: "/images/img_30_1.jpeg", alt: "Robot building" },
+                { src: "/images/img_25_1.jpeg", alt: "Robot testing" },
+                { src: "/images/img_27_1.jpeg", alt: "Robot details" },
+                { src: "/images/img_41_1.jpeg", alt: "Robot in action" },
+                { src: "/images/img_29_2.jpeg", alt: "Robot missions" },
+              ].map((image, index) => (
+                <div key={index} className="relative aspect-square rounded-xl overflow-hidden group shadow-lg">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover group-hover:scale-110 transition duration-500"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900">
+      {/* Core Values Section */}
+      <section id="core-values" className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-yellow-100 to-amber-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4 text-white">Gallery</h2>
-            <p className="text-xl text-gray-400">Our journey building GridLock</p>
+            <div className="inline-block bg-yellow-500 text-black text-sm font-semibold px-4 py-1 rounded-full mb-4">
+              CORE VALUES
+            </div>
+            <h2 className="text-4xl font-bold mb-4 text-gray-900">What We Stand For</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              The FLL Core Values guide everything we do
+            </p>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {[
-              { src: "/images/img_1_1.jpeg", alt: "Team members" },
-              { src: "/images/img_2_1.jpeg", alt: "Building process" },
-              { src: "/images/img_3_1.jpeg", alt: "GridLock assembly" },
-              { src: "/images/img_26_1.jpeg", alt: "Field testing" },
-              { src: "/images/img_28_2.jpeg", alt: "Outdoor testing" },
-              { src: "/images/img_10_1.jpeg", alt: "Team with robot" },
-            ].map((image, index) => (
-              <div key={index} className="relative aspect-square rounded-xl overflow-hidden group">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  className="object-cover group-hover:scale-110 transition duration-500"
-                />
+
+          {/* Core Values Gear/Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
+            {coreValues.map((value, index) => (
+              <div key={index} className="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition border-2 border-yellow-200 hover:border-yellow-400">
+                <div className="text-4xl mb-3">{value.emoji}</div>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{value.name}</h3>
+                <p className="text-gray-600 text-sm">{value.description}</p>
               </div>
             ))}
+          </div>
+
+          {/* Team Members with Core Values */}
+          <div id="team" className="mb-16">
+            <h3 className="text-3xl font-bold text-gray-900 mb-2 text-center">Meet the ConnecTech Family</h3>
+            <p className="text-lg text-gray-600 mb-8 text-center">8 innovative students from Bayview Glen School, grades 6-8</p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {teamMembers.map((member, index) => (
+                <div key={index} className="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition">
+                  <div className="aspect-square rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg w-24 h-24">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover object-top"
+                    />
+                  </div>
+                  <h4 className="font-semibold text-gray-900 text-sm">{member.name}</h4>
+                  <p className="text-yellow-600 font-bold">{member.coreValue}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Core Values Gallery */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Core Values Gallery</h3>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {[
+                { src: "/images/img_11_1.jpeg", alt: "Team together" },
+                { src: "/images/img_1_1.jpeg", alt: "Teamwork in action" },
+                { src: "/images/cv.jpg", alt: "Team presenting" },
+                { src: "/images/cv2.jpg", alt: "Team in classroom" },
+                { src: "/images/cv3.jpg", alt: "Team outdoors" },
+                { src: "/images/cv4.jpg", alt: "Team fun" },
+              ].map((image, index) => (
+                <div key={index} className="relative aspect-square rounded-xl overflow-hidden group shadow-lg">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    className="object-cover group-hover:scale-110 transition duration-500"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Team Cheer */}
+          <div className="bg-yellow-400 rounded-2xl p-8 md:p-12 text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Team Cheer</h3>
+            <div className="max-w-2xl mx-auto bg-white rounded-xl p-6 shadow-lg">
+              <p className="text-xl font-semibold text-gray-800 leading-relaxed">
+                &ldquo;ConnecTech Family<br />
+                I&apos;ve got all my teammates with me<br />
+                ConnecTech Family<br />
+                <span className="text-yellow-600 font-bold">Building robots in unity!&rdquo;</span>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -553,7 +743,7 @@ export default function Home() {
             href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-green-500 hover:bg-green-600 text-white px-8 py-4 rounded-full font-semibold text-lg transition shadow-lg"
+            className="inline-block bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-4 rounded-full font-semibold text-lg transition shadow-lg"
           >
             Take Our Survey
           </a>
