@@ -81,22 +81,19 @@ export default function Home() {
             <div className="inline-block bg-yellow-400 text-black text-lg font-bold px-6 py-2 rounded-full mb-6 shadow-lg">
               FIRST LEGO League Challenge 2025
             </div>
-            <div className="mb-6">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Image
                 src="/images/logo.png"
                 alt="ConnecTech Logo"
-                width={200}
-                height={200}
-                className="mx-auto rounded-xl shadow-lg"
+                width={160}
+                height={160}
+                className="rounded-xl shadow-lg"
               />
+              <div className="text-center sm:text-left">
+                <h1 className="text-5xl sm:text-6xl font-bold text-yellow-500">ConnecTech</h1>
+                <p className="text-2xl sm:text-3xl font-semibold text-gray-700">#27757</p>
+              </div>
             </div>
-            <h1 className="text-6xl sm:text-8xl font-bold text-gray-900 mb-4">
-              <span className="text-yellow-500">ConnecTech</span>
-            </h1>
-            <p className="text-3xl sm:text-4xl font-semibold text-gray-700 mb-4">#27757</p>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Bayview Glen School - Toronto, Ontario
-            </p>
           </div>
 
           {/* Team Photo */}
