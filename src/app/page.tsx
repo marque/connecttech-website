@@ -291,7 +291,7 @@ export default function Home() {
           {/* Iteration Diagram */}
           <div className="mb-16">
             <Image
-              src="/images/img_63_2.jpeg"
+              src="/images/iteration-diagram.png"
               alt="GridLock Iteration Process - 7 versions from concept to final product"
               width={1400}
               height={600}
@@ -540,6 +540,20 @@ export default function Home() {
               height={600}
               className="w-full h-auto object-cover"
             />
+          </div>
+
+          {/* Mission Runs Heatmap */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Mission Run Strategy</h3>
+            <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-5xl mx-auto">
+              <Image
+                src="/images/robot-heatmap.png"
+                alt="Robot Mission Runs - Strategic route planning for maximum points"
+                width={1200}
+                height={700}
+                className="w-full h-auto object-cover"
+              />
+            </div>
           </div>
 
           {/* Attachments */}
