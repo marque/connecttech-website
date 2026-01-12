@@ -17,8 +17,7 @@ export default function Home() {
     { name: "The Scorpion", image: "/images/the-scorpion.png" },
     { name: "Lionel Meshi", image: "/images/lionel-meshi.png" },
     { name: "The Thwacker", image: "/images/the-thwacker.png" },
-    { name: "The Fangs", image: "/images/the-fangs.png" },
-    { name: "The Smasher", image: "/images/the-smasher.png" },
+    { name: "The T-rex", image: "" },
   ];
 
   const coreValues = [
@@ -35,7 +34,7 @@ export default function Home() {
     { step: 2, title: "Level", desc: "Use bubble levels to ensure frame is horizontal", image: "/images/img_27_1.jpeg" },
     { step: 3, title: "Adjust", desc: "Extend telescoping legs to desired height", image: "/images/img_29_2.jpeg" },
     { step: 4, title: "Activate", desc: "Turn on lasers to project grid lines", image: "/images/img_41_1.jpeg" },
-    { step: 5, title: "Excavate", desc: "Begin precise, organized excavation", image: "/images/img_28_2.jpeg" },
+    { step: 5, title: "Lock", desc: "Lock the stakes in the precise location", image: "/images/img_28_2.jpeg" },
   ];
 
   return (
@@ -300,44 +299,57 @@ export default function Home() {
           </div>
 
           {/* Iteration Details */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-yellow-50 rounded-xl p-6 border-2 border-yellow-200">
-              <div className="text-yellow-600 font-bold text-sm mb-2">ITERATION 1-2</div>
-              <h4 className="font-semibold text-gray-900 mb-2">Concept & Wood Frame</h4>
-              <p className="text-gray-600 text-sm">Initial sketches and wooden prototype to test basic structure</p>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-yellow-200 rounded-xl p-6 border-2 border-yellow-400">
+              <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                <Image src="/images/img_4_1.jpeg" alt="Cos(connect) brainstorming" fill className="object-cover" />
+              </div>
+              <div className="text-yellow-800 font-bold text-sm mb-2">ITERATION 1</div>
+              <h4 className="font-semibold text-gray-900 mb-2">Cos(connect)</h4>
+              <p className="text-gray-600 text-sm">Initial innovation concept before GridLock</p>
             </div>
-            <div className="bg-amber-50 rounded-xl p-6 border-2 border-amber-200">
-              <div className="text-amber-600 font-bold text-sm mb-2">ITERATION 3</div>
+            <div className="bg-yellow-200 rounded-xl p-6 border-2 border-yellow-400">
+              <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                <Image src="/images/img_3_1.jpeg" alt="GridLock idea development" fill className="object-cover" />
+              </div>
+              <div className="text-yellow-800 font-bold text-sm mb-2">ITERATION 2</div>
+              <h4 className="font-semibold text-gray-900 mb-2">GridLock Idea</h4>
+              <p className="text-gray-600 text-sm">The GridLock concept was born</p>
+            </div>
+            <div className="bg-yellow-200 rounded-xl p-6 border-2 border-yellow-400">
+              <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                <Image src="/images/img_25_1.jpeg" alt="PVC pipe prototype" fill className="object-cover" />
+              </div>
+              <div className="text-yellow-800 font-bold text-sm mb-2">ITERATION 3</div>
               <h4 className="font-semibold text-gray-900 mb-2">PVC Pipes</h4>
               <p className="text-gray-600 text-sm">Lightweight PVC frame for portability testing</p>
             </div>
-            <div className="bg-yellow-100 rounded-xl p-6 border-2 border-yellow-300">
-              <div className="text-yellow-700 font-bold text-sm mb-2">ITERATION 4-5</div>
+            <div className="bg-yellow-200 rounded-xl p-6 border-2 border-yellow-400">
+              <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                <Image src="/images/img_12_1.jpeg" alt="Aluminum extrusion frame" fill className="object-cover" />
+              </div>
+              <div className="text-yellow-800 font-bold text-sm mb-2">ITERATION 4</div>
               <h4 className="font-semibold text-gray-900 mb-2">Aluminum Extrusion</h4>
-              <p className="text-gray-600 text-sm">Professional aluminum frame with battery pack integration</p>
+              <p className="text-gray-600 text-sm">Professional aluminum frame construction</p>
             </div>
-            <div className="bg-amber-100 rounded-xl p-6 border-2 border-amber-300">
-              <div className="text-amber-700 font-bold text-sm mb-2">ITERATION 6-7</div>
-              <h4 className="font-semibold text-gray-900 mb-2">Final Refinements</h4>
-              <p className="text-gray-600 text-sm">Improved threading and 3D-printed brackets for precision</p>
+            <div className="bg-yellow-200 rounded-xl p-6 border-2 border-yellow-400">
+              <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                <Image src="/images/img_29_1.jpeg" alt="Second battery pack addition" fill className="object-cover" />
+              </div>
+              <div className="text-yellow-800 font-bold text-sm mb-2">ITERATION 5</div>
+              <h4 className="font-semibold text-gray-900 mb-2">Second Battery Pack</h4>
+              <p className="text-gray-600 text-sm">Added second battery pack for extended use</p>
+            </div>
+            <div className="bg-yellow-200 rounded-xl p-6 border-2 border-yellow-400">
+              <div className="relative aspect-video rounded-lg overflow-hidden mb-4">
+                <Image src="/images/img_27_1.jpeg" alt="Improved threading brackets" fill className="object-cover" />
+              </div>
+              <div className="text-yellow-800 font-bold text-sm mb-2">ITERATION 6</div>
+              <h4 className="font-semibold text-gray-900 mb-2">Improved Threading</h4>
+              <p className="text-gray-600 text-sm">Final refinements with improved threading</p>
             </div>
           </div>
 
-          {/* Build Process Photos */}
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="relative aspect-square rounded-xl overflow-hidden">
-              <Image src="/images/img_30_1.jpeg" alt="Early prototype" fill className="object-cover" />
-            </div>
-            <div className="relative aspect-square rounded-xl overflow-hidden">
-              <Image src="/images/img_25_1.jpeg" alt="PVC iteration" fill className="object-cover" />
-            </div>
-            <div className="relative aspect-square rounded-xl overflow-hidden">
-              <Image src="/images/img_27_1.jpeg" alt="3D printed bracket" fill className="object-cover" />
-            </div>
-            <div className="relative aspect-square rounded-xl overflow-hidden">
-              <Image src="/images/img_41_1.jpeg" alt="Final product with lasers" fill className="object-cover" />
-            </div>
-          </div>
         </div>
       </section>
 
@@ -376,9 +388,17 @@ export default function Home() {
           <div className="bg-gray-900 rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="text-center md:text-left">
               <h2 className="text-3xl font-bold text-white mb-4">See GridLock in Action</h2>
-              <p className="text-gray-300 text-lg max-w-md">
-                Scan the QR code to watch our product demonstration and see how GridLock transforms archaeological excavation.
+              <p className="text-gray-300 text-lg max-w-md mb-6">
+                Scan the QR code or click the button below to watch our product demonstration and see how GridLock transforms archaeological excavation.
               </p>
+              <a
+                href="https://www.canva.com/design/DAG5Q4r6r9Q/8X5hsn71hvVkfaZwmLVo_Q/watch?utm_content=DAG5Q4r6r9Q&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h9343d0f44d"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-full font-semibold transition"
+              >
+                Watch Demo Video
+              </a>
             </div>
             <div className="bg-white p-4 rounded-xl shadow-lg">
               <Image
@@ -420,9 +440,9 @@ export default function Home() {
           {/* Expert Testimonials */}
           <div className="bg-white rounded-2xl p-8 md:p-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Expert Endorsements</h3>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
               <div className="text-center">
-                <div className="w-28 h-28 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
+                <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
                   <Image
                     src="/images/img_44_2.jpeg"
                     alt="Dr. Barbara Mills"
@@ -430,15 +450,15 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <blockquote className="text-gray-600 italic mb-4">
-                  &ldquo;An innovative approach to a common challenge in field archaeology.&rdquo;
+                <blockquote className="text-gray-600 italic mb-4 text-sm">
+                  &ldquo;Convenient, light weight, easy setup.&rdquo;
                 </blockquote>
                 <p className="font-semibold text-gray-900">Dr. Barbara Mills</p>
                 <p className="text-sm text-gray-500">Professor of Anthropology</p>
                 <p className="text-sm text-gray-500">Arizona State University</p>
               </div>
               <div className="text-center">
-                <div className="w-28 h-28 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
+                <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
                   <Image
                     src="/images/img_45_1.jpeg"
                     alt="Lisa Sonnenburg"
@@ -446,7 +466,7 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <blockquote className="text-gray-600 italic mb-4">
+                <blockquote className="text-gray-600 italic mb-4 text-sm">
                   &ldquo;This tool could significantly streamline excavation documentation.&rdquo;
                 </blockquote>
                 <p className="font-semibold text-gray-900">Lisa Sonnenburg</p>
@@ -454,7 +474,7 @@ export default function Home() {
                 <p className="text-sm text-gray-500">Parks Canada</p>
               </div>
               <div className="text-center">
-                <div className="w-28 h-28 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
+                <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
                   <Image
                     src="/images/img_46_2.jpeg"
                     alt="Ramsay Macfie"
@@ -462,12 +482,65 @@ export default function Home() {
                     className="object-cover"
                   />
                 </div>
-                <blockquote className="text-gray-600 italic mb-4">
-                  &ldquo;A practical solution that addresses real needs in the field.&rdquo;
+                <blockquote className="text-gray-600 italic mb-4 text-sm">
+                  &ldquo;Gridlock is easy to use in difficult (uneven) terrain.&rdquo;
                 </blockquote>
                 <p className="font-semibold text-gray-900">Ramsay Macfie</p>
                 <p className="text-sm text-gray-500">Archaeological Field Supervisor</p>
                 <p className="text-sm text-gray-500">AECOM Ontario</p>
+              </div>
+              <div className="text-center">
+                <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg bg-gradient-to-br from-yellow-200 to-amber-300 flex items-center justify-center">
+                  <span className="text-3xl">👤</span>
+                </div>
+                <blockquote className="text-gray-600 italic mb-4 text-sm">
+                  &ldquo;A simple and elegant solution to a perennial challenge.&rdquo;
+                </blockquote>
+                <p className="font-semibold text-gray-900">Robin Latour</p>
+                <p className="text-sm text-gray-500">Assistant Manager of GIS Data & Survey</p>
+                <p className="text-sm text-gray-500">ASI Heritage</p>
+              </div>
+              <div className="text-center">
+                <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg bg-gradient-to-br from-yellow-200 to-amber-300 flex items-center justify-center">
+                  <span className="text-3xl">👤</span>
+                </div>
+                <blockquote className="text-gray-600 italic mb-4 text-sm">
+                  &ldquo;We work in many different environments, so this is key.&rdquo;
+                </blockquote>
+                <p className="font-semibold text-gray-900">Lauren Donker</p>
+                <p className="text-sm text-gray-500">Archaeological Field Supervisor</p>
+                <p className="text-sm text-gray-500">AECOM Ontario</p>
+              </div>
+            </div>
+          </div>
+
+          {/* GridLock Goes Global */}
+          <div className="mt-16 bg-white rounded-2xl p-8 md:p-12 shadow-xl">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">GridLock Goes Global!</h3>
+            <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+              We posted on Reddit at <span className="font-semibold text-orange-500">r/AskArchaeology</span> to obtain feedback from Archaeologists from around the world.
+            </p>
+            <div className="grid grid-cols-3 gap-6 mb-8 max-w-2xl mx-auto">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow-500">25k+</div>
+                <p className="text-gray-600 text-sm">Views</p>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-amber-500">95%</div>
+                <p className="text-gray-600 text-sm">Upvote Ratio</p>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-yellow-600">20+</div>
+                <p className="text-gray-600 text-sm">Responses</p>
+              </div>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-500 text-sm mb-3">Viewers from</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🇺🇸 United States</span>
+                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🇨🇦 Canada</span>
+                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🇬🇧 United Kingdom</span>
+                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🌍 And more</span>
               </div>
             </div>
           </div>
@@ -514,7 +587,7 @@ export default function Home() {
           {/* Mission Stats */}
           <div className="grid md:grid-cols-4 gap-6 mb-16">
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
-              <div className="text-4xl font-bold text-yellow-500 mb-2">435</div>
+              <div className="text-4xl font-bold text-yellow-500 mb-2">450</div>
               <p className="text-gray-600 font-medium">Max Points</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
@@ -559,16 +632,20 @@ export default function Home() {
           {/* Attachments */}
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Attachments</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {robotAttachments.map((attachment, index) => (
                 <div key={index} className="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition border-2 border-gray-200">
-                  <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3 relative bg-gray-100">
-                    <Image
-                      src={attachment.image}
-                      alt={attachment.name}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3 relative bg-gray-100 flex items-center justify-center">
+                    {attachment.image ? (
+                      <Image
+                        src={attachment.image}
+                        alt={attachment.name}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="text-3xl">🦖</span>
+                    )}
                   </div>
                   <h4 className="font-semibold text-gray-900 text-sm">{attachment.name}</h4>
                 </div>
@@ -719,10 +796,13 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Our Team Cheer</h3>
             <div className="max-w-2xl mx-auto bg-white rounded-xl p-6 shadow-lg">
               <p className="text-xl font-semibold text-gray-800 leading-relaxed">
-                &ldquo;ConnecTech Family<br />
-                I&apos;ve got all my teammates with me<br />
-                ConnecTech Family<br />
-                <span className="text-yellow-600 font-bold">Building robots in unity!&rdquo;</span>
+                &ldquo;ConnecTech family,<br />
+                I got all my teammates with me!<br />
+                ConnecTech family,<br />
+                We&apos;re building robots in unity!<br />
+                <br />
+                We are Team ConnecTech, we dig and explore,<br />
+                <span className="text-yellow-600 font-bold">Discover new ideas, like never before!&rdquo;</span>
               </p>
             </div>
           </div>
