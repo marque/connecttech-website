@@ -2,14 +2,14 @@ import Image from "next/image";
 
 export default function Home() {
   const teamMembers = [
-    { name: "Luke LIDAR", coreValue: "Discovery", image: "/images/img_58_1.jpeg" },
-    { name: "Grace Grid", coreValue: "Innovation", image: "/images/img_56_1.jpeg" },
-    { name: "Salima Sand", coreValue: "Impact", image: "/images/img_55_1.jpeg" },
-    { name: "Sarina Stone", coreValue: "Inclusion", image: "/images/img_57_1.jpeg" },
-    { name: "Naya Natural", coreValue: "Teamwork", image: "/images/img_62_1.jpeg" },
-    { name: "Ivan Identify", coreValue: "Fun", image: "/images/img_59_1.jpeg" },
-    { name: "Andrew Artifact", coreValue: "Impact", image: "/images/img_60_1.jpeg" },
-    { name: "Eric Excavate", coreValue: "Innovation", image: "/images/img_61_1.jpeg" },
+    { name: "Luke LIDAR", coreValue: "Discovery", image: "/images/img_58_1.jpeg", description: "I think that discovery is the most important core value because it's at the root of FLL. It's really the true purpose of FLL and why it was created. Discovery talks about figuring out something new and learning and in my opinion that is really what FLL is all about. Learning is something we do every practice and it allows us to adapt to change to innovate. Without discovery we would keep doing the same thing over and over again without thinking about or changing. To discover is the most important of all of them — it's what allows us to do anything." },
+    { name: "Grace Grid", coreValue: "Innovation", image: "/images/img_56_1.jpeg", description: "I think that innovation is the most important core value because innovation helps you, not just now but in the future. It helps you become a more creative by making you think more creatively, which will lead to you being a better version of yourself, not just during practice but also in your everyday life. Innovation also helps you become more persistent by allowing you to keep thinking of better ideas. That's why I think innovation is the most meaningful core value." },
+    { name: "Salima Sand", coreValue: "Impact", image: "/images/img_55_1.jpeg", description: "I think my favorite core value is impact because it goes beyond just building robots or creating ideas. The goal of FLL is to make a lasting difference, not only in the challenge but in the real world. The skills we learn and the changes we create can help people and inspire others. That's why I think impact is the most meaningful core value." },
+    { name: "Sarina Stone", coreValue: "Inclusion", image: "/images/img_57_1.jpeg", description: "Because inclusion gives everyone a chance to take part in things they might not usually do. For example, someone who isn't confident in coding might get to try it, or someone who doesn't think they're innovative can use their creativity and presentation skills. It also helps people who are usually quieter feel comfortable speaking up and sharing their ideas. Inclusion means making sure everyone feels valued and has a voice." },
+    { name: "Naya Natural", coreValue: "Teamwork", image: "/images/img_62_1.jpeg", description: "I think that teamwork is the most important. I think this because you can achieve so much more when you are in a team. Teamwork helps everyone share their ideas, feel included and make tasks easier and more enjoyable. It also teaches people communication, trust and respect which are very important life skills." },
+    { name: "Ivan Identify", coreValue: "Fun", image: "/images/img_59_1.jpeg", description: "Fun is the best core value because having fun is very important for a good mental health. You can achieve much more if you are having fun while working. And having fun is a core part of what makes first. Without fun, no one would do first because they don't have fun." },
+    { name: "Andrew Artifact", coreValue: "Impact", image: "/images/img_60_1.jpeg", description: "I think that impact is the most important core value in FLL because at the root of FLL, the main purpose is to find a solution that will solve a problem in the world that is related to the theme. People on FLL teams can connect with each other and learn key skills for their future, like public speaking and presentation skills." },
+    { name: "Eric Excavate", coreValue: "Innovation", image: "/images/img_61_1.jpeg", description: "I think that innovation is the most important core value because it's about creativity and finding new ways to solve problems, something all FLL teams need. Innovation helps us think outside the box, and coming up with new ideas that can make a difference." },
   ];
 
   const robotAttachments = [
@@ -514,7 +514,7 @@ export default function Home() {
           {/* Mission Stats */}
           <div className="grid md:grid-cols-4 gap-6 mb-16">
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
-              <div className="text-4xl font-bold text-yellow-500 mb-2">545</div>
+              <div className="text-4xl font-bold text-yellow-500 mb-2">435</div>
               <p className="text-gray-600 font-medium">Max Points</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
@@ -665,19 +665,26 @@ export default function Home() {
           <div id="team" className="mb-16 scroll-mt-28">
             <h3 className="text-3xl font-bold text-gray-900 mb-2 text-center">Meet the ConnecTech Family</h3>
             <p className="text-lg text-gray-600 mb-8 text-center">8 innovative students from Bayview Glen School, grades 6-8</p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {teamMembers.map((member, index) => (
-                <div key={index} className="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition">
-                  <div className="aspect-square rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg w-24 h-24">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      fill
-                      className="object-cover object-top"
-                    />
+                <div key={index} className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-20 h-20 rounded-xl overflow-hidden relative shadow-lg">
+                        <Image
+                          src={member.image}
+                          alt={member.name}
+                          fill
+                          className="object-cover object-top"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900">{member.name}</h4>
+                      <p className="text-yellow-600 font-bold mb-2">{member.coreValue}</p>
+                      <p className="text-gray-600 text-sm leading-relaxed">{member.description}</p>
+                    </div>
                   </div>
-                  <h4 className="font-semibold text-gray-900 text-sm">{member.name}</h4>
-                  <p className="text-yellow-600 font-bold">{member.coreValue}</p>
                 </div>
               ))}
             </div>
