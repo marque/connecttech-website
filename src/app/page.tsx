@@ -512,6 +512,26 @@ export default function Home() {
                 <p className="text-sm text-gray-500">AECOM Ontario</p>
               </div>
             </div>
+
+            {/* Outreach Stats */}
+            <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-yellow-50 rounded-xl p-4 text-center border-2 border-yellow-200">
+                <div className="text-3xl font-bold text-yellow-600 mb-1">30+</div>
+                <p className="text-gray-600 text-sm">Experts Reached Out</p>
+              </div>
+              <div className="bg-yellow-50 rounded-xl p-4 text-center border-2 border-yellow-200">
+                <div className="text-3xl font-bold text-amber-500 mb-1">5</div>
+                <p className="text-gray-600 text-sm">Online Interviews</p>
+              </div>
+              <div className="bg-yellow-50 rounded-xl p-4 text-center border-2 border-yellow-200">
+                <div className="text-3xl font-bold text-yellow-500 mb-1">1</div>
+                <p className="text-gray-600 text-sm">FLL Kickoff Attended</p>
+              </div>
+              <div className="bg-yellow-50 rounded-xl p-4 text-center border-2 border-yellow-200">
+                <div className="text-3xl font-bold text-amber-600 mb-1">2</div>
+                <p className="text-gray-600 text-sm">Public Webinars</p>
+              </div>
+            </div>
           </div>
 
           {/* GridLock Goes Global */}
