@@ -31,10 +31,9 @@ export default function Home() {
 
   const howItWorksSteps = [
     { step: 1, title: "Position", desc: "Place GridLock over your excavation site", image: "/images/img_26_1.jpeg" },
-    { step: 2, title: "Level", desc: "Use bubble levels to ensure frame is horizontal", image: "/images/img_27_1.jpeg" },
-    { step: 3, title: "Adjust", desc: "Extend telescoping legs to desired height", image: "/images/img_29_2.jpeg" },
-    { step: 4, title: "Activate", desc: "Turn on lasers to project grid lines", image: "/images/img_41_1.jpeg" },
-    { step: 5, title: "Lock", desc: "Lock the stakes in the precise location", image: "/images/img_28_2.jpeg" },
+    { step: 2, title: "Level", desc: "Adjust telescoping legs to desired height with the bubble levels", image: "/images/img_27_1.jpeg" },
+    { step: 3, title: "Activate", desc: "Turn on lasers to project grid lines", image: "/images/img_41_1.jpeg" },
+    { step: 4, title: "Lock", desc: "Lock the stakes in the precise location", image: "/images/img_28_2.jpeg" },
   ];
 
   return (
@@ -43,16 +42,16 @@ export default function Home() {
       <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center gap-2">
+            <a href="#" className="flex items-center gap-2 hover:opacity-80 transition">
               <span className="text-2xl font-bold text-yellow-500">ConnecTech</span>
               <span className="text-sm text-gray-500">#27757</span>
-            </div>
+            </a>
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               <a href="#innovation" className="text-gray-600 hover:text-yellow-500 transition">Innovation</a>
               <a href="#robot" className="text-gray-600 hover:text-yellow-500 transition">Robot</a>
               <a href="#core-values" className="text-gray-600 hover:text-yellow-500 transition">Core Values</a>
-              <a href="#team" className="text-gray-600 hover:text-yellow-500 transition">Family</a>
+              <a href="#team" className="text-gray-600 hover:text-yellow-500 transition">Our Team</a>
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full font-medium transition">Survey</a>
             </div>
             {/* Mobile Survey Button */}
@@ -67,7 +66,7 @@ export default function Home() {
             <a href="#innovation" className="text-gray-600 whitespace-nowrap">Innovation</a>
             <a href="#robot" className="text-gray-600 whitespace-nowrap">Robot</a>
             <a href="#core-values" className="text-gray-600 whitespace-nowrap">Core Values</a>
-            <a href="#team" className="text-gray-600 whitespace-nowrap">Family</a>
+            <a href="#team" className="text-gray-600 whitespace-nowrap">Our Team</a>
           </div>
         </div>
       </nav>
@@ -128,11 +127,20 @@ export default function Home() {
       {/* Innovation Section - GridLock Project */}
       <section id="innovation" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <div className="inline-block bg-yellow-400 text-black text-sm font-semibold px-4 py-1 rounded-full mb-4">
-              INNOVATION PROJECT
+          {/* Season Challenge Statement */}
+          <div className="text-center mb-12">
+            <h2 className="text-5xl font-bold mb-2 text-yellow-400">Unearthed Innovation Project</h2>
+            <p className="text-2xl text-gray-300 mb-8">Dig, Explore and Discover</p>
+            <div className="bg-gray-800 rounded-2xl p-8 max-w-4xl mx-auto border-2 border-yellow-400/30">
+              <p className="text-xl text-gray-200">
+                This Unearthed season, FIRST LEGO League Challenge teams are asked to identify a problem faced by archaeologists and propose an innovative solution that can help.
+              </p>
             </div>
-            <h2 className="text-4xl font-bold mb-4">GridLock: The Problem</h2>
+          </div>
+
+          {/* GridLock Problem */}
+          <div className="text-center mb-16">
+            <h3 className="text-3xl font-bold mb-4">The Problem</h3>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
               Traditional archaeological gridding methods are slow, inaccurate, and require multiple workers
             </p>
@@ -358,9 +366,9 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-gray-900">How It Works</h2>
-            <p className="text-xl text-gray-600">Five simple steps to perfect excavation grids</p>
+            <p className="text-xl text-gray-600">Four simple steps to perfect excavation grids</p>
           </div>
-          <div className="grid md:grid-cols-5 gap-6">
+          <div className="grid md:grid-cols-4 gap-6">
             {howItWorksSteps.map((item) => (
               <div key={item.step} className="text-center">
                 <div className="relative aspect-square rounded-xl overflow-hidden mb-4 shadow-lg">
@@ -418,9 +426,6 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold mb-4 text-white">Real Impact</h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Trusted by archaeology professionals and field-tested at real excavation sites
-            </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             <div className="bg-white rounded-xl p-8 text-center">
@@ -440,7 +445,7 @@ export default function Home() {
           {/* Expert Testimonials */}
           <div className="bg-white rounded-2xl p-8 md:p-12">
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Expert Endorsements</h3>
-            <div className="grid md:grid-cols-3 lg:grid-cols-5 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
                   <Image
@@ -456,22 +461,6 @@ export default function Home() {
                 <p className="font-semibold text-gray-900">Dr. Barbara Mills</p>
                 <p className="text-sm text-gray-500">Professor of Anthropology</p>
                 <p className="text-sm text-gray-500">Arizona State University</p>
-              </div>
-              <div className="text-center">
-                <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
-                  <Image
-                    src="/images/img_45_1.jpeg"
-                    alt="Lisa Sonnenburg"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <blockquote className="text-gray-600 italic mb-4 text-sm">
-                  &ldquo;This tool could significantly streamline excavation documentation.&rdquo;
-                </blockquote>
-                <p className="font-semibold text-gray-900">Lisa Sonnenburg</p>
-                <p className="text-sm text-gray-500">Cultural Resource Management Advisor</p>
-                <p className="text-sm text-gray-500">Parks Canada</p>
               </div>
               <div className="text-center">
                 <div className="w-24 h-24 rounded-xl mx-auto mb-4 overflow-hidden relative shadow-lg">
@@ -536,31 +525,31 @@ export default function Home() {
 
           {/* GridLock Goes Global */}
           <div className="mt-16 bg-white rounded-2xl p-8 md:p-12 shadow-xl">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">GridLock Goes Global!</h3>
-            <p className="text-gray-600 text-center mb-8 max-w-2xl mx-auto">
+            <h3 className="text-3xl font-bold text-gray-900 mb-4 text-center">GridLock Goes Global!</h3>
+            <p className="text-lg text-gray-600 text-center mb-8 max-w-2xl mx-auto">
               We posted on Reddit at <span className="font-semibold text-orange-500">r/AskArchaeology</span> to obtain feedback from Archaeologists from around the world.
             </p>
             <div className="grid grid-cols-3 gap-6 mb-8 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-yellow-500">25k+</div>
-                <p className="text-gray-600 text-sm">Views</p>
+                <div className="text-4xl font-bold text-yellow-500">21k+</div>
+                <p className="text-gray-600 text-base">Views</p>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-amber-500">95%</div>
-                <p className="text-gray-600 text-sm">Upvote Ratio</p>
+                <div className="text-4xl font-bold text-amber-500">95%</div>
+                <p className="text-gray-600 text-base">Upvote Ratio</p>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-yellow-600">20+</div>
-                <p className="text-gray-600 text-sm">Responses</p>
+                <div className="text-4xl font-bold text-yellow-600">15+</div>
+                <p className="text-gray-600 text-base">Responses</p>
               </div>
             </div>
             <div className="text-center">
-              <p className="text-gray-500 text-sm mb-3">Viewers from</p>
+              <p className="text-gray-500 text-base mb-3">Viewers from</p>
               <div className="flex flex-wrap justify-center gap-3">
-                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🇺🇸 United States</span>
-                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🇨🇦 Canada</span>
-                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🇬🇧 United Kingdom</span>
-                <span className="bg-gray-100 px-4 py-2 rounded-full text-gray-700 font-medium">🌍 And more</span>
+                <span className="bg-gray-100 px-5 py-2 rounded-full text-gray-700 font-medium text-lg">🇺🇸 United States</span>
+                <span className="bg-gray-100 px-5 py-2 rounded-full text-gray-700 font-medium text-lg">🇨🇦 Canada</span>
+                <span className="bg-gray-100 px-5 py-2 rounded-full text-gray-700 font-medium text-lg">🇬🇧 United Kingdom</span>
+                <span className="bg-gray-100 px-5 py-2 rounded-full text-gray-700 font-medium text-lg">🌍 And more</span>
               </div>
             </div>
           </div>
@@ -608,10 +597,10 @@ export default function Home() {
           <div className="grid md:grid-cols-4 gap-6 mb-16">
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
               <div className="text-4xl font-bold text-yellow-500 mb-2">450</div>
-              <p className="text-gray-600 font-medium">Max Points</p>
+              <p className="text-gray-600 font-medium">Our Max Points</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
-              <div className="text-4xl font-bold text-amber-500 mb-2">15</div>
+              <div className="text-4xl font-bold text-amber-500 mb-2">13/15</div>
               <p className="text-gray-600 font-medium">Missions</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
@@ -619,7 +608,7 @@ export default function Home() {
               <p className="text-gray-600 font-medium">Home Areas</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
-              <div className="text-4xl font-bold text-amber-600 mb-2">6</div>
+              <div className="text-4xl font-bold text-amber-600 mb-2">5</div>
               <p className="text-gray-600 font-medium">Attachments</p>
             </div>
           </div>
