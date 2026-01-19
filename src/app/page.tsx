@@ -1,6 +1,215 @@
+"use client";
+
 import Image from "next/image";
+import { useState, useEffect, useCallback, useRef } from "react";
+
+interface Fireball {
+  id: number;
+  x: number;
+  y: number;
+  speed: number;
+  direction: "top" | "left" | "right";
+}
+
+interface Warning {
+  id: number;
+  x: number;
+  y: number;
+  timeLeft: number;
+  direction: "top" | "left" | "right";
+}
 
 export default function Home() {
+  const [showGame, setShowGame] = useState(false);
+  const [gameScore, setGameScore] = useState(0);
+  const [gameActive, setGameActive] = useState(false);
+  const [robotPosition, setRobotPosition] = useState({ x: 50, y: 85 });
+  const [fireballs, setFireballs] = useState<Fireball[]>([]);
+  const [warnings, setWarnings] = useState<Warning[]>([]);
+  const [highScore, setHighScore] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
+  const gameRef = useRef<HTMLDivElement>(null);
+  const fireballIdRef = useRef(0);
+  const warningIdRef = useRef(0);
+  const robotPositionRef = useRef({ x: 50, y: 85 });
+  const gameScoreRef = useRef(0);
+  const highScoreRef = useRef(0);
+
+  const startGame = () => {
+    setGameScore(0);
+    gameScoreRef.current = 0;
+    setGameActive(true);
+    setGameOver(false);
+    setRobotPosition({ x: 50, y: 85 });
+    robotPositionRef.current = { x: 50, y: 85 };
+    setFireballs([]);
+    setWarnings([]);
+    fireballIdRef.current = 0;
+    warningIdRef.current = 0;
+    gameRef.current?.focus();
+  };
+
+  const closeGame = () => {
+    setShowGame(false);
+    setGameActive(false);
+    setGameScore(0);
+    setFireballs([]);
+    setWarnings([]);
+    setGameOver(false);
+  };
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (!gameActive) return;
+    const step = 5;
+    setRobotPosition((prev) => {
+      let newX = prev.x;
+      let newY = prev.y;
+      if (e.key === "ArrowLeft" || e.key === "a") newX = Math.max(5, prev.x - step);
+      if (e.key === "ArrowRight" || e.key === "d") newX = Math.min(95, prev.x + step);
+      if (e.key === "ArrowUp" || e.key === "w") newY = Math.max(5, prev.y - step);
+      if (e.key === "ArrowDown" || e.key === "s") newY = Math.min(95, prev.y + step);
+      robotPositionRef.current = { x: newX, y: newY };
+      return { x: newX, y: newY };
+    });
+  }, [gameActive]);
+
+  // Keyboard controls
+  useEffect(() => {
+    if (showGame) {
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [showGame, handleKeyDown]);
+
+  // Spawn warnings (which become fireballs) - keep 4-10 on screen
+  useEffect(() => {
+    if (!gameActive) return;
+    const spawnInterval = setInterval(() => {
+      setFireballs((currentFireballs) => {
+        setWarnings((currentWarnings) => {
+          const totalOnScreen = currentFireballs.length + currentWarnings.length;
+          const maxFireballs = Math.min(4 + Math.floor(gameScoreRef.current / 300), 10);
+
+          if (totalOnScreen < maxFireballs) {
+            const directions: Array<"top" | "left" | "right"> = ["top", "top", "top", "left", "right"];
+            const direction = directions[Math.floor(Math.random() * directions.length)];
+
+            let x: number, y: number;
+            if (direction === "top") {
+              x = Math.random() * 85 + 7.5;
+              y = 0;
+            } else if (direction === "left") {
+              x = 0;
+              y = Math.random() * 70 + 15;
+            } else {
+              x = 100;
+              y = Math.random() * 70 + 15;
+            }
+
+            // Check if too close to existing warnings
+            const tooClose = currentWarnings.some((w) => {
+              if (w.direction !== direction) return false;
+              if (direction === "top") {
+                return Math.abs(w.x - x) < 15;
+              } else {
+                return Math.abs(w.y - y) < 15;
+              }
+            });
+
+            if (!tooClose) {
+              return [...currentWarnings, {
+                id: warningIdRef.current++,
+                x,
+                y,
+                timeLeft: 25,
+                direction,
+              }];
+            }
+          }
+          return currentWarnings;
+        });
+        return currentFireballs;
+      });
+    }, 150);
+    return () => clearInterval(spawnInterval);
+  }, [gameActive]);
+
+  // Process warnings and spawn fireballs
+  useEffect(() => {
+    if (!gameActive) return;
+    const warningLoop = setInterval(() => {
+      setWarnings((prev) => {
+        const stillWarning: Warning[] = [];
+        prev.forEach((w) => {
+          if (w.timeLeft <= 1) {
+            // Convert warning to fireball
+            let startX = w.x;
+            let startY = w.y;
+            if (w.direction === "top") {
+              startY = -5;
+            } else if (w.direction === "left") {
+              startX = -5;
+            } else {
+              startX = 105;
+            }
+
+            const newFireball: Fireball = {
+              id: fireballIdRef.current++,
+              x: startX,
+              y: startY,
+              speed: 2.5 + Math.random() * 2 + gameScoreRef.current * 0.02,
+              direction: w.direction,
+            };
+            setFireballs((f) => [...f, newFireball]);
+          } else {
+            stillWarning.push({ ...w, timeLeft: w.timeLeft - 1 });
+          }
+        });
+        return stillWarning;
+      });
+    }, 50);
+    return () => clearInterval(warningLoop);
+  }, [gameActive]);
+
+  // Move fireballs and check collisions
+  useEffect(() => {
+    if (!gameActive) return;
+    const gameLoop = setInterval(() => {
+      setFireballs((prev) => {
+        const updated = prev
+          .map((fb) => {
+            if (fb.direction === "top") {
+              return { ...fb, y: fb.y + fb.speed };
+            } else if (fb.direction === "left") {
+              return { ...fb, x: fb.x + fb.speed };
+            } else {
+              return { ...fb, x: fb.x - fb.speed };
+            }
+          })
+          .filter((fb) => fb.y < 110 && fb.x > -10 && fb.x < 110);
+
+        // Check collision using ref
+        for (const fb of updated) {
+          const dx = Math.abs(fb.x - robotPositionRef.current.x);
+          const dy = Math.abs(fb.y - robotPositionRef.current.y);
+          if (dx < 8 && dy < 8) {
+            setGameActive(false);
+            setGameOver(true);
+            if (gameScoreRef.current > highScoreRef.current) {
+              highScoreRef.current = gameScoreRef.current;
+              setHighScore(gameScoreRef.current);
+            }
+            return [];
+          }
+        }
+        return updated;
+      });
+      gameScoreRef.current += 1;
+      setGameScore(gameScoreRef.current);
+    }, 50);
+    return () => clearInterval(gameLoop);
+  }, [gameActive]);
+
   const teamMembers = [
     { name: "Luke LIDAR", coreValue: "Discovery", image: "/images/img_58_1.jpeg", description: "I think that discovery is the most important core value because it's at the root of FLL. It's really the true purpose of FLL and why it was created. Discovery talks about figuring out something new and learning and in my opinion that is really what FLL is all about. Learning is something we do every practice and it allows us to adapt to change to innovate. Without discovery we would keep doing the same thing over and over again without thinking about or changing. To discover is the most important of all of them — it's what allows us to do anything." },
     { name: "Grace Grid", coreValue: "Innovation", image: "/images/img_56_1.jpeg", description: "I think that innovation is the most important core value because innovation helps you, not just now but in the future. It helps you become a more creative by making you think more creatively, which will lead to you being a better version of yourself, not just during practice but also in your everyday life. Innovation also helps you become more persistent by allowing you to keep thinking of better ideas. That's why I think innovation is the most meaningful core value." },
@@ -21,12 +230,12 @@ export default function Home() {
   ];
 
   const coreValues = [
-    { name: "Discovery", emoji: "🔍", description: "We explore new skills and ideas" },
-    { name: "Innovation", emoji: "💡", description: "We use creativity and persistence to solve problems" },
-    { name: "Impact", emoji: "🌍", description: "We apply what we learn to improve our world" },
-    { name: "Inclusion", emoji: "🤝", description: "We respect each other and embrace our differences" },
-    { name: "Teamwork", emoji: "👥", description: "We are stronger when we work together" },
-    { name: "Fun", emoji: "🎉", description: "We enjoy and celebrate what we do!" },
+    { name: "Discovery", image: "/images/img_51_1.jpeg", description: "We explore new skills and ideas" },
+    { name: "Innovation", image: "/images/img_51_6.jpeg", description: "We use creativity and persistence to solve problems" },
+    { name: "Impact", image: "/images/img_51_2.jpeg", description: "We apply what we learn to improve our world" },
+    { name: "Inclusion", image: "/images/img_51_5.jpeg", description: "We respect each other and embrace our differences" },
+    { name: "Teamwork", image: "/images/img_51_3.jpeg", description: "We are stronger when we work together" },
+    { name: "Fun", image: "/images/img_51_4.jpeg", description: "We enjoy and celebrate what we do!" },
   ];
 
   const howItWorksSteps = [
@@ -559,7 +768,7 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Innovation Gallery</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {[
-                { src: "/images/img_1_1.jpeg", alt: "Team brainstorming" },
+                { src: "/images/img_27_1.jpeg", alt: "Team brainstorming" },
                 { src: "/images/img_2_1.jpeg", alt: "Building process" },
                 { src: "/images/img_3_1.jpeg", alt: "GridLock assembly" },
                 { src: "/images/img_26_1.jpeg", alt: "Field testing" },
@@ -703,11 +912,11 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {[
                 { src: "/images/img_10_1.jpeg", alt: "Robot with attachments" },
-                { src: "/images/img_30_1.jpeg", alt: "Robot building" },
-                { src: "/images/img_25_1.jpeg", alt: "Robot testing" },
-                { src: "/images/img_27_1.jpeg", alt: "Robot details" },
-                { src: "/images/img_41_1.jpeg", alt: "Robot in action" },
-                { src: "/images/img_29_2.jpeg", alt: "Robot missions" },
+                { src: "/images/img_81_1.jpeg", alt: "Robot mechanism with gears" },
+                { src: "/images/img_82_1.jpeg", alt: "Robot arm attachment" },
+                { src: "/images/img_78_1.jpeg", alt: "Robot attachment" },
+                { src: "/images/img_78_2.jpeg", alt: "Robot multi-tool attachment" },
+                { src: "/images/Robot picture 1.png", alt: "Robot in action" },
               ].map((image, index) => (
                 <div key={index} className="relative aspect-square rounded-xl overflow-hidden group shadow-lg">
                   <Image
@@ -739,8 +948,14 @@ export default function Home() {
           {/* Core Values Gear/Grid */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16">
             {coreValues.map((value, index) => (
-              <div key={index} className="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition border-2 border-yellow-200 hover:border-yellow-400">
-                <div className="text-4xl mb-3">{value.emoji}</div>
+              <div
+                key={index}
+                className={`bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition border-2 border-yellow-200 hover:border-yellow-400 ${value.name === "Fun" ? "cursor-pointer" : ""}`}
+                onClick={value.name === "Fun" ? () => setShowGame(true) : undefined}
+              >
+                <div className="w-16 h-16 mx-auto mb-3 relative">
+                  <Image src={value.image} alt={value.name} fill className="object-contain" />
+                </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">{value.name}</h3>
                 <p className="text-gray-600 text-sm">{value.description}</p>
               </div>
@@ -883,6 +1098,155 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Robot Dodge Minigame Modal */}
+      {showGame && (
+        <div className="fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4">
+          <div
+            ref={gameRef}
+            tabIndex={0}
+            className="bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl outline-none"
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">Dodge the Fireballs!</h2>
+              <button
+                onClick={closeGame}
+                className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="flex justify-between mb-4 text-lg">
+              <div className="bg-yellow-100 px-4 py-2 rounded-lg">
+                <span className="font-bold text-yellow-600">Score: {gameScore}</span>
+              </div>
+              <div className="bg-green-100 px-4 py-2 rounded-lg">
+                <span className="font-bold text-green-600">Best: {highScore}</span>
+              </div>
+            </div>
+
+            {!gameActive && !gameOver && (
+              <div className="text-center py-8">
+                <p className="text-gray-600 mb-2">Use arrow keys or WASD to move the robot!</p>
+                <p className="text-gray-600 mb-4">Dodge the fireballs as long as you can!</p>
+                <button
+                  onClick={startGame}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-full font-bold text-lg transition"
+                >
+                  Start Game
+                </button>
+              </div>
+            )}
+
+            {gameActive && (
+              <div
+                className="relative bg-gradient-to-b from-gray-800 to-gray-900 rounded-xl h-72 overflow-hidden"
+                style={{ touchAction: "none" }}
+              >
+                {/* Warning indicators */}
+                {warnings.map((w) => {
+                  if (w.direction === "top") {
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute top-1 flex flex-col items-center animate-pulse"
+                        style={{
+                          left: `${w.x}%`,
+                          transform: "translateX(-50%)",
+                        }}
+                      >
+                        <span className="text-lg select-none">⚠️</span>
+                        <div
+                          className="w-0.5 bg-red-500/60"
+                          style={{ height: `${Math.max(0, (25 - w.timeLeft) * 6)}px` }}
+                        />
+                      </div>
+                    );
+                  } else if (w.direction === "left") {
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute left-1 flex flex-row items-center animate-pulse"
+                        style={{
+                          top: `${w.y}%`,
+                          transform: "translateY(-50%)",
+                        }}
+                      >
+                        <span className="text-lg select-none">⚠️</span>
+                        <div
+                          className="h-0.5 bg-red-500/60"
+                          style={{ width: `${Math.max(0, (25 - w.timeLeft) * 4)}px` }}
+                        />
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute right-1 flex flex-row-reverse items-center animate-pulse"
+                        style={{
+                          top: `${w.y}%`,
+                          transform: "translateY(-50%)",
+                        }}
+                      >
+                        <span className="text-lg select-none">⚠️</span>
+                        <div
+                          className="h-0.5 bg-red-500/60"
+                          style={{ width: `${Math.max(0, (25 - w.timeLeft) * 4)}px` }}
+                        />
+                      </div>
+                    );
+                  }
+                })}
+
+                {/* Robot */}
+                <div
+                  className="absolute w-10 h-10 transition-all duration-75"
+                  style={{
+                    left: `${robotPosition.x}%`,
+                    top: `${robotPosition.y}%`,
+                    transform: "translate(-50%, -50%)",
+                  }}
+                >
+                  <span className="text-3xl select-none">🤖</span>
+                </div>
+
+                {/* Fireballs */}
+                {fireballs.map((fb) => (
+                  <div
+                    key={fb.id}
+                    className="absolute w-8 h-8"
+                    style={{
+                      left: `${fb.x}%`,
+                      top: `${fb.y}%`,
+                      transform: "translate(-50%, -50%)",
+                    }}
+                  >
+                    <span className="text-2xl select-none">🔥</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {gameOver && (
+              <div className="text-center py-8">
+                <p className="text-2xl font-bold text-gray-900 mb-2">Game Over!</p>
+                <p className="text-xl text-yellow-600 mb-4">Score: {gameScore}</p>
+                {gameScore >= highScore && gameScore > 0 && (
+                  <p className="text-green-600 font-bold mb-4">New High Score!</p>
+                )}
+                <button
+                  onClick={startGame}
+                  className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-full font-bold text-lg transition"
+                >
+                  Play Again
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
