@@ -8,7 +8,7 @@ interface Fireball {
   x: number;
   y: number;
   speed: number;
-  direction: "top" | "left" | "right";
+  direction: "top" | "left" | "right" | "bottom";
 }
 
 interface Warning {
@@ -16,7 +16,7 @@ interface Warning {
   x: number;
   y: number;
   timeLeft: number;
-  direction: "top" | "left" | "right";
+  direction: "top" | "left" | "right" | "bottom";
 }
 
 export default function Home() {
@@ -29,11 +29,27 @@ export default function Home() {
   const [highScore, setHighScore] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const gameRef = useRef<HTMLDivElement>(null);
+
+  // Runner game state (T-rex game)
+  const [showRunnerGame, setShowRunnerGame] = useState(false);
+  const [runnerScore, setRunnerScore] = useState(0);
+  const [runnerHighScore, setRunnerHighScore] = useState(0);
+  const [runnerActive, setRunnerActive] = useState(false);
+  const [runnerGameOver, setRunnerGameOver] = useState(false);
+  const [robotY, setRobotY] = useState(0);
+  const [robotRotation, setRobotRotation] = useState(0);
+  const [isJumping, setIsJumping] = useState(false);
+  const [spikes, setSpikes] = useState<{ id: number; x: number; type: "single" | "double" }[]>([]);
+  const runnerRef = useRef<HTMLDivElement>(null);
+  const robotYRef = useRef(0);
+  const spikeIdRef = useRef(0);
+  const runnerScoreRef = useRef(0);
   const fireballIdRef = useRef(0);
   const warningIdRef = useRef(0);
   const robotPositionRef = useRef({ x: 50, y: 85 });
   const gameScoreRef = useRef(0);
   const highScoreRef = useRef(0);
+  const pendingFireballsRef = useRef<Fireball[]>([]);
 
   const startGame = () => {
     setGameScore(0);
@@ -57,6 +73,124 @@ export default function Home() {
     setWarnings([]);
     setGameOver(false);
   };
+
+  // Runner game functions
+  const startRunnerGame = () => {
+    setRunnerScore(0);
+    runnerScoreRef.current = 0;
+    setRunnerActive(true);
+    setRunnerGameOver(false);
+    setRobotY(0);
+    setRobotRotation(0);
+    robotYRef.current = 0;
+    setIsJumping(false);
+    setSpikes([]);
+    spikeIdRef.current = 0;
+    runnerRef.current?.focus();
+  };
+
+  const closeRunnerGame = () => {
+    setShowRunnerGame(false);
+    setRunnerActive(false);
+    setRunnerScore(0);
+    setSpikes([]);
+    setRunnerGameOver(false);
+  };
+
+  const jump = useCallback(() => {
+    if (!runnerActive || isJumping) return;
+    setIsJumping(true);
+    let velocity = 18;
+    let jumpHeight = 0;
+    let rotation = 0;
+    const gravity = 0.8;
+
+    const jumpLoop = setInterval(() => {
+      velocity -= gravity;
+      jumpHeight += velocity;
+      rotation += 8;
+
+      if (jumpHeight <= 0) {
+        jumpHeight = 0;
+        rotation = 0;
+        robotYRef.current = 0;
+        setRobotY(0);
+        setRobotRotation(0);
+        setIsJumping(false);
+        clearInterval(jumpLoop);
+      } else {
+        robotYRef.current = jumpHeight;
+        setRobotY(jumpHeight);
+        setRobotRotation(rotation);
+      }
+    }, 16);
+  }, [runnerActive, isJumping]);
+
+  // Runner game keyboard controls
+  useEffect(() => {
+    if (!showRunnerGame) return;
+    const handleRunnerKey = (e: KeyboardEvent) => {
+      if (e.code === "Space" || e.key === "ArrowUp" || e.key === "w") {
+        e.preventDefault();
+        jump();
+      }
+    };
+    window.addEventListener("keydown", handleRunnerKey);
+    return () => window.removeEventListener("keydown", handleRunnerKey);
+  }, [showRunnerGame, jump]);
+
+  // Spawn spikes
+  useEffect(() => {
+    if (!runnerActive) return;
+    const spawnInterval = setInterval(() => {
+      const shouldSpawn = Math.random() < 0.35;
+      if (shouldSpawn) {
+        setSpikes((prev) => {
+          if (prev.length > 0 && prev[prev.length - 1].x > 75) return prev;
+          const type = Math.random() < 0.5 ? "single" : "double";
+          return [...prev, { id: spikeIdRef.current++, x: 105, type }];
+        });
+      }
+    }, 1000);
+    return () => clearInterval(spawnInterval);
+  }, [runnerActive]);
+
+  // Move spikes and check collision
+  useEffect(() => {
+    if (!runnerActive) return;
+    const gameLoop = setInterval(() => {
+      const speed = 1.5 + runnerScoreRef.current * 0.003;
+      setSpikes((prev) => {
+        const updated = prev
+          .map((s) => ({ ...s, x: s.x - speed }))
+          .filter((s) => s.x > -20);
+
+        // Check collision (robot is at x=10%, ground level)
+        for (const spike of updated) {
+          const robotLeft = 7;
+          const robotRight = 15;
+          const spikeWidth = spike.type === "double" ? 12 : 6;
+          const spikeLeft = spike.x - 2;
+          const spikeRight = spike.x + spikeWidth;
+
+          if (robotRight > spikeLeft && robotLeft < spikeRight) {
+            if (robotYRef.current < 50) {
+              setRunnerActive(false);
+              setRunnerGameOver(true);
+              if (runnerScoreRef.current > runnerHighScore) {
+                setRunnerHighScore(runnerScoreRef.current);
+              }
+              return [];
+            }
+          }
+        }
+        return updated;
+      });
+      runnerScoreRef.current += 1;
+      setRunnerScore(runnerScoreRef.current);
+    }, 30);
+    return () => clearInterval(gameLoop);
+  }, [runnerActive, runnerHighScore]);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (!gameActive) return;
@@ -91,7 +225,7 @@ export default function Home() {
           const maxFireballs = Math.min(4 + Math.floor(gameScoreRef.current / 300), 10);
 
           if (totalOnScreen < maxFireballs) {
-            const directions: Array<"top" | "left" | "right"> = ["top", "top", "top", "left", "right"];
+            const directions: Array<"top" | "left" | "right" | "bottom"> = ["top", "top", "left", "right", "bottom"];
             const direction = directions[Math.floor(Math.random() * directions.length)];
 
             let x: number, y: number;
@@ -101,15 +235,18 @@ export default function Home() {
             } else if (direction === "left") {
               x = 0;
               y = Math.random() * 70 + 15;
-            } else {
+            } else if (direction === "right") {
               x = 100;
               y = Math.random() * 70 + 15;
+            } else {
+              x = Math.random() * 85 + 7.5;
+              y = 100;
             }
 
             // Check if too close to existing warnings
             const tooClose = currentWarnings.some((w) => {
               if (w.direction !== direction) return false;
-              if (direction === "top") {
+              if (direction === "top" || direction === "bottom") {
                 return Math.abs(w.x - x) < 15;
               } else {
                 return Math.abs(w.y - y) < 15;
@@ -140,6 +277,8 @@ export default function Home() {
     const warningLoop = setInterval(() => {
       setWarnings((prev) => {
         const stillWarning: Warning[] = [];
+        const toAdd: Fireball[] = [];
+
         prev.forEach((w) => {
           if (w.timeLeft <= 1) {
             // Convert warning to fireball
@@ -149,24 +288,38 @@ export default function Home() {
               startY = -5;
             } else if (w.direction === "left") {
               startX = -5;
-            } else {
+            } else if (w.direction === "right") {
               startX = 105;
+            } else {
+              startY = 105;
             }
 
-            const newFireball: Fireball = {
+            toAdd.push({
               id: fireballIdRef.current++,
               x: startX,
               y: startY,
               speed: 2.5 + Math.random() * 2 + gameScoreRef.current * 0.02,
               direction: w.direction,
-            };
-            setFireballs((f) => [...f, newFireball]);
+            });
           } else {
             stillWarning.push({ ...w, timeLeft: w.timeLeft - 1 });
           }
         });
+
+        // Queue fireballs to be added
+        if (toAdd.length > 0) {
+          pendingFireballsRef.current = [...pendingFireballsRef.current, ...toAdd];
+        }
+
         return stillWarning;
       });
+
+      // Add pending fireballs
+      if (pendingFireballsRef.current.length > 0) {
+        const toAdd = pendingFireballsRef.current;
+        pendingFireballsRef.current = [];
+        setFireballs((f) => [...f, ...toAdd]);
+      }
     }, 50);
     return () => clearInterval(warningLoop);
   }, [gameActive]);
@@ -182,11 +335,13 @@ export default function Home() {
               return { ...fb, y: fb.y + fb.speed };
             } else if (fb.direction === "left") {
               return { ...fb, x: fb.x + fb.speed };
-            } else {
+            } else if (fb.direction === "right") {
               return { ...fb, x: fb.x - fb.speed };
+            } else {
+              return { ...fb, y: fb.y - fb.speed };
             }
           })
-          .filter((fb) => fb.y < 110 && fb.x > -10 && fb.x < 110);
+          .filter((fb) => fb.y < 110 && fb.y > -10 && fb.x > -10 && fb.x < 110);
 
         // Check collision using ref
         for (const fb of updated) {
@@ -852,7 +1007,11 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Attachments</h3>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {robotAttachments.map((attachment, index) => (
-                <div key={index} className="bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition border-2 border-gray-200">
+                <div
+                  key={index}
+                  className={`bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition border-2 border-gray-200 ${attachment.name === "The T-rex" ? "cursor-pointer hover:border-amber-400" : ""}`}
+                  onClick={attachment.name === "The T-rex" ? () => setShowRunnerGame(true) : undefined}
+                >
                   <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3 relative bg-gray-100 flex items-center justify-center">
                     {attachment.image ? (
                       <Image
@@ -912,10 +1071,10 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {[
                 { src: "/images/img_10_1.jpeg", alt: "Robot with attachments" },
-                { src: "/images/img_81_1.jpeg", alt: "Robot mechanism with gears" },
-                { src: "/images/img_82_1.jpeg", alt: "Robot arm attachment" },
-                { src: "/images/img_78_1.jpeg", alt: "Robot attachment" },
-                { src: "/images/img_78_2.jpeg", alt: "Robot multi-tool attachment" },
+                { src: "/images/Robotpic2.png", alt: "Robot mechanism with gears" },
+                { src: "/images/Robotpic3.png", alt: "Robot arm attachment" },
+                { src: "/images/Robotpic4.png", alt: "Robot attachment" },
+                { src: "/images/Robotpic5.png", alt: "Robot multi-tool attachment" },
                 { src: "/images/Robot picture 1.png", alt: "Robot in action" },
               ].map((image, index) => (
                 <div key={index} className="relative aspect-square rounded-xl overflow-hidden group shadow-lg">
@@ -1180,7 +1339,7 @@ export default function Home() {
                         />
                       </div>
                     );
-                  } else {
+                  } else if (w.direction === "right") {
                     return (
                       <div
                         key={w.id}
@@ -1194,6 +1353,23 @@ export default function Home() {
                         <div
                           className="h-0.5 bg-red-500/60"
                           style={{ width: `${Math.max(0, (25 - w.timeLeft) * 4)}px` }}
+                        />
+                      </div>
+                    );
+                  } else {
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute bottom-1 flex flex-col-reverse items-center animate-pulse"
+                        style={{
+                          left: `${w.x}%`,
+                          transform: "translateX(-50%)",
+                        }}
+                      >
+                        <span className="text-lg select-none">⚠️</span>
+                        <div
+                          className="w-0.5 bg-red-500/60"
+                          style={{ height: `${Math.max(0, (25 - w.timeLeft) * 6)}px` }}
                         />
                       </div>
                     );
@@ -1239,6 +1415,115 @@ export default function Home() {
                 <button
                   onClick={startGame}
                   className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-full font-bold text-lg transition"
+                >
+                  Play Again
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Robot Runner Game Modal (T-rex style) */}
+      {showRunnerGame && (
+        <div className="fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4">
+          <div
+            ref={runnerRef}
+            tabIndex={0}
+            className="bg-white rounded-2xl p-6 max-w-2xl w-full shadow-2xl outline-none"
+            onClick={runnerActive && !runnerGameOver ? jump : undefined}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-2xl font-bold text-gray-900">🦖 Robot Runner!</h2>
+              <button
+                onClick={closeRunnerGame}
+                className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="flex justify-between mb-4 text-lg">
+              <div className="bg-amber-100 px-4 py-2 rounded-lg">
+                <span className="font-bold text-amber-600">Score: {runnerScore}</span>
+              </div>
+              <div className="bg-green-100 px-4 py-2 rounded-lg">
+                <span className="font-bold text-green-600">Best: {runnerHighScore}</span>
+              </div>
+            </div>
+
+            {!runnerActive && !runnerGameOver && (
+              <div className="text-center py-8">
+                <p className="text-gray-600 mb-2">Press SPACE, W, or click/tap to jump!</p>
+                <p className="text-gray-600 mb-4">Jump over the spikes to survive!</p>
+                <button
+                  onClick={startRunnerGame}
+                  className="bg-amber-500 hover:bg-amber-600 text-black px-8 py-3 rounded-full font-bold text-lg transition"
+                >
+                  Start Game
+                </button>
+              </div>
+            )}
+
+            {runnerActive && (
+              <div
+                className="relative bg-gradient-to-b from-sky-300 to-sky-400 rounded-xl h-48 overflow-hidden cursor-pointer"
+                style={{ touchAction: "none" }}
+              >
+                {/* Ground */}
+                <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-amber-700 to-amber-600" />
+                <div className="absolute bottom-8 left-0 right-0 h-1 bg-amber-800" />
+
+                {/* Robot */}
+                <div
+                  className="absolute w-12 h-12 transition-none"
+                  style={{
+                    left: "10%",
+                    bottom: `${32 + robotY}px`,
+                    transform: `translateX(-50%) rotate(${robotRotation}deg)`,
+                  }}
+                >
+                  <span className="text-4xl select-none">🤖</span>
+                </div>
+
+                {/* Spikes */}
+                {spikes.map((spike) => (
+                  <div
+                    key={spike.id}
+                    className="absolute bottom-8"
+                    style={{
+                      left: `${spike.x}%`,
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    {spike.type === "double" ? (
+                      <div className="flex">
+                        <span className="text-5xl select-none text-red-500" style={{ filter: "drop-shadow(0 2px 2px rgba(0,0,0,0.3))" }}>▲</span>
+                        <span className="text-5xl select-none text-red-500 -ml-4" style={{ filter: "drop-shadow(0 2px 2px rgba(0,0,0,0.3))" }}>▲</span>
+                      </div>
+                    ) : (
+                      <span className="text-5xl select-none text-red-500" style={{ filter: "drop-shadow(0 2px 2px rgba(0,0,0,0.3))" }}>▲</span>
+                    )}
+                  </div>
+                ))}
+
+                {/* Instructions overlay */}
+                <div className="absolute top-2 left-2 text-xs text-white/80 bg-black/20 px-2 py-1 rounded">
+                  Tap or Space to jump!
+                </div>
+              </div>
+            )}
+
+            {runnerGameOver && (
+              <div className="text-center py-8">
+                <p className="text-2xl font-bold text-gray-900 mb-2">Game Over!</p>
+                <p className="text-xl text-amber-600 mb-4">Score: {runnerScore}</p>
+                {runnerScore >= runnerHighScore && runnerScore > 0 && (
+                  <p className="text-green-600 font-bold mb-4">New High Score!</p>
+                )}
+                <button
+                  onClick={startRunnerGame}
+                  className="bg-amber-500 hover:bg-amber-600 text-black px-8 py-3 rounded-full font-bold text-lg transition"
                 >
                   Play Again
                 </button>
