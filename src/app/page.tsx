@@ -223,7 +223,7 @@ export default function Home() {
       setFireballs((currentFireballs) => {
         setWarnings((currentWarnings) => {
           const totalOnScreen = currentFireballs.length + currentWarnings.length;
-          const maxFireballs = Math.min(4 + Math.floor(gameScoreRef.current / 300), 10);
+          const maxFireballs = Math.min(4 + Math.floor(gameScoreRef.current / 150), 15);
 
           if (totalOnScreen < maxFireballs) {
             const directions: Array<"top" | "left" | "right" | "bottom" | "topLeft" | "topRight" | "bottomLeft" | "bottomRight"> = [
@@ -330,7 +330,7 @@ export default function Home() {
               id: fireballIdRef.current++,
               x: startX,
               y: startY,
-              speed: 2.5 + Math.random() * 2 + gameScoreRef.current * 0.02,
+              speed: 2.5 + Math.random() * 2 + gameScoreRef.current * 0.005,
               direction: w.direction,
             });
           } else {
@@ -1478,19 +1478,21 @@ export default function Home() {
                   return (
                     <div
                       key={fb.id}
-                      className="absolute w-8 h-8"
+                      className="absolute w-10 h-10"
                       style={{
                         left: `${fb.x}%`,
                         top: `${fb.y}%`,
                         transform: "translate(-50%, -50%)",
+                        animation: "spin 1s linear infinite",
                       }}
                     >
-                      <span
-                        className="text-2xl select-none inline-block"
-                        style={{
-                          animation: "spin 1s linear infinite",
-                        }}
-                      >🪨</span>
+                      <Image
+                        src="/images/Boulderasset.png"
+                        alt="Boulder"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-contain"
+                      />
                     </div>
                   );
                 })}
