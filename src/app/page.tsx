@@ -363,7 +363,7 @@ export default function Home() {
       setFireballs((prev) => {
         const updated = prev
           .map((fb) => {
-            const diagSpeed = fb.speed * 0.7; // Slower diagonal speed
+            const diagSpeed = fb.speed * 0.5; // Slower diagonal speed to prevent skipping
             if (fb.direction === "top") {
               return { ...fb, y: fb.y + fb.speed };
             } else if (fb.direction === "left") {
@@ -389,7 +389,10 @@ export default function Home() {
         for (const fb of updated) {
           const dx = Math.abs(fb.x - robotPositionRef.current.x);
           const dy = Math.abs(fb.y - robotPositionRef.current.y);
-          if (dx < 8 && dy < 8) {
+          // Larger hitbox for diagonal boulders since they move in both directions
+          const isDiagonal = ["topLeft", "topRight", "bottomLeft", "bottomRight"].includes(fb.direction);
+          const hitboxSize = isDiagonal ? 10 : 8;
+          if (dx < hitboxSize && dy < hitboxSize) {
             setGameActive(false);
             setGameOver(true);
             if (gameScoreRef.current > highScoreRef.current) {
