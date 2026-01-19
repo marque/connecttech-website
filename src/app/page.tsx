@@ -8,7 +8,7 @@ interface Fireball {
   x: number;
   y: number;
   speed: number;
-  direction: "top" | "left" | "right" | "bottom";
+  direction: "top" | "left" | "right" | "bottom" | "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 }
 
 interface Warning {
@@ -16,7 +16,7 @@ interface Warning {
   x: number;
   y: number;
   timeLeft: number;
-  direction: "top" | "left" | "right" | "bottom";
+  direction: "top" | "left" | "right" | "bottom" | "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
 }
 
 export default function Home() {
@@ -100,7 +100,7 @@ export default function Home() {
   const jump = useCallback(() => {
     if (!runnerActive || isJumping) return;
     setIsJumping(true);
-    let velocity = 18;
+    let velocity = 14;
     let jumpHeight = 0;
     let rotation = 0;
     const gravity = 0.8;
@@ -160,6 +160,7 @@ export default function Home() {
     if (!runnerActive) return;
     const gameLoop = setInterval(() => {
       const speed = 1.5 + runnerScoreRef.current * 0.003;
+
       setSpikes((prev) => {
         const updated = prev
           .map((s) => ({ ...s, x: s.x - speed }))
@@ -225,7 +226,9 @@ export default function Home() {
           const maxFireballs = Math.min(4 + Math.floor(gameScoreRef.current / 300), 10);
 
           if (totalOnScreen < maxFireballs) {
-            const directions: Array<"top" | "left" | "right" | "bottom"> = ["top", "top", "left", "right", "bottom"];
+            const directions: Array<"top" | "left" | "right" | "bottom" | "topLeft" | "topRight" | "bottomLeft" | "bottomRight"> = [
+              "top", "top", "left", "right", "bottom", "topLeft", "topRight", "bottomLeft", "bottomRight"
+            ];
             const direction = directions[Math.floor(Math.random() * directions.length)];
 
             let x: number, y: number;
@@ -238,8 +241,21 @@ export default function Home() {
             } else if (direction === "right") {
               x = 100;
               y = Math.random() * 70 + 15;
-            } else {
+            } else if (direction === "bottom") {
               x = Math.random() * 85 + 7.5;
+              y = 100;
+            } else if (direction === "topLeft") {
+              x = 0;
+              y = 0;
+            } else if (direction === "topRight") {
+              x = 100;
+              y = 0;
+            } else if (direction === "bottomLeft") {
+              x = 0;
+              y = 100;
+            } else {
+              // bottomRight
+              x = 100;
               y = 100;
             }
 
@@ -248,8 +264,11 @@ export default function Home() {
               if (w.direction !== direction) return false;
               if (direction === "top" || direction === "bottom") {
                 return Math.abs(w.x - x) < 15;
-              } else {
+              } else if (direction === "left" || direction === "right") {
                 return Math.abs(w.y - y) < 15;
+              } else {
+                // Diagonal directions - check both x and y
+                return Math.abs(w.x - x) < 15 && Math.abs(w.y - y) < 15;
               }
             });
 
@@ -290,7 +309,20 @@ export default function Home() {
               startX = -5;
             } else if (w.direction === "right") {
               startX = 105;
+            } else if (w.direction === "bottom") {
+              startY = 105;
+            } else if (w.direction === "topLeft") {
+              startX = -5;
+              startY = -5;
+            } else if (w.direction === "topRight") {
+              startX = 105;
+              startY = -5;
+            } else if (w.direction === "bottomLeft") {
+              startX = -5;
+              startY = 105;
             } else {
+              // bottomRight
+              startX = 105;
               startY = 105;
             }
 
@@ -331,14 +363,24 @@ export default function Home() {
       setFireballs((prev) => {
         const updated = prev
           .map((fb) => {
+            const diagSpeed = fb.speed * 0.7; // Slower diagonal speed
             if (fb.direction === "top") {
               return { ...fb, y: fb.y + fb.speed };
             } else if (fb.direction === "left") {
               return { ...fb, x: fb.x + fb.speed };
             } else if (fb.direction === "right") {
               return { ...fb, x: fb.x - fb.speed };
-            } else {
+            } else if (fb.direction === "bottom") {
               return { ...fb, y: fb.y - fb.speed };
+            } else if (fb.direction === "topLeft") {
+              return { ...fb, x: fb.x + diagSpeed, y: fb.y + diagSpeed };
+            } else if (fb.direction === "topRight") {
+              return { ...fb, x: fb.x - diagSpeed, y: fb.y + diagSpeed };
+            } else if (fb.direction === "bottomLeft") {
+              return { ...fb, x: fb.x + diagSpeed, y: fb.y - diagSpeed };
+            } else {
+              // bottomRight
+              return { ...fb, x: fb.x - diagSpeed, y: fb.y - diagSpeed };
             }
           })
           .filter((fb) => fb.y < 110 && fb.y > -10 && fb.x > -10 && fb.x < 110);
@@ -402,6 +444,12 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1267,7 +1315,7 @@ export default function Home() {
             className="bg-white rounded-2xl p-6 max-w-lg w-full shadow-2xl outline-none"
           >
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-900">Dodge the Fireballs!</h2>
+              <h2 className="text-2xl font-bold text-gray-900">Dodge the Boulders!</h2>
               <button
                 onClick={closeGame}
                 className="text-gray-500 hover:text-gray-700 text-2xl font-bold"
@@ -1288,7 +1336,7 @@ export default function Home() {
             {!gameActive && !gameOver && (
               <div className="text-center py-8">
                 <p className="text-gray-600 mb-2">Use arrow keys or WASD to move the robot!</p>
-                <p className="text-gray-600 mb-4">Dodge the fireballs as long as you can!</p>
+                <p className="text-gray-600 mb-4">Dodge the boulders as long as you can!</p>
                 <button
                   onClick={startGame}
                   className="bg-yellow-500 hover:bg-yellow-600 text-black px-8 py-3 rounded-full font-bold text-lg transition"
@@ -1356,7 +1404,7 @@ export default function Home() {
                         />
                       </div>
                     );
-                  } else {
+                  } else if (w.direction === "bottom") {
                     return (
                       <div
                         key={w.id}
@@ -1371,6 +1419,43 @@ export default function Home() {
                           className="w-0.5 bg-red-500/60"
                           style={{ height: `${Math.max(0, (25 - w.timeLeft) * 6)}px` }}
                         />
+                      </div>
+                    );
+                  } else if (w.direction === "topLeft") {
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute top-1 left-1 animate-pulse"
+                      >
+                        <span className="text-lg select-none">⚠️</span>
+                      </div>
+                    );
+                  } else if (w.direction === "topRight") {
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute top-1 right-1 animate-pulse"
+                      >
+                        <span className="text-lg select-none">⚠️</span>
+                      </div>
+                    );
+                  } else if (w.direction === "bottomLeft") {
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute bottom-1 left-1 animate-pulse"
+                      >
+                        <span className="text-lg select-none">⚠️</span>
+                      </div>
+                    );
+                  } else {
+                    // bottomRight
+                    return (
+                      <div
+                        key={w.id}
+                        className="absolute bottom-1 right-1 animate-pulse"
+                      >
+                        <span className="text-lg select-none">⚠️</span>
                       </div>
                     );
                   }
@@ -1388,20 +1473,27 @@ export default function Home() {
                   <span className="text-3xl select-none">🤖</span>
                 </div>
 
-                {/* Fireballs */}
-                {fireballs.map((fb) => (
-                  <div
-                    key={fb.id}
-                    className="absolute w-8 h-8"
-                    style={{
-                      left: `${fb.x}%`,
-                      top: `${fb.y}%`,
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  >
-                    <span className="text-2xl select-none">🔥</span>
-                  </div>
-                ))}
+                {/* Boulders */}
+                {fireballs.map((fb) => {
+                  return (
+                    <div
+                      key={fb.id}
+                      className="absolute w-8 h-8"
+                      style={{
+                        left: `${fb.x}%`,
+                        top: `${fb.y}%`,
+                        transform: "translate(-50%, -50%)",
+                      }}
+                    >
+                      <span
+                        className="text-2xl select-none inline-block"
+                        style={{
+                          animation: "spin 1s linear infinite",
+                        }}
+                      >🪨</span>
+                    </div>
+                  );
+                })}
               </div>
             )}
 
@@ -1467,19 +1559,19 @@ export default function Home() {
 
             {runnerActive && (
               <div
-                className="relative bg-gradient-to-b from-sky-300 to-sky-400 rounded-xl h-48 overflow-hidden cursor-pointer"
+                className="relative bg-gradient-to-b from-sky-300 to-sky-400 rounded-xl h-72 overflow-hidden cursor-pointer"
                 style={{ touchAction: "none" }}
               >
                 {/* Ground */}
-                <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-amber-700 to-amber-600" />
-                <div className="absolute bottom-8 left-0 right-0 h-1 bg-amber-800" />
+                <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-amber-700 to-amber-600" />
+                <div className="absolute bottom-4 left-0 right-0 h-1 bg-amber-800" />
 
                 {/* Robot */}
                 <div
                   className="absolute w-12 h-12 transition-none"
                   style={{
                     left: "10%",
-                    bottom: `${32 + robotY}px`,
+                    bottom: `${5 + robotY}px`,
                     transform: `translateX(-50%) rotate(${robotRotation}deg)`,
                   }}
                 >
@@ -1490,9 +1582,10 @@ export default function Home() {
                 {spikes.map((spike) => (
                   <div
                     key={spike.id}
-                    className="absolute bottom-8"
+                    className="absolute"
                     style={{
                       left: `${spike.x}%`,
+                      bottom: "5px",
                       transform: "translateX(-50%)",
                     }}
                   >
