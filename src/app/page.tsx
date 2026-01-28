@@ -20,6 +20,32 @@ interface Warning {
 }
 
 export default function Home() {
+  const [autoScroll, setAutoScroll] = useState(false);
+  const autoScrollRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    if (autoScroll) {
+      const scroll = () => {
+        window.scrollBy(0, 1);
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+          window.scrollTo(0, 0);
+        }
+        autoScrollRef.current = requestAnimationFrame(scroll);
+      };
+      autoScrollRef.current = requestAnimationFrame(scroll);
+    } else {
+      if (autoScrollRef.current) {
+        cancelAnimationFrame(autoScrollRef.current);
+        autoScrollRef.current = null;
+      }
+    }
+    return () => {
+      if (autoScrollRef.current) {
+        cancelAnimationFrame(autoScrollRef.current);
+      }
+    };
+  }, [autoScroll]);
+
   const [showGame, setShowGame] = useState(false);
   const [gameScore, setGameScore] = useState(0);
   const [gameActive, setGameActive] = useState(false);
@@ -467,6 +493,7 @@ export default function Home() {
               <a href="#robot" className="text-gray-600 hover:text-yellow-500 transition">Robot</a>
               <a href="#core-values" className="text-gray-600 hover:text-yellow-500 transition">Core Values</a>
               <a href="#team" className="text-gray-600 hover:text-yellow-500 transition">Our Team</a>
+              <a href="#fll-kickoff" className="text-gray-600 hover:text-yellow-500 transition">FLL Kickoff</a>
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full font-medium transition">Survey</a>
             </div>
             {/* Mobile Survey Button */}
@@ -482,6 +509,7 @@ export default function Home() {
             <a href="#robot" className="text-gray-600 whitespace-nowrap">Robot</a>
             <a href="#core-values" className="text-gray-600 whitespace-nowrap">Core Values</a>
             <a href="#team" className="text-gray-600 whitespace-nowrap">Our Team</a>
+            <a href="#fll-kickoff" className="text-gray-600 whitespace-nowrap">FLL Kickoff</a>
           </div>
         </div>
       </nav>
@@ -491,8 +519,20 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center">
           {/* Team Logo/Badge */}
           <div className="mb-8">
-            <div className="inline-block bg-yellow-400 text-black text-lg font-bold px-6 py-2 rounded-full mb-6 shadow-lg">
-              FIRST LEGO League Challenge 2025
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="inline-block bg-yellow-400 text-black text-lg font-bold px-6 py-2 rounded-full shadow-lg">
+                FIRST LEGO League Challenge 2025
+              </div>
+              <button
+                onClick={() => setAutoScroll(!autoScroll)}
+                className={`px-4 py-2 rounded-full font-bold text-sm transition shadow-lg ${
+                  autoScroll
+                    ? 'bg-red-500 hover:bg-red-600 text-white'
+                    : 'bg-gray-900 hover:bg-gray-800 text-white'
+                }`}
+              >
+                {autoScroll ? 'Stop Scroll' : 'Auto-Scroll'}
+              </button>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Image
@@ -1248,6 +1288,40 @@ export default function Home() {
                   <source src="/audio/Connect Tech.m4a" type="audio/mp4" />
                   Your browser does not support the audio element.
                 </audio>
+              </div>
+            </div>
+          </div>
+
+          {/* FLL Kickoff */}
+          <div id="fll-kickoff" className="bg-yellow-400 rounded-2xl p-8 md:p-12 text-center mt-10">
+            <h3 className="text-4xl font-bold text-gray-900 mb-6">FLL Kickoff</h3>
+            <div className="max-w-3xl mx-auto">
+              <div className="bg-white rounded-xl p-6 shadow-lg mb-8">
+                <p className="text-lg text-gray-800 leading-relaxed">
+                  This season our school, Bayview Glen hosted the annual First Lego League Kickoff!
+                  Many members of our team got a chance to attend as well as lead sessions, which was a very
+                  exciting opportunity that allowed us to share our expertise with others and learn more in
+                  the process. Overall we as a team really enjoyed this opportunity to share, learn and
+                  collaborate with other FLL members.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[
+                  '/images/Kickoff1.png',
+                  '/images/kickoff2.png',
+                  '/images/kickoff3.png',
+                  '/images/kickoff4.png',
+                  '/images/kickoff5.png',
+                ].map((src, idx) => (
+                  <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
+                    <Image
+                      src={src}
+                      alt={`FLL Kickoff photo ${idx + 1}`}
+                      fill
+                      className={idx === 3 ? "object-contain bg-white" : "object-cover"}
+                    />
+                  </div>
+                ))}
               </div>
             </div>
           </div>
