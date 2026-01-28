@@ -1238,6 +1238,17 @@ export default function Home() {
                 We are Team ConnecTech, we dig and explore,<br />
                 <span className="text-yellow-600 font-bold">Discover new ideas, like never before!&rdquo;</span>
               </p>
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <p className="text-sm text-gray-600 mb-3">Listen to our team song!</p>
+                <audio
+                  controls
+                  className="w-full max-w-md mx-auto"
+                  preload="metadata"
+                >
+                  <source src="/audio/Connect Tech.m4a" type="audio/mp4" />
+                  Your browser does not support the audio element.
+                </audio>
+              </div>
             </div>
           </div>
         </div>
