@@ -27,8 +27,8 @@ export default function Home() {
     if (autoScroll) {
       const scroll = () => {
         window.scrollBy(0, 1);
-        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
-          window.scrollTo(0, 0);
+        if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.scrollHeight - 2) {
+          window.scrollTo({ top: 0, behavior: "instant" });
         }
         autoScrollRef.current = requestAnimationFrame(scroll);
       };
