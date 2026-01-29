@@ -1036,22 +1036,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Payback Highlight */}
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-yellow-400 rounded-2xl p-6 text-center shadow-lg">
-              <p className="text-4xl font-bold text-gray-900">$199.99</p>
-              <p className="text-gray-800 mt-1 font-medium">Selling Price</p>
-            </div>
-            <div className="bg-gray-900 rounded-2xl p-6 text-center shadow-lg">
-              <p className="text-4xl font-bold text-yellow-400">$38.00</p>
-              <p className="text-gray-300 mt-1 font-medium">Cost to Build</p>
-            </div>
-            <div className="bg-yellow-400 rounded-2xl p-6 text-center shadow-lg">
-              <p className="text-4xl font-bold text-gray-900">~1 Day</p>
-              <p className="text-gray-800 mt-1 font-medium">Payback Period</p>
-            </div>
-          </div>
-
           {/* Payback Breakdown */}
           <div className="bg-gray-50 rounded-2xl p-6 md:p-8 mb-12">
             <h3 className="text-xl font-bold text-gray-900 mb-4">Customer Payback Analysis</h3>
