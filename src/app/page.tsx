@@ -519,20 +519,8 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center">
           {/* Team Logo/Badge */}
           <div className="mb-8">
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="inline-block bg-yellow-400 text-black text-lg font-bold px-6 py-2 rounded-full shadow-lg">
-                FIRST LEGO League Challenge 2025
-              </div>
-              <button
-                onClick={() => setAutoScroll(!autoScroll)}
-                className={`px-4 py-2 rounded-full font-bold text-sm transition shadow-lg ${
-                  autoScroll
-                    ? 'bg-red-500 hover:bg-red-600 text-white'
-                    : 'bg-gray-900 hover:bg-gray-800 text-white'
-                }`}
-              >
-                {autoScroll ? 'Stop Scroll' : 'Auto-Scroll'}
-              </button>
+            <div className="inline-block bg-yellow-400 text-black text-lg font-bold px-6 py-2 rounded-full mb-6 shadow-lg">
+              FIRST LEGO League Challenge 2025
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Image
@@ -1850,6 +1838,17 @@ export default function Home() {
         </div>
       )}
 
+      {/* Auto-Scroll Floating Button */}
+      <button
+        onClick={() => setAutoScroll(!autoScroll)}
+        className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-full font-bold text-sm shadow-lg transition-all duration-300 hover:scale-105 ${
+          autoScroll
+            ? "bg-red-500 hover:bg-red-600 text-white"
+            : "bg-gray-900 hover:bg-gray-800 text-white"
+        }`}
+      >
+        {autoScroll ? "Stop Scroll" : "Auto-Scroll"}
+      </button>
     </div>
   );
 }
