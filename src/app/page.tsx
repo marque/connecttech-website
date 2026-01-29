@@ -57,9 +57,6 @@ export default function Home() {
   const gameRef = useRef<HTMLDivElement>(null);
 
   // Runner game state (T-rex game)
-  const [autoScroll, setAutoScroll] = useState(false);
-  const autoScrollRef = useRef(false);
-
   const [showRunnerGame, setShowRunnerGame] = useState(false);
   const [runnerScore, setRunnerScore] = useState(0);
   const [runnerHighScore, setRunnerHighScore] = useState(0);
@@ -473,24 +470,6 @@ export default function Home() {
     { step: 3, title: "Activate", desc: "Turn on lasers to project grid lines", image: "/images/img_41_1.jpeg" },
     { step: 4, title: "Lock", desc: "Lock the stakes in the precise location", image: "/images/img_28_2.jpeg" },
   ];
-
-  useEffect(() => {
-    autoScrollRef.current = autoScroll;
-  }, [autoScroll]);
-
-  useEffect(() => {
-    if (!autoScroll) return;
-
-    let animationId: number;
-    const scroll = () => {
-      if (!autoScrollRef.current) return;
-      window.scrollBy(0, 1);
-      animationId = requestAnimationFrame(scroll);
-    };
-    animationId = requestAnimationFrame(scroll);
-
-    return () => cancelAnimationFrame(animationId);
-  }, [autoScroll]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -1052,6 +1031,140 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Financial Projections Section */}
+      <section id="financials" className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <div className="inline-block bg-yellow-400 text-black text-sm font-semibold px-4 py-1 rounded-full mb-4">
+              BUSINESS PLAN
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Financial Projections</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              GridLock is designed to be affordable, sustainable, and profitable — paying for itself in just over one day.
+            </p>
+          </div>
+
+          {/* Payback Highlight */}
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <div className="bg-yellow-400 rounded-2xl p-6 text-center shadow-lg">
+              <p className="text-4xl font-bold text-gray-900">$199.99</p>
+              <p className="text-gray-800 mt-1 font-medium">Selling Price</p>
+            </div>
+            <div className="bg-gray-900 rounded-2xl p-6 text-center shadow-lg">
+              <p className="text-4xl font-bold text-yellow-400">$38.00</p>
+              <p className="text-gray-300 mt-1 font-medium">Cost to Build</p>
+            </div>
+            <div className="bg-yellow-400 rounded-2xl p-6 text-center shadow-lg">
+              <p className="text-4xl font-bold text-gray-900">~1 Day</p>
+              <p className="text-gray-800 mt-1 font-medium">Payback Period</p>
+            </div>
+          </div>
+
+          {/* Payback Breakdown */}
+          <div className="bg-gray-50 rounded-2xl p-6 md:p-8 mb-12">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Customer Payback Analysis</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-xl p-5 border border-gray-200">
+                <h4 className="font-semibold text-red-600 mb-3">Current Method (String &amp; Plumb Bob)</h4>
+                <ul className="text-gray-700 space-y-1 text-sm">
+                  <li>2 people required per task</li>
+                  <li>10 minutes per grid square</li>
+                  <li>400 minutes total per day (20 tasks)</li>
+                </ul>
+              </div>
+              <div className="bg-white rounded-xl p-5 border-2 border-yellow-400">
+                <h4 className="font-semibold text-green-600 mb-3">With GridLock</h4>
+                <ul className="text-gray-700 space-y-1 text-sm">
+                  <li>Only 1 person needed</li>
+                  <li>5 minutes per grid square</li>
+                  <li>100 minutes total per day (20 tasks)</li>
+                </ul>
+              </div>
+            </div>
+            <p className="text-center text-gray-600 mt-4 text-sm">
+              <span className="font-semibold text-gray-900">Daily savings: 5 hours</span> — At $35/hr, GridLock pays for itself in about 1 day of use.
+            </p>
+          </div>
+
+          {/* 7-Year Revenue & Profit Table */}
+          <div className="bg-gray-900 rounded-2xl p-6 md:p-8 mb-12">
+            <h3 className="text-xl font-bold text-white mb-2">7-Year Financial Projection</h3>
+            <p className="text-gray-400 text-sm mb-6">Based on 8% market penetration of ~10,000 North American archaeologists, with 5% annual growth and inflation.</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-yellow-400 border-b border-gray-700">
+                    <th className="py-3 px-3 text-left">Year</th>
+                    <th className="py-3 px-3 text-right">Revenue</th>
+                    <th className="py-3 px-3 text-right">Expenses</th>
+                    <th className="py-3 px-3 text-right">Profit</th>
+                    <th className="py-3 px-3 text-right">Margin</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-300">
+                  {[
+                    { year: 1, revenue: 159992, expenses: 127480, profit: 32512, margin: "20.3%" },
+                    { year: 2, revenue: 167992, expenses: 133854, profit: 34138, margin: "20.3%" },
+                    { year: 3, revenue: 176391, expenses: 140547, profit: 35845, margin: "20.3%" },
+                    { year: 4, revenue: 185211, expenses: 147574, profit: 37637, margin: "20.3%" },
+                    { year: 5, revenue: 194472, expenses: 154953, profit: 39519, margin: "20.3%" },
+                    { year: 6, revenue: 204195, expenses: 162700, profit: 41495, margin: "20.3%" },
+                    { year: 7, revenue: 214405, expenses: 170835, profit: 43569, margin: "20.3%" },
+                  ].map((row) => (
+                    <tr key={row.year} className="border-b border-gray-800 hover:bg-gray-800/50 transition">
+                      <td className="py-3 px-3 font-medium text-white">Year {row.year}</td>
+                      <td className="py-3 px-3 text-right">${row.revenue.toLocaleString()}</td>
+                      <td className="py-3 px-3 text-right">${row.expenses.toLocaleString()}</td>
+                      <td className="py-3 px-3 text-right text-green-400 font-medium">${row.profit.toLocaleString()}</td>
+                      <td className="py-3 px-3 text-right text-yellow-400">{row.margin}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Bill of Materials */}
+          <div className="bg-gray-50 rounded-2xl p-6 md:p-8">
+            <h3 className="text-xl font-bold text-gray-900 mb-6">Bill of Materials — Cost Per Unit</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              {[
+                { name: "Aluminum Extrusion", cost: "$10.00" },
+                { name: "Selfie Sticks", cost: "$12.00" },
+                { name: "Bubble Levels", cost: "$3.00" },
+                { name: "Laser Modules", cost: "$6.00" },
+                { name: "Battery Box", cost: "$1.00" },
+                { name: "Nuts & Bolts", cost: "$1.00" },
+                { name: "Filament", cost: "$5.00" },
+              ].map((item) => (
+                <div key={item.name} className="bg-white rounded-xl p-4 text-center border border-gray-200">
+                  <p className="text-lg font-bold text-gray-900">{item.cost}</p>
+                  <p className="text-sm text-gray-600">{item.name}</p>
+                </div>
+              ))}
+              <div className="bg-yellow-400 rounded-xl p-4 text-center">
+                <p className="text-lg font-bold text-gray-900">$38.00</p>
+                <p className="text-sm text-gray-800 font-medium">Total Per Unit</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Download Link */}
+          <div className="text-center mt-8">
+            <a
+              href="/ConnecTech Financials.xlsx"
+              download
+              className="inline-flex items-center gap-2 bg-gray-900 hover:bg-gray-800 text-white px-6 py-3 rounded-full font-medium transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v11.69l3.22-3.22a.75.75 0 111.06 1.06l-4.5 4.5a.75.75 0 01-1.06 0l-4.5-4.5a.75.75 0 111.06-1.06l3.22 3.22V3a.75.75 0 01.75-.75zm-9 13.5a.75.75 0 01.75.75v2.25a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-2.25a.75.75 0 011.5 0v2.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3v-2.25a.75.75 0 01.75-.75z" clipRule="evenodd" />
+              </svg>
+              Download Full Spreadsheet
+            </a>
           </div>
         </div>
       </section>
@@ -1737,26 +1850,6 @@ export default function Home() {
         </div>
       )}
 
-      {/* Auto-Scroll Floating Button */}
-      <button
-        onClick={() => setAutoScroll(!autoScroll)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 ${
-          autoScroll
-            ? "bg-yellow-400 text-gray-900 shadow-yellow-400/40"
-            : "bg-gray-800 text-white hover:bg-gray-700"
-        }`}
-        title={autoScroll ? "Stop auto-scroll" : "Start auto-scroll"}
-      >
-        {autoScroll ? (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-            <path fillRule="evenodd" d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z" clipRule="evenodd" />
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
-            <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v16.19l6.22-6.22a.75.75 0 111.06 1.06l-7.5 7.5a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 111.06-1.06l6.22 6.22V3a.75.75 0 01.75-.75z" clipRule="evenodd" />
-          </svg>
-        )}
-      </button>
     </div>
   );
 }
