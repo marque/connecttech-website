@@ -57,6 +57,9 @@ export default function Home() {
   const gameRef = useRef<HTMLDivElement>(null);
 
   // Runner game state (T-rex game)
+  const [autoScroll, setAutoScroll] = useState(false);
+  const autoScrollRef = useRef(false);
+
   const [showRunnerGame, setShowRunnerGame] = useState(false);
   const [runnerScore, setRunnerScore] = useState(0);
   const [runnerHighScore, setRunnerHighScore] = useState(0);
@@ -470,6 +473,24 @@ export default function Home() {
     { step: 3, title: "Activate", desc: "Turn on lasers to project grid lines", image: "/images/img_41_1.jpeg" },
     { step: 4, title: "Lock", desc: "Lock the stakes in the precise location", image: "/images/img_28_2.jpeg" },
   ];
+
+  useEffect(() => {
+    autoScrollRef.current = autoScroll;
+  }, [autoScroll]);
+
+  useEffect(() => {
+    if (!autoScroll) return;
+
+    let animationId: number;
+    const scroll = () => {
+      if (!autoScrollRef.current) return;
+      window.scrollBy(0, 1);
+      animationId = requestAnimationFrame(scroll);
+    };
+    animationId = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationId);
+  }, [autoScroll]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -1715,6 +1736,27 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Auto-Scroll Floating Button */}
+      <button
+        onClick={() => setAutoScroll(!autoScroll)}
+        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+          autoScroll
+            ? "bg-yellow-400 text-gray-900 shadow-yellow-400/40"
+            : "bg-gray-800 text-white hover:bg-gray-700"
+        }`}
+        title={autoScroll ? "Stop auto-scroll" : "Start auto-scroll"}
+      >
+        {autoScroll ? (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+            <path fillRule="evenodd" d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z" clipRule="evenodd" />
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+            <path fillRule="evenodd" d="M12 2.25a.75.75 0 01.75.75v16.19l6.22-6.22a.75.75 0 111.06 1.06l-7.5 7.5a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 111.06-1.06l6.22 6.22V3a.75.75 0 01.75-.75z" clipRule="evenodd" />
+          </svg>
+        )}
+      </button>
     </div>
   );
 }
