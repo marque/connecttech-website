@@ -1438,6 +1438,13 @@ export default function Home() {
           {/* Banquet */}
           <div className="bg-yellow-400 rounded-2xl p-8 md:p-12 text-center mt-10">
             <h3 className="text-4xl font-bold text-gray-900 mb-6">Banquet</h3>
+            <div className="max-w-3xl mx-auto mb-8">
+              <div className="bg-white rounded-xl p-6 shadow-lg">
+                <p className="text-lg text-gray-800 leading-relaxed">
+                  ConnecTech team gather during Bayview Glen Robotic gala
+                </p>
+              </div>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
               {[
                 '/images/Gala1.png',
