@@ -1436,25 +1436,22 @@ export default function Home() {
           </div>
 
           {/* Banquet */}
-          <div className="bg-gray-900 rounded-2xl p-8 md:p-12 text-center mt-10">
-            <h3 className="text-4xl font-bold text-yellow-400 mb-6">Banquet</h3>
+          <div className="bg-yellow-400 rounded-2xl p-8 md:p-12 text-center mt-10">
+            <h3 className="text-4xl font-bold text-gray-900 mb-6">Banquet</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src="/images/Gala1.png"
-                  alt="Banquet photo 1"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
-                <Image
-                  src="/images/Gala2.png"
-                  alt="Banquet photo 2"
-                  fill
-                  className="object-cover"
-                />
-              </div>
+              {[
+                '/images/Gala1.png',
+                '/images/Gala2.png',
+              ].map((src, idx) => (
+                <div key={idx} className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-lg">
+                  <Image
+                    src={src}
+                    alt={`Banquet photo ${idx + 1}`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
