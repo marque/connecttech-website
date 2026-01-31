@@ -26,7 +26,7 @@ export default function Home() {
   useEffect(() => {
     if (autoScroll) {
       const scroll = () => {
-        window.scrollBy(0, 1);
+        window.scrollBy(0, 2);
         if ((window.innerHeight + Math.ceil(window.scrollY)) >= document.body.scrollHeight - 2) {
           window.scrollTo({ top: 0, behavior: "instant" });
         }
@@ -1825,10 +1825,10 @@ export default function Home() {
         </div>
       )}
 
-      {/* Auto-Scroll Floating Button */}
+      {/* Auto-Scroll Floating Button - hidden on mobile */}
       <button
         onClick={() => setAutoScroll(!autoScroll)}
-        className={`fixed bottom-6 right-6 z-50 px-4 py-3 rounded-full font-bold text-sm shadow-lg transition-all duration-300 hover:scale-105 ${
+        className={`hidden md:block fixed bottom-6 right-6 z-50 px-4 py-3 rounded-full font-bold text-sm shadow-lg transition-all duration-300 hover:scale-105 ${
           autoScroll
             ? "bg-red-500 hover:bg-red-600 text-white"
             : "bg-gray-900 hover:bg-gray-800 text-white"
