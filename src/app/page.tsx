@@ -588,11 +588,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           {/* Season Challenge Statement */}
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-bold mb-2 text-yellow-400">Unearthed Innovation Project</h2>
+            <h2 className="text-5xl font-bold mb-2 text-yellow-400">UNEARTHED™ Innovation Project</h2>
             <p className="text-2xl text-gray-300 mb-8">Dig, Explore and Discover</p>
             <div className="bg-gray-800 rounded-2xl p-8 max-w-4xl mx-auto border-2 border-yellow-400/30">
               <p className="text-xl text-gray-200">
-                This Unearthed season, FIRST LEGO League Challenge teams are asked to identify a problem faced by archaeologists and propose an innovative solution that can help.
+                This UNEARTHED™ season, FIRST LEGO League Challenge teams are asked to identify a problem faced by archaeologists and propose an innovative solution that can help.
               </p>
             </div>
           </div>
@@ -1521,7 +1521,7 @@ export default function Home() {
               <span className="text-gray-500 ml-2">#27757</span>
             </div>
             <div className="text-gray-400 text-sm">
-              FIRST LEGO League Challenge 2025 - Unearthed
+              FIRST LEGO League Challenge 2025 - UNEARTHED™
             </div>
           </div>
           <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
