@@ -1473,6 +1473,7 @@ export default function Home() {
             <div className="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-sm font-semibold mb-4">FOLLOW US</div>
             <h2 className="text-4xl font-bold mb-4 text-gray-900">Our Media</h2>
             <p className="text-xl text-gray-600">Follow us on social media to stay updated!</p>
+            <p className="text-gray-500 mt-2">For any media inquiry, please contact <a href="mailto:connectech27757@gmail.com" className="text-yellow-600 hover:text-yellow-700 font-semibold underline">connectech27757@gmail.com</a></p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
