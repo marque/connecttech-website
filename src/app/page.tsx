@@ -1515,7 +1515,7 @@ export default function Home() {
               </div>
               <div className="rounded-xl overflow-hidden border border-gray-200 aspect-video">
                 <iframe
-                  src="https://www.youtube.com/embed?listType=user_uploads&list=ConnecTech27757"
+                  src="https://www.youtube.com/embed/-0zeB7dXUrc"
                   title="ConnecTech YouTube Channel"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
