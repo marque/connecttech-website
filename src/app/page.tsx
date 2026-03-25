@@ -1519,12 +1519,10 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="block rounded-xl overflow-hidden border border-gray-200 aspect-video relative group"
               >
-                <Image
+                <img
                   src="https://img.youtube.com/vi/-0zeB7dXUrc/hqdefault.jpg"
                   alt="ConnecTech YouTube Video"
-                  fill
-                  className="object-cover"
-                  unoptimized
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition flex items-center justify-center">
                   <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition">
@@ -1583,12 +1581,10 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="block rounded-xl overflow-hidden border border-gray-200 aspect-video relative group"
               >
-                <Image
+                <img
                   src="https://img.youtube.com/vi/7VPrJDkrNyU/hqdefault.jpg"
                   alt="ConnecTech Interview"
-                  fill
-                  className="object-cover"
-                  unoptimized
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition flex items-center justify-center">
                   <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition">
