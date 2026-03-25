@@ -1562,15 +1562,30 @@ export default function Home() {
                 </svg>
                 <h3 className="text-2xl font-bold text-gray-900">Our Interview</h3>
               </div>
-              <div className="rounded-xl overflow-hidden border border-gray-200 aspect-video">
-                <iframe
-                  src="https://www.youtube.com/embed/7VPrJDkrNyU?start=2306"
-                  title="ConnecTech Interview"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-full"
+              <a
+                href="https://www.youtube.com/watch?v=7VPrJDkrNyU&t=2306s"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-xl overflow-hidden border border-gray-200 aspect-video relative group"
+              >
+                <Image
+                  src="https://img.youtube.com/vi/7VPrJDkrNyU/hqdefault.jpg"
+                  alt="ConnecTech Interview"
+                  fill
+                  className="object-cover"
+                  unoptimized
                 />
-              </div>
+                <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition flex items-center justify-center">
+                  <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                    <svg className="w-8 h-8 text-white ml-1" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8 5v14l11-7z"/>
+                    </svg>
+                  </div>
+                </div>
+                <div className="absolute bottom-3 left-3 bg-black/70 text-white text-sm px-3 py-1 rounded-lg">
+                  Watch on YouTube
+                </div>
+              </a>
             </div>
           </div>
         </div>
