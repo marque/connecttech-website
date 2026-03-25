@@ -1534,6 +1534,35 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+          {/* Mentioned by ArchaeologyTo */}
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">Mentioned by @archaeologyTo</h3>
+            <div className="rounded-xl overflow-hidden border border-gray-200 max-w-lg mx-auto shadow-lg" style={{ minHeight: 480 }}>
+              <iframe
+                src="https://www.instagram.com/p/DV1dxLrEaks/embed"
+                title="ArchaeologyTo Instagram Post"
+                className="w-full border-0"
+                style={{ height: 580 }}
+                allowTransparency
+                scrolling="no"
+              />
+            </div>
+          </div>
+
+          {/* Interview Video */}
+          <div className="mt-12">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4 text-center">Our Interview</h3>
+            <div className="rounded-xl overflow-hidden border border-gray-200 aspect-video max-w-4xl mx-auto shadow-lg">
+              <iframe
+                src="https://www.youtube.com/embed/7VPrJDkrNyU?start=2306"
+                title="ConnecTech Interview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
         </div>
       </section>
 
