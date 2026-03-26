@@ -1163,11 +1163,11 @@ export default function Home() {
           {/* Mission Stats */}
           <div className="grid md:grid-cols-4 gap-6 mb-16">
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
-              <div className="text-4xl font-bold text-yellow-500 mb-2">450</div>
+              <div className="text-4xl font-bold text-yellow-500 mb-2">505</div>
               <p className="text-gray-600 font-medium">Our Max Points</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
-              <div className="text-4xl font-bold text-amber-500 mb-2">13/15</div>
+              <div className="text-4xl font-bold text-amber-500 mb-2">15/15</div>
               <p className="text-gray-600 font-medium">Missions</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-yellow-200">
