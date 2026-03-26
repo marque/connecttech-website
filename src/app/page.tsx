@@ -449,10 +449,11 @@ export default function Home() {
 
   const robotAttachments = [
     { name: "The Snake", image: "/images/the-snake.png" },
-    { name: "The Scorpion", image: "/images/the-scorpion.png" },
-    { name: "Lionel Meshi", image: "/images/lionel-meshi.png" },
-    { name: "The Thwacker", image: "/images/the-thwacker.png" },
-    { name: "The T-rex", image: "" },
+    { name: "The Scorpion", image: "/images/scorpion.png" },
+    { name: "Lionel Meshi", image: "/images/lionelmeshi.png" },
+    { name: "The Thwacker", image: "/images/thwacker.png" },
+    { name: "The T-rex", image: "/images/trex.png" },
+    { name: "The Lobster", image: "/images/lobster.png" },
   ];
 
   const coreValues = [
@@ -1174,7 +1175,7 @@ export default function Home() {
               <p className="text-gray-600 font-medium">Home Areas</p>
             </div>
             <div className="bg-white rounded-xl p-6 text-center shadow-lg border-2 border-amber-200">
-              <div className="text-4xl font-bold text-amber-600 mb-2">5</div>
+              <div className="text-4xl font-bold text-amber-600 mb-2">6</div>
               <p className="text-gray-600 font-medium">Attachments</p>
             </div>
           </div>
@@ -1195,7 +1196,7 @@ export default function Home() {
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Mission Run Strategy</h3>
             <div className="relative rounded-2xl overflow-hidden shadow-2xl max-w-5xl mx-auto">
               <Image
-                src="/images/robot-heatmap.png"
+                src="/images/Heatmap worlds.png"
                 alt="Robot Mission Runs - Strategic route planning for maximum points"
                 width={1200}
                 height={700}
