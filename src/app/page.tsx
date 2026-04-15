@@ -1208,28 +1208,28 @@ export default function Home() {
           {/* Attachments */}
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Attachments</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               {robotAttachments.map((attachment, index) => (
                 <div
                   key={index}
-                  className={`bg-white rounded-xl p-4 text-center shadow-md hover:shadow-xl transition border-2 border-gray-200 ${attachment.name === "The T-rex" ? "cursor-pointer hover:border-amber-400" : ""}`}
+                  className={`bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition border-2 border-gray-200 ${attachment.name === "The T-rex" ? "cursor-pointer hover:border-amber-400" : ""}`}
                   onClick={attachment.name === "The T-rex" ? () => setShowRunnerGame(true) : undefined}
                 >
-                  <div className="w-20 h-20 rounded-xl overflow-hidden mx-auto mb-3 relative bg-gray-100 flex items-center justify-center">
+                  <div className="w-full aspect-square rounded-xl overflow-hidden mx-auto mb-4 relative bg-gray-100 flex items-center justify-center">
                     {attachment.image ? (
                       <Image
                         src={attachment.image}
                         alt={attachment.name}
                         fill
-                        className="object-cover"
+                        className="object-contain p-2"
                       />
                     ) : (
                       <span className="text-3xl">🦖</span>
                     )}
                   </div>
-                  <h4 className="font-semibold text-gray-900 text-sm">{attachment.name}</h4>
-                  <p className="text-xs text-gray-500 mt-1">Run {attachment.run}</p>
-                  <p className="text-xs text-gray-400">Missions: {attachment.missions}</p>
+                  <h4 className="font-bold text-gray-900 text-lg">{attachment.name}</h4>
+                  <p className="text-sm text-gray-500 mt-1">Run {attachment.run}</p>
+                  <p className="text-sm text-gray-400">Missions: {attachment.missions}</p>
                 </div>
               ))}
             </div>
@@ -1361,27 +1361,27 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
                 <h4 className="font-bold text-gray-900 text-lg mb-2">Monday Motivators</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">Every Monday, our team kicks off the week with motivational quotes, stories, and positive energy to inspire each other and stay focused on our goals throughout the season.</p>
+                <p className="text-gray-600 text-sm leading-relaxed">Every Monday with inspirational quotes we power up our minds before we power up our robots. You are your only limit — start your impossible!</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
                 <h4 className="font-bold text-gray-900 text-lg mb-2">International Outreach</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">We connect with FLL teams around the world to share ideas, learn about different cultures, and collaborate on solutions. Building bridges across borders is at the heart of what we do.</p>
+                <p className="text-gray-600 text-sm leading-relaxed">We&apos;ve connected with other teams to share experiences and learn from each other, like our friends Sesi Biotech from Brazil.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Community Mentoring</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">Our team members mentor younger students in robotics and coding, passing on the skills and passion we have gained through FLL to inspire the next generation of innovators.</p>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Core Value Highlight of the Day</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">At every practice we identify one moment that exemplifies one of the 6 Core Values. Small moments together create a stronger team.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Team Bonding Events</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">From pizza nights to escape rooms, we regularly organize fun activities outside of practice to strengthen our friendships and build the trust that makes our teamwork shine.</p>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Women in STEM</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">We are committed to inspiring girls in STEM around the world to chase their dreams.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">STEM Workshops</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">We host and participate in hands-on STEM workshops covering topics like 3D printing, coding, and engineering design to continuously expand our skills and knowledge.</p>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">School Spirit</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">We hosted a school-wide team mascot competition to bring our school along on our journey to Worlds and to inspire students to pursue their passions.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Fundraising Initiatives</h4>
-                <p className="text-gray-600 text-sm leading-relaxed">Our team organizes creative fundraisers to support our season costs and give back to the community, learning entrepreneurship and financial planning along the way.</p>
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Community Advocacy</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">Advocating for FIRST to inspire the next generation. We ran an advocacy campaign for Funding For FIRST engaging with government officials and other community members.</p>
               </div>
             </div>
           </div>
