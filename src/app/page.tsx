@@ -448,12 +448,12 @@ export default function Home() {
   ];
 
   const robotAttachments = [
-    { name: "The Snake", image: "/images/the-snake.png" },
-    { name: "The Scorpion", image: "/images/scorpion.png" },
-    { name: "Lionel Meshi", image: "/images/lionelmeshi.png" },
-    { name: "The Thwacker", image: "/images/thwacker.png" },
-    { name: "The T-rex", image: "/images/trex.png" },
-    { name: "The Lobster", image: "/images/lobster.png" },
+    { name: "The Lobster", image: "/images/lobster.png", run: 1, missions: "3, 4, 13" },
+    { name: "The Scorpion", image: "/images/scorpion.png", run: 2, missions: "1, 2, 15" },
+    { name: "The Snake", image: "/images/the-snake.png", run: 2, missions: "1, 2, 15" },
+    { name: "Lionel Meshi", image: "/images/lionelmeshi.png", run: 3, missions: "10, 11, 12" },
+    { name: "The Thwacker", image: "/images/thwacker.png", run: 4, missions: "5, 6, 7, 8" },
+    { name: "The T-rex", image: "/images/trex.png", run: 5, missions: "9, 10, 14" },
   ];
 
   const coreValues = [
@@ -1208,7 +1208,7 @@ export default function Home() {
           {/* Attachments */}
           <div className="mb-16">
             <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">Our Attachments</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
               {robotAttachments.map((attachment, index) => (
                 <div
                   key={index}
@@ -1228,6 +1228,8 @@ export default function Home() {
                     )}
                   </div>
                   <h4 className="font-semibold text-gray-900 text-sm">{attachment.name}</h4>
+                  <p className="text-xs text-gray-500 mt-1">Run {attachment.run}</p>
+                  <p className="text-xs text-gray-400">Missions: {attachment.missions}</p>
                 </div>
               ))}
             </div>
@@ -1350,6 +1352,37 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* ConnecTech Family Activities */}
+          <div className="mb-16">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">ConnecTech Family Activities</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Monday Motivators</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">Every Monday, our team kicks off the week with motivational quotes, stories, and positive energy to inspire each other and stay focused on our goals throughout the season.</p>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
+                <h4 className="font-bold text-gray-900 text-lg mb-2">International Outreach</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">We connect with FLL teams around the world to share ideas, learn about different cultures, and collaborate on solutions. Building bridges across borders is at the heart of what we do.</p>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Community Mentoring</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">Our team members mentor younger students in robotics and coding, passing on the skills and passion we have gained through FLL to inspire the next generation of innovators.</p>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Team Bonding Events</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">From pizza nights to escape rooms, we regularly organize fun activities outside of practice to strengthen our friendships and build the trust that makes our teamwork shine.</p>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
+                <h4 className="font-bold text-gray-900 text-lg mb-2">STEM Workshops</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">We host and participate in hands-on STEM workshops covering topics like 3D printing, coding, and engineering design to continuously expand our skills and knowledge.</p>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
+                <h4 className="font-bold text-gray-900 text-lg mb-2">Fundraising Initiatives</h4>
+                <p className="text-gray-600 text-sm leading-relaxed">Our team organizes creative fundraisers to support our season costs and give back to the community, learning entrepreneurship and financial planning along the way.</p>
+              </div>
             </div>
           </div>
 
