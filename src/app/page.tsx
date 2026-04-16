@@ -1357,32 +1357,30 @@ export default function Home() {
 
           {/* ConnecTech Family Activities */}
           <div className="mb-16">
-            <h3 className="text-3xl font-extrabold mb-8 text-center">
-              <span className="bg-yellow-400 text-gray-900 px-6 py-2 rounded-full shadow-md inline-block">ConnecTech Family Activities</span>
-            </h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">ConnecTech Family Activities</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Monday Motivators</h4>
+                <h4 className="font-extrabold text-lg mb-2"><span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-md inline-block">Monday Motivators</span></h4>
                 <p className="text-gray-600 text-sm leading-relaxed">Every Monday with inspirational quotes we power up our minds before we power up our robots. You are your only limit — start your impossible!</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">International Outreach</h4>
+                <h4 className="font-extrabold text-lg mb-2"><span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-md inline-block">International Outreach</span></h4>
                 <p className="text-gray-600 text-sm leading-relaxed">We&apos;ve connected with other teams to share experiences and learn from each other, like our friends Sesi Biotech from Brazil.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Core Value Highlight of the Day</h4>
+                <h4 className="font-extrabold text-lg mb-2"><span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-md inline-block">Core Value Highlight of the Day</span></h4>
                 <p className="text-gray-600 text-sm leading-relaxed">At every practice we identify one moment that exemplifies one of the 6 Core Values. Small moments together create a stronger team.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Women in STEM</h4>
+                <h4 className="font-extrabold text-lg mb-2"><span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-md inline-block">Women in STEM</span></h4>
                 <p className="text-gray-600 text-sm leading-relaxed">We are committed to inspiring girls in STEM around the world to chase their dreams.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">School Spirit</h4>
+                <h4 className="font-extrabold text-lg mb-2"><span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-md inline-block">School Spirit</span></h4>
                 <p className="text-gray-600 text-sm leading-relaxed">We hosted a school-wide team mascot competition to bring our school along on our journey to Worlds and to inspire students to pursue their passions.</p>
               </div>
               <div className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition border-l-4 border-yellow-400">
-                <h4 className="font-bold text-gray-900 text-lg mb-2">Community Advocacy</h4>
+                <h4 className="font-extrabold text-lg mb-2"><span className="bg-yellow-400 text-gray-900 px-3 py-1 rounded-md inline-block">Community Advocacy</span></h4>
                 <p className="text-gray-600 text-sm leading-relaxed">Advocating for FIRST to inspire the next generation. We ran an advocacy campaign for Funding For FIRST engaging with government officials and other community members.</p>
               </div>
             </div>
