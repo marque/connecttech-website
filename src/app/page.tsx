@@ -1228,8 +1228,8 @@ export default function Home() {
                     )}
                   </div>
                   <h4 className="font-semibold text-gray-900 text-sm">{attachment.name}</h4>
-                  <p className="text-xs text-gray-500 mt-1">Run {attachment.run}</p>
-                  <p className="text-xs text-gray-400">Missions: {attachment.missions}</p>
+                  <p className="text-sm font-bold text-yellow-600 mt-1">Run {attachment.run}</p>
+                  <p className="text-xs font-medium text-gray-600">Missions: {attachment.missions}</p>
                 </div>
               ))}
             </div>
