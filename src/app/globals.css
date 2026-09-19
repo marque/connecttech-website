@@ -30,6 +30,14 @@ html {
   scroll-behavior: smooth;
 }
 
+.unearthed-archive [id] {
+  scroll-margin-top: 174px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 .gradient-bg {
   background: linear-gradient(135deg, #f5c518 0%, #f59e0b 50%, #eab308 100%);
 }

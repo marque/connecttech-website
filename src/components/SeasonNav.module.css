@@ -1,0 +1,79 @@
+.bar {
+  height: 52px;
+  background: #183d2b;
+  color: #e2ebdf;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+.inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.label {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+.tabs {
+  display: flex;
+  height: 100%;
+  gap: 6px;
+}
+.tabs a {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 0 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-bottom: 3px solid transparent;
+  text-decoration: none;
+}
+.tabs a[aria-current] {
+  background: #2c5535;
+  color: #f0e973;
+  border-color: #f0e973;
+}
+.tabs a:hover {
+  background: #2c5535;
+}
+.tabs a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: -4px;
+}
+.year {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  background: #c6de94;
+  border-radius: 50%;
+}
+@media (max-width: 700px) {
+  .inner {
+    padding: 0 12px;
+    justify-content: center;
+  }
+  .label {
+    display: none;
+  }
+  .tabs {
+    gap: 0;
+  }
+  .tabs a {
+    padding: 0 12px;
+    font-size: 11px;
+    gap: 6px;
+  }
+  .year {
+    font-size: 10px;
+  }
+}

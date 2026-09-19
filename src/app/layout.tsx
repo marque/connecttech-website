@@ -13,9 +13,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ConnecTech #27757 | GridLock - Precision Gridding Tool",
-  description: "GridLock is a revolutionary precision gridding tool for archaeological excavation. Built by ConnecTech, a FIRST LEGO League team from Bayview Glen School.",
-  keywords: ["GridLock", "archaeology", "excavation", "gridding tool", "FIRST LEGO League", "ConnecTech", "Bayview Glen"],
+  title: "ConnecTech #27757 | BIOGLOW 2026–27",
+  description:
+    "Small bricks. Big possibilities. Meet ConnecTech, Bayview Glen's FIRST LEGO League team, and explore our BIOGLOW season, kickoff, and community initiatives.",
+  keywords: [
+    "BIOGLOW",
+    "biodiversity",
+    "FIRST LEGO League",
+    "ConnecTech",
+    "Bayview Glen",
+    "FIRSTLikeAGirl",
+  ],
 };
 
 export default function RootLayout({
