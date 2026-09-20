@@ -31,7 +31,7 @@ html {
 }
 
 .unearthed-archive [id] {
-  scroll-margin-top: 174px;
+  scroll-margin-top: 228px;
 }
 
 @media (prefers-reduced-motion: reduce) {

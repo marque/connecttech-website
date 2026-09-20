@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import SeasonNav from "@/components/SeasonNav";
 import RobotExperience from "@/components/RobotExperience";
 import styles from "./page.module.css";
 
@@ -25,16 +26,7 @@ export default function Home() {
             <small>27757 / BAYVIEW GLEN</small>
           </span>
         </Link>
-        <nav className={styles.seasons} aria-label="Explore our seasons">
-          <Link href="/" aria-current="page">
-            <span className={styles.liveDot} /> BIOGLOW{" "}
-            <span className={styles.seasonYear}>26/27</span>
-          </Link>
-          <Link href="/unearthed">
-            UNEARTHED <span className={styles.seasonYear}>25/26</span>{" "}
-            <span aria-hidden="true">↗</span>
-          </Link>
-        </nav>
+        <SeasonNav active="bioglow" />
         <a href="#consult" className={styles.headerCta}>
           Build with us <span aria-hidden="true">↗</span>
         </a>
