@@ -14,7 +14,7 @@ export default function Home() {
         <Link href="/" className={styles.brand} aria-label="ConnecTech home">
           <Image
             className={styles.brandLogo}
-            src="/images/brand/connectech-mark.png"
+            src="/images/brand/connectech-badge.png"
             width={58}
             height={58}
             alt=""
@@ -145,7 +145,7 @@ export default function Home() {
           <div className={styles.consultName}>
             <Image
               className={styles.consultLogo}
-              src="/images/brand/connectech-mark.png"
+              src="/images/brand/connectech-badge.png"
               width={44}
               height={44}
               alt=""

@@ -64,6 +64,12 @@
   border-radius: 4px;
   flex-shrink: 0;
 }
+.brandLogo,
+.consultLogo,
+.footerBrand img {
+  transform: rotate(45deg);
+  transform-origin: center;
+}
 .liveDot {
   width: 5px;
   height: 5px;
