@@ -65,6 +65,11 @@ export default function RobotExperience() {
               scene.current?.rotateBy(...movement);
             }
           }}
+          onKeyUp={(event) => {
+            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key))
+              scene.current?.endInteraction();
+          }}
+          onBlur={() => scene.current?.endInteraction()}
           className={`${styles.canvas} ${status === "ready" ? styles.loaded : ""}`}
         />
         {status !== "ready" && (
@@ -80,26 +85,20 @@ export default function RobotExperience() {
       </div>
       <div className={styles.controls}>
         <span className={styles.sceneLabel}>
-          <i /> <span>{manual ? "MANUAL VIEW" : "DRAG ROBOT TO ROTATE"}</span>
+          <i /> <span>{manual ? "DRAG TO ROTATE · RELEASE TO SPIN" : "DRAG ROBOT TO ROTATE"}</span>
         </span>
         {status === "ready" && (
           <button
             onClick={() => {
-              if (manual) {
-                scene.current?.resumeSpin();
-                pauseRef.current = false;
-                setPaused(false);
-              } else {
-                pauseRef.current = !paused;
-                setPaused(!paused);
-              }
+              pauseRef.current = !paused;
+              setPaused(!paused);
             }}
-            aria-pressed={paused || manual}
-            aria-label={manual ? "Resume automatic rotation" : paused ? "Resume 3D motion" : "Pause 3D motion"}
-            title={manual ? "Resume automatic rotation" : paused ? "Resume 3D motion" : "Pause 3D motion"}
+            aria-pressed={paused}
+            aria-label={paused ? "Resume 3D motion" : "Pause 3D motion"}
+            title={paused ? "Resume 3D motion" : "Pause 3D motion"}
           >
-            {paused || manual ? "▶" : "Ⅱ"}
-            <span>{manual ? "RESUME SPIN" : paused ? "RESUME MOTION" : "PAUSE MOTION"}</span>
+            {paused ? "▶" : "Ⅱ"}
+            <span>{paused ? "RESUME MOTION" : "PAUSE MOTION"}</span>
           </button>
         )}
       </div>

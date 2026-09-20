@@ -9,13 +9,13 @@ import { robotUnitPose } from "./robot-motion";
 
 export type RobotSceneHandle = {
   dispose: () => void;
-  resumeSpin: () => void;
+  endInteraction: () => void;
   rotateBy: (x: number, y: number) => void;
 };
 
 const emptyHandle: RobotSceneHandle = {
   dispose: () => {},
-  resumeSpin: () => {},
+  endInteraction: () => {},
   rotateBy: () => {},
 };
 
@@ -233,7 +233,8 @@ export async function createRobotScene(
     lastPose = -1;
   let manual = false,
     manualYaw = 0,
-    manualPitch = 0;
+    manualPitch = 0,
+    viewPitch = 0.03;
   let pointer: { id: number; x: number; y: number; moved: boolean; touch: boolean } | null = null;
   const raycaster = new THREE.Raycaster();
   const pointerPosition = new THREE.Vector2();
@@ -253,9 +254,18 @@ export async function createRobotScene(
     dirty = true;
   };
   const finishDrag = () => {
-    if (pointer && renderer.domElement.hasPointerCapture(pointer.id))
-      renderer.domElement.releasePointerCapture(pointer.id);
+    const finishedPointer = pointer;
+    // Clear first so lostpointercapture cannot keep an old drag active.
     pointer = null;
+    if (finishedPointer && renderer.domElement.hasPointerCapture(finishedPointer.id))
+      renderer.domElement.releasePointerCapture(finishedPointer.id);
+    if (manual) {
+      // Rebase the turntable at the released pose so rotation resumes without a snap.
+      turntableAngle = manualYaw - automaticYaw();
+      viewPitch = manualPitch;
+      manual = false;
+      manualChanged(false);
+    }
     host.style.cursor = "grab";
     dirty = true;
   };
@@ -273,13 +283,13 @@ export async function createRobotScene(
     renderer.domElement.setPointerCapture(event.pointerId);
     host.style.cursor = "grabbing";
     host.focus({ preventScroll: true });
-    dirty = true;
+    rotateBy(0, 0);
   };
   const pointerMove = (event: PointerEvent) => {
     if (!pointer || pointer.id !== event.pointerId) return;
     const x = event.clientX - pointer.x, y = event.clientY - pointer.y;
     if (!pointer.moved && Math.hypot(x, y) < 4) return;
-    // Let a vertical phone gesture scroll without accidentally entering manual mode.
+    // Let a vertical phone gesture scroll without changing the robot angle.
     if (!pointer.moved && pointer.touch && Math.abs(y) > Math.abs(x)) return;
     pointer.moved = true;
     rotateBy(x, y);
@@ -389,8 +399,8 @@ export async function createRobotScene(
       unit.guide.visible = amount > 0.01;
     }
     robot.rotation.set(
-      manual ? manualPitch : 0.03,
-      manual ? manualYaw : automaticYaw() + (reduce.matches ? 0 : turntableAngle),
+      manual ? manualPitch : viewPitch,
+      manual ? manualYaw : automaticYaw() + turntableAngle,
       0,
     );
     robot.position.set(0, isMobile ? -0.4 : 0, 0);
@@ -409,7 +419,7 @@ export async function createRobotScene(
       (content.position.y + (-31 + baseDrop) * 0.012) * scale +
       robot.position.y -
       0.06;
-    if (manual) {
+    if (manual || viewPitch !== 0.03) {
       // Tilting the model must not push it through the shadow plane.
       robot.updateWorldMatrix(true, true);
       robotBounds.setFromObject(model);
@@ -490,13 +500,6 @@ export async function createRobotScene(
   return {
     dispose,
     rotateBy,
-    resumeSpin: () => {
-      finishDrag();
-      // Continue from the chosen heading rather than snapping to the old angle.
-      if (manual) turntableAngle = manualYaw - automaticYaw();
-      manual = false;
-      manualChanged(false);
-      dirty = true;
-    },
+    endInteraction: finishDrag,
   };
 }
