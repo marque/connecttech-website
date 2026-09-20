@@ -1,0 +1,268 @@
+ConnecTech robot visual concept, September 2026
+Original arrangement and animation by ConnecTech website project.
+Inspired by team-supplied reference photos. Not a mechanically verified reconstruction.
+
+Geometry adapted from the LDraw.org Official Parts Library.
+Source: https://library.ldraw.org/
+Licensed under Creative Commons Attribution 4.0 (CC BY 4.0).
+https://creativecommons.org/licenses/by/4.0/
+Changes: assembled, recolored, smoothed, indexed and converted to glTF.
+LEGO is a trademark of the LEGO Group. This site is not endorsed by LEGO.
+
+Individual source files and authors:
+ldconfig.ldr | LDraw.org | LDraw color configuration
+p/1-16chrd.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-16cyli.dat | Marc Klein [marckl] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-16cylo.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-16edge.dat | Marc Klein [marckl] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-16tang.dat | Gerald Lasser [GeraldLasser] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4chrd.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4cyli.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4cylo.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4cyls.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4disc.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4edge.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ndis.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ring2.dat | Franklin W. Cain [fwcain] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ring3.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ring4.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ring6.dat | Franklin W. Cain [fwcain] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ring7.dat | Franklin W. Cain [fwcain] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ring8.dat | Franklin W. Cain [fwcain] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4ring9.dat | Franklin W. Cain [fwcain] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-4tang.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-8chrd.dat | Orion Pobursky [OrionP] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-8edge.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-8ndis.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-8ring3.dat | Paul Easter [pneaster] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/1-8ring9.dat | Steffen [Steffen] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4chrd.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4cyli.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4cylo.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4edge.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4ndis.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4ring3.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4ring5.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/2-4ring9.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16cyli.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16cylo.dat | J.C. Tchang [tchang] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16edge.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16ndis.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16ring4.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16ring7.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16ring8.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16ring9.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-16tndis.dat | Massimo Maso [Sirio] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-4chrd.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-4cyli.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-4edge.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-4ndis.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-8cyli.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-8cylo.dat | J.C. Tchang [tchang] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-8edge.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/3-8ndis.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4cylc.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4cyli.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4cylo.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4disc.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4edge.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ering.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ndis.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ring1.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ring2.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ring3.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ring4.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ring6.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/4-4ring8.dat | Steffen [Steffen] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-12chrd.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-12cyli.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-12edge.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-12ring1.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-12ring2.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-12ring8.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-24chrd.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-24edge.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-4chrd.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-4cyli.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-4cylo.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-4edge.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-4ring9.dat | Paul Easter [pneaster] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-6chrd.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-6con5.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-6cyli.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-6cylo.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-6edge.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-6ndis.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-8chrd.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-8con5.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-8cyli.dat | Steve Bliss [sbliss] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-8cylo.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/1-8edge.dat | [PTadmin] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/11-48cyli.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/3-16edge.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/3-16ndis.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4aring.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con11.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con12.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con19.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con24.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con5.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con54.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con7.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4con8.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4cylc.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4cyli.dat | Paul Easter [pneaster] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4cylo.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4disc.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4edge.dat | Paul Easter [pneaster] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring10.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring12.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring19.dat | Paul Easter [pneaster] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring20.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring21.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring25.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring26.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring27.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring28.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring54.dat | Michael Heidemann [mikeheide] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/4-4ring9.dat | Paul Easter [pneaster] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/5-48cyli.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/5-48cylo.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/5-48edge.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/48/7-48edge.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/5-16edge.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/5-8cyli.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/5-8edge.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/7-16chrd.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/7-16ndis.dat | Alex Taylor [anathema] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/1-4cyli.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/1-4cylo.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/1-4edge.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/1-4ndis.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/2-4cyli.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/2-4cylo.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/2-4edge.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/2-4ndis.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/3-8chrd.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/3-8cyli.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/3-8cylo.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/3-8edge.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/4-4cyli.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/4-4cylo.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/4-4edge.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/8/4-4ndis.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axl3hole.dat | J.C. Tchang [tchang] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axl5ho10.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axl5hol8.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axl5hol9.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axleend2.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axlehol2.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axlehol5.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axlehol8.dat | Steve Bliss [sbliss] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/axlehole.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/beamhole.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box2-5.dat | Steffen [Steffen] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box2-7.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box2-9p.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box3u2p.dat | Niels Karsdorp [nielsk] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box3u4a.dat | Niels Karsdorp [nielsk] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box3u5p.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box4-1.dat | Tore Eriksson [Tore_Eriksson] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box4-4a.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box4.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/box5.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/confric5.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/confric6.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/confric8.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/connhol2.dat | Santeri Piippo [arezey] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/connhol3.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/connhole.dat | Magnus Forsberg [MagFors] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/empty.dat | Steffen [Steffen] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghol10.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghol19.dat | Max Murtazin [SwampKryakwa] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghol2.dat | Orion Pobursky [OrionP] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghol7.dat | Max Murtazin [SwampKryakwa] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghol7a.dat | Max Murtazin [SwampKryakwa] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghol8.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghol9.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/npeghole.dat | Max Murtazin [SwampKryakwa] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/peghole.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/peghole5.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/rect.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+p/rect1.dat | Chris Dee [cwdee] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/rect2a.dat | Chris Dee [cwdee] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/rect2p.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/rect3.dat | Mark Kennedy [mkennedy] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/t01o3571.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/tooth24.dat | Willy Tschager [Holly-Wood] | Licensed under CC BY 4.0 : see CAreadme.txt
+p/tooth40.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/23807.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/2780.dat | Guy Vivan [guyvivan] | Licensed under CC BY 2.0 and CC BY 4.0 : see CAreadme.txt
+parts/32278.dat | Ishino Keiichiro | Licensed under CC BY 2.0 and CC BY 4.0 : see CAreadme.txt
+parts/32523.dat | Tim Gould [timgould] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/32524.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/32525.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/32526.dat | Jonathan P. Brown | Licensed under CC BY 2.0 and CC BY 4.0 : see CAreadme.txt
+parts/3648.dat | [PTadmin] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/3648b.dat | Remco Braak [remco1974] | Licensed under CC BY 2.0 and CC BY 4.0 : see CAreadme.txt
+parts/3649.dat | Adriano Aicardi | Licensed under CC BY 2.0 and CC BY 4.0 : see CAreadme.txt
+parts/3706.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/41896.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/41896c01.dat | Steffen [Steffen] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/41897.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/45601.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/54675.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/54696.dat | [PTadmin] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/54696p01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/64179.dat | Santeri Piippo [arezey] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/6558.dat | James Jessiman | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/12787s01.dat | J.C. Tchang [tchang] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/12787s02.dat | J.C. Tchang [tchang] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/23816s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/32523s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/32526s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/3648s01.dat | Lance Hopenwasser [cavehop] | Licensed under CC BY 2.0 and CC BY 4.0 : see CAreadme.txt
+parts/s/3648s02.dat | Lance Hopenwasser [cavehop] | Licensed under CC BY 2.0 and CC BY 4.0 : see CAreadme.txt
+parts/s/3648s03.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/3649s01.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/3649s02.dat | Donald Sutter [technog] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/41896s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/41897s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/64179s01.dat | Santeri Piippo [arezey] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9363s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9363s02.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9364s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9365s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9365s02.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9366s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9367s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9368s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9390s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9393s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9393s02.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9402s01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/s/u9402s02.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9265.dat | Max Martin Richter [MMR1988] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9320.dat | [PTadmin] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9363.dat | [PTadmin] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9363p01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9364.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9364c01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9365.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9366.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9367.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9367c01.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9368.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9390.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9391.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9393.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9394.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9395.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9396.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9397.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9398.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9401.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9402.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9471.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
+parts/u9474.dat | Philippe Hurbain [Philo] | Licensed under CC BY 4.0 : see CAreadme.txt
