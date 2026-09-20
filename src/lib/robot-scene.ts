@@ -323,11 +323,13 @@ export async function createRobotScene(
       0,
     );
     robot.position.set(0, isMobile ? -0.4 : 0, 0);
+    // Centre the long attachment on the turntable, including its extracted pose.
+    content.position.z = 1.1 + open * 0.75;
     // Reserve room for the long attachment throughout the complete rotation.
     const desktopFit = Math.min(1, host.clientWidth / host.clientHeight / 1.5);
     const scale = isMobile
-      ? 0.66 - open * 0.24 - Math.sin(open * Math.PI) * 0.02
-      : (0.73 - smooth(0.12, 0.36, open) * 0.18 - smooth(0.7, 1, open) * 0.04) *
+      ? 0.56 - smooth(0, 0.18, open) * 0.16 - smooth(0.7, 1, open) * 0.04
+      : (0.62 - smooth(0, 0.18, open) * 0.17 - smooth(0.7, 1, open) * 0.05) *
         desktopFit;
     robot.scale.setScalar(scale);
     const base = units.find((unit) => unit.node.name === "01_Chassis");

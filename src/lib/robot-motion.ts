@@ -14,10 +14,10 @@ export function robotUnitPose(
 ) {
   let offset: [number, number, number];
   const tilt = smooth(0.9, 1, progress);
-  if (name === "11_Transmission") {
-    // Withdraw the shaft from its mounting frame before lifting the gears.
-    const withdraw = smooth(0, 0.16, progress);
-    const lift = smooth(0.16, 0.35, progress);
+  if (name === "11_Rack_arm") {
+    // Slide the rack out of its guides before removing the surrounding cassette.
+    const withdraw = smooth(0, 0.18, progress);
+    const lift = smooth(0.2, 0.4, progress);
     offset = [
       explosion[0] * lift,
       explosion[1] * lift,
@@ -26,8 +26,8 @@ export function robotUnitPose(
   } else if (name === "06_SPIKE_hub" || name === "10_Attachment") {
     const lift =
       name === "06_SPIKE_hub"
-        ? smooth(0, 0.28, progress)
-        : smooth(0.18, 0.4, progress);
+        ? smooth(0.3, 0.48, progress)
+        : smooth(0.18, 0.38, progress);
     const spread = smooth(0.5, 0.8, progress);
     offset = [
       explosion[0] * spread,
@@ -36,7 +36,7 @@ export function robotUnitPose(
     ];
   } else if (name.includes("chassis") || name.includes("frame")) {
     // Clear the enclosure before the wheel and motor assemblies move.
-    const spread = smooth(0.4, 0.6, progress);
+    const spread = smooth(0.52, 0.7, progress);
     const lift = smooth(0.72, 0.84, progress);
     offset = [
       explosion[0] * spread,
