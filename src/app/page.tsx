@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import RobotExperience from "@/components/RobotExperience";
 import styles from "./page.module.css";
 
@@ -10,15 +11,18 @@ export default function Home() {
       </a>
       <header className={styles.header}>
         <Link href="/" className={styles.brand} aria-label="ConnecTech home">
-          <span className={styles.brandMark} aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <i />
-          </span>
+          <Image
+            className={styles.brandLogo}
+            src="/images/logo.png"
+            width={58}
+            height={60}
+            alt=""
+            priority
+            sizes="58px"
+          />
           <span>
-            connec<span className={styles.brandLight}>tech</span>
-            <small>TEAM 27757</small>
+            Connec<span className={styles.brandAccent}>Tech</span>
+            <small>27757 / BAYVIEW GLEN</small>
           </span>
         </Link>
         <nav className={styles.seasons} aria-label="Explore our seasons">
@@ -50,7 +54,7 @@ export default function Home() {
       >
         <div className={styles.copy}>
           <p className={styles.eyebrow}>
-            <span className={styles.liveDot} /> A NEW SEASON IS TAKING SHAPE
+            <span className={styles.liveDot} /> CONNECTECH / A NEW SEASON
           </p>
           <h1 id="hero-title">
             Small bricks.
@@ -147,7 +151,14 @@ export default function Home() {
             </span>
           </a>
           <div className={styles.consultName}>
-            <span aria-hidden="true">C↗</span>
+            <Image
+              className={styles.consultLogo}
+              src="/images/logo.png"
+              width={44}
+              height={46}
+              alt=""
+              sizes="44px"
+            />
             <div>
               ConnecTech Consult<small>FREE GUIDANCE FOR NEW FLL TEAMS</small>
             </div>
@@ -192,9 +203,23 @@ export default function Home() {
         </div>
       </section>
       <footer className={styles.footer}>
-        <span>
-          CONNECTECH #27757 <span className={styles.muted}>/ BAYVIEW GLEN</span>
-        </span>
+        <Link
+          href="/"
+          className={styles.footerBrand}
+          aria-label="ConnecTech home"
+        >
+          <Image
+            src="/images/logo.png"
+            width={39}
+            height={40}
+            alt=""
+            sizes="39px"
+          />
+          <span>
+            ConnecTech <span className={styles.brandAccent}>27757</span>
+            <small>BAYVIEW GLEN / TORONTO</small>
+          </span>
+        </Link>
         <span className={styles.footerNote}>Photo-inspired robot concept</span>
         <a href="/models/credits.txt" target="_blank" rel="noreferrer">
           3D credits ↗

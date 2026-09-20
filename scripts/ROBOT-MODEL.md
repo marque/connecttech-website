@@ -14,18 +14,27 @@ Run from the repository root:
 npm ci
 node scripts/build-robot-model.mjs /absolute/path/to/ldraw/library
 node scripts/optimize-robot.mjs
+npm run check:robot
 ```
 
-The first script builds eleven independently movable groups, merges geometry by material, indexes vertices and exports glTF. The second compresses it using Meshopt. Runtime decoding uses the decoder bundled with Three.js. Generated output is `public/models/connectech-concept.glb`, approximately 1.6 MB, with 413,520 triangles. Preserve the extras on the assembly groups because they contain explosion offsets and rotations.
+The first script builds eleven independently movable groups, merges geometry by material, indexes vertices and exports glTF. The second compresses it using Meshopt. Runtime decoding uses the decoder bundled with Three.js. Generated output is `public/models/connectech-concept.glb`, approximately 1.6 MB, with 395,986 triangles. Preserve the extras on the assembly groups because they contain explosion offsets and rotations.
 
 `public/models/credits.txt` records the accessed source files, authors, licenses and modifications. LDraw geometry is reused under CC BY 4.0, including attribution. 
 
 ## Runtime
 
-`src/lib/robot-scene.ts` provides lazy-loaded Three.js rendering, studio reflections, shadows, desktop ambient occlusion, native-scroll poses and resource cleanup. Phone rendering uses a smaller composition and skips the ambient-occlusion pass. Rendering stops when the pose is still or the document is hidden. Reduced-motion users see an assembled model with section placement changes. The motion button freezes the current pose, including during scrolling.
+`src/lib/robot-scene.ts` provides lazy-loaded Three.js rendering, studio reflections, shadows, desktop ambient occlusion, native-scroll poses and resource cleanup. Phone rendering uses a smaller composition and skips the ambient-occlusion pass. Rendering stops when the pose is still or the document is hidden. Reduced-motion users see an assembled model with section placement changes. The motion button freezes the articulated pose. Section placement still changes discretely while paused to keep the text readable.
+
+`src/lib/robot-motion.ts` defines a reversible staged extraction path: withdraw the gear shaft, lift the hub and attachment, clear the outer panels, withdraw the wheel axles, then tilt the separated assemblies around their own centres. The chassis lowers slightly and the shadow floor follows its clearance.
+
+`npm run check:robot` uses Node.js 22.18+ (native TypeScript support). The surface check rejects overlapping same-facing, axis-aligned black/yellow faces in the compressed asset. The mesh-BVH check samples 201 poses using the runtime path and checks triangles between all eleven assemblies. Initial shaft/socket contacts may withdraw; new intersections, re-entry after separation and contacts at the fully separated pose fail. This is sampled visual clearance, not continuous collision detection or mechanical validation.
 
 The HTML remains readable before JavaScript loads. A quiet CSS motif covers loading and WebGL failure. `/unearthed` retains the original season site. External campaign and school links are real; the consultation email is visibly a placeholder with no send action.
 
 ## Review deployment
 
 Use the separately linked `tossww/connectech-bioglow-preview` review project, following the parent website handoff README. Do not deploy this feature branch to the existing live domain or push without user instruction.
+
+## Brand treatment
+
+BIOGLOW reuses the existing `/images/logo.png` chain-link team badge without redrawing or recolouring it. ConnecTech yellow `#f5c518` from the existing global theme is the primary interface accent, with charcoal, warm white and restrained BIOGLOW green. Header, Consult identity and footer retain the real team badge; the season archive keeps its existing styling.

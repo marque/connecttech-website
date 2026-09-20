@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:robot": "node scripts/check-robot-surfaces.mjs && node scripts/check-robot-motion.mjs"
   },
   "dependencies": {
     "next": "^16.3.5",
@@ -27,6 +28,7 @@
     "eslint-config-next": "^16.3.5",
     "meshoptimizer": "^1.2.0",
     "tailwindcss": "^4",
+    "three-mesh-bvh": "^0.9.15",
     "typescript": "^5"
   }
 }

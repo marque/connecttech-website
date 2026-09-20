@@ -150,17 +150,18 @@ const black = "#141819",
   blue = "#176be8",
   grey = "#989e9e";
 const pi = Math.PI;
-const base = unit("01_Chassis", [0, -120, 0]);
+const base = unit("01_Chassis", [0, -25, 0]);
 for (const x of [-100, 0, 100])
-  part(base, "64179", [x, 0, 0], [0, 0, 0], black);
+  part(base, "64179", [x, -21, 0], [0, 0, 0], black);
 for (const z of [-140, 140])
-  part(base, "32278", [0, 0, z], [0, pi / 2, 0], yellow);
+  for (const x of [-70, 70])
+    part(base, "32524", [x, 0, z], [0, pi / 2, 0], yellow);
 for (const x of [-150, 150]) part(base, "32278", [x, 0, 0], [0, 0, 0], yellow);
 // Four independently removable, layered protective panels echo the reference robot.
 for (const side of [-1, 1]) {
   const wall = unit(
     side < 0 ? "02_Left_chassis" : "03_Right_chassis",
-    [side * 180, 25, 0],
+    [side * 245, 25, 0],
     [0, 0, side * 0.1],
   );
   for (let layer = 1; layer <= 7; layer++)
@@ -175,22 +176,24 @@ for (const side of [-1, 1]) {
     part(wall, "6558", [side * 150, 120, z], [0, 0, pi / 2], blue);
   const end = unit(
     side < 0 ? "04_Front_frame" : "05_Rear_frame",
-    [0, 15, side * 175],
+    [0, 15, side * 225],
     [side * -0.08, 0, 0],
   );
+  // Shorter paired beams stop inside the side panels instead of intersecting corners.
   for (let layer = 1; layer <= 7; layer++)
-    part(
-      end,
-      "32278",
-      [0, layer * 20, side * 150],
-      [0, pi / 2, 0],
-      layer % 2 ? black : yellow,
-    );
-  for (const x of [-140, -100, -40, 40, 100, 140])
+    for (const x of [-70, 70])
+      part(
+        end,
+        "32524",
+        [x, layer * 20, side * 150],
+        [0, pi / 2, 0],
+        layer % 2 ? black : yellow,
+      );
+  for (const x of [-130, -90, -30, 30, 90, 130])
     part(end, "6558", [x, 120, side * 150], [0, 0, pi / 2], blue);
 }
-const hub = unit("06_SPIKE_hub", [0, 205, 45], [0.08, 0.08, 0]);
-part(hub, "45601", [0, 105, 55], [0, pi / 2, 0]);
+const hub = unit("06_SPIKE_hub", [0, 255, 0], [0.08, 0.08, 0]);
+part(hub, "45601", [0, 151, 55], [0, pi / 2, 0]);
 const led = new THREE.MeshStandardMaterial({
   name: "Concept LED pixels",
   color: "#e4ffc1",
@@ -209,41 +212,43 @@ for (const [row, line] of [
     if (line[col] === "1") {
       const dot = new THREE.Mesh(new THREE.CircleGeometry(2.2, 12), led);
       dot.rotation.x = -pi / 2;
-      dot.position.set((row - 2) * 15, 185.3, 55 + (col - 2) * 15);
+      dot.position.set((row - 2) * 15, 231.3, 55 + (col - 2) * 15);
       hub.add(dot);
     }
   }
 
 const drive = unit("07_Motor_core", [0, 40, -10]);
-for (const x of [-63, 63]) part(drive, "54675", [x, 92, 65], [0, 0, 0]);
-for (const x of [-110, 110])
-  part(drive, "32525", [x, 128, 0], [0, 0, 0], black);
+for (const x of [-38, 38]) part(drive, "54696", [x, 50, 65], [0, 0, 0]);
+for (const x of [-120, 120])
+  part(drive, "32525", [x, 165, 0], [0, 0, 0], black);
 for (const side of [-1, 1]) {
   const wheel = unit(
     side < 0 ? "08_Left_drive" : "09_Right_drive",
-    [side * 215, -65, -20],
+    [side * 170, -45, 0],
     [0, 0, side * 0.18],
   );
-  part(wheel, "41896c01", [side * 105, 55, 20], [0, pi / 2, 0], grey);
-  part(wheel, "3706", [side * 70, 55, 20], [0, 0, 0], grey);
+  part(wheel, "41896c01", [side * 105, 75, 20], [0, pi / 2, 0], grey);
+  part(wheel, "3706", [side * 70, 75, 20], [0, 0, 0], grey);
 }
-const tool = unit("10_Attachment", [-50, 65, -80], [-0.13, 0, 0]);
-const transmission = unit("11_Transmission", [20, 195, -165], [0.1, 0.08, 0]);
+const tool = unit("10_Attachment", [-40, 215, -90], [-0.13, 0, 0]);
+const transmission = unit("11_Transmission", [30, 350, -125], [0.1, 0.08, 0]);
+tool.position.y = 11;
+transmission.position.y = 11;
 for (const x of [-80, 80]) {
   part(tool, "32524", [x, 155, -125], [0, 0, 0], black);
-  part(tool, "32524", [x, 175, -125], [0, 0, 0], yellow);
+  part(tool, "32524", [x, 176, -125], [0, 0, 0], yellow);
   part(tool, "6558", [x, 157, -85], [0, 0, pi / 2], blue);
-  part(tool, "32523", [x, 195, -145], [pi / 2, 0, 0], black);
+  part(tool, "32523", [x, 216, -145], [pi / 2, 0, 0], black);
 }
 part(tool, "64179", [0, 185, -95], [pi / 2, 0, 0], grey);
 part(transmission, "3706", [0, 207, -100], [0, pi / 2, 0], grey);
-part(transmission, "3649", [0, 207, -105], [0, 0, 0], grey);
-part(transmission, "3648", [62, 170, -110], [0, 0, 0], black);
+part(transmission, "3649", [0, 207, -117], [0, 0, 0], grey);
+part(transmission, "3648", [75, 196, -117], [0, 0, 0], black);
 for (const x of [-40, 40])
   part(tool, "32525", [x, 150, -210], [0, 0, 0], black);
-part(tool, "32525", [0, 150, -300], [0, pi / 2, 0], yellow);
-for (const x of [-100, 100])
-  part(tool, "6558", [x, 130, -300], [0, 0, pi / 2], blue);
+part(tool, "32525", [0, 172, -300], [0, pi / 2, 0], yellow);
+for (const x of [-40, 40])
+  part(tool, "6558", [x, 152, -300], [0, 0, pi / 2], blue);
 // Merge by material inside each animated unit, then index vertices for a compact payload.
 const final = new THREE.Group();
 final.name = root.name;

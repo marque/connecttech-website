@@ -5,11 +5,12 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+import { robotUnitPose } from "./robot-motion";
 
 type Unit = {
   node: THREE.Object3D;
-  explode: THREE.Vector3;
-  turn: THREE.Vector3;
+  explode: [number, number, number];
+  turn: [number, number, number];
   anchor: THREE.Vector3;
   guide: THREE.Line;
 };
@@ -40,7 +41,7 @@ export async function createRobotScene(
     Math.min(window.devicePixelRatio, mobile() ? 1.5 : 1.75),
   );
   renderer.setSize(host.clientWidth, host.clientHeight);
-  renderer.setClearColor(0x080c0c, 0);
+  renderer.setClearColor(0x0c0d0e, 0);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.15;
   renderer.shadowMap.enabled = true;
@@ -56,7 +57,7 @@ export async function createRobotScene(
   camera.position.set(6, 4.7, 7.8);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const room = new THREE.Scene();
-  room.background = new THREE.Color("#121b1a");
+  room.background = new THREE.Color("#191b18");
   for (const [position, size, strength] of [
     [[-4, 5, 3], [4, 5, 1], 5],
     [[4, 3, -4], [2, 6, 1], 7],
@@ -122,7 +123,7 @@ export async function createRobotScene(
     const ring = new THREE.Mesh(
       new THREE.TorusGeometry(radius, 0.003, 4, 160),
       new THREE.MeshBasicMaterial({
-        color: 0x91a98b,
+        color: 0xf5c518,
         transparent: true,
         opacity: radius === 2.9 ? 0.25 : 0.08,
       }),
@@ -148,15 +149,22 @@ export async function createRobotScene(
       }
     });
     const assembly = model.children.length === 1 ? model.children[0] : model;
-    for (const node of assembly.children) {
+    for (const node of [...assembly.children]) {
       if (node.userData.explosion) {
         const anchor = new THREE.Box3()
           .setFromObject(node)
           .getCenter(new THREE.Vector3());
+        // Rotate each assembly around its own centre after extraction.
+        const pivot = new THREE.Group();
+        pivot.name = node.name;
+        pivot.position.copy(anchor);
+        node.position.sub(anchor);
+        pivot.add(node);
+        assembly.add(pivot);
         const guide = new THREE.Line(
           new THREE.BufferGeometry().setFromPoints([anchor, anchor]),
           new THREE.LineBasicMaterial({
-            color: 0xc7e1ba,
+            color: 0xf5c518,
             transparent: true,
             opacity: 0,
             depthWrite: false,
@@ -164,13 +172,9 @@ export async function createRobotScene(
         );
         content.add(guide);
         units.push({
-          node,
-          explode: new THREE.Vector3(
-            ...(node.userData.explosion as [number, number, number]),
-          ),
-          turn: new THREE.Vector3(
-            ...(node.userData.turn as [number, number, number]),
-          ),
+          node: pivot,
+          explode: node.userData.explosion as [number, number, number],
+          turn: node.userData.turn as [number, number, number],
           anchor,
           guide,
         });
@@ -215,6 +219,7 @@ export async function createRobotScene(
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const scroll = () => {
     const page = document.getElementById("bioglow");
+    dirty = true;
     if (page)
       target = clamp(
         window.scrollY / (page.offsetHeight - window.innerHeight),
@@ -259,11 +264,13 @@ export async function createRobotScene(
     const open = reduce.matches
       ? 0
       : smooth(0.1, 0.32, progress) * (1 - smooth(0.55, 0.78, progress));
-    const shift = reduce.matches
-      ? progress > 0.18 && progress < 0.5
-        ? 1
-        : 0
-      : smooth(0.12, 0.3, progress) * (1 - smooth(0.47, 0.65, progress));
+    // Pausing freezes articulation, but section placement must keep copy readable.
+    const shift =
+      reduce.matches || paused()
+        ? target > 0.18 && target < 0.5
+          ? 1
+          : 0
+        : smooth(0.12, 0.3, progress) * (1 - smooth(0.47, 0.65, progress));
     const end = smooth(0.78, 0.97, progress);
     const isMobile = mobile();
     if (!dirty && (paused() || Math.abs(progress - lastPose) < 0.00005)) return;
@@ -271,18 +278,20 @@ export async function createRobotScene(
     lastPose = progress;
     for (const unit of units) {
       const amount = reduce.matches ? 0 : open;
-      unit.node.position.copy(unit.explode).multiplyScalar(amount);
-      unit.node.rotation.set(
-        unit.turn.x * amount,
-        unit.turn.y * amount,
-        unit.turn.z * amount,
+      const pose = robotUnitPose(
+        unit.node.name,
+        amount,
+        unit.explode,
+        unit.turn,
       );
+      unit.node.position.set(...pose.offset).add(unit.anchor);
+      unit.node.rotation.set(...pose.rotation);
       const points = unit.guide.geometry.attributes.position;
       points.setXYZ(
         1,
-        unit.anchor.x + unit.explode.x * amount,
-        unit.anchor.y + unit.explode.y * amount,
-        unit.anchor.z + unit.explode.z * amount,
+        unit.node.position.x,
+        unit.node.position.y,
+        unit.node.position.z,
       );
       points.needsUpdate = true;
       (unit.guide.material as THREE.LineBasicMaterial).opacity = amount * 0.12;
@@ -301,6 +310,14 @@ export async function createRobotScene(
     robot.position.set(0, isMobile ? -0.4 : 0, 0);
     const scale = isMobile ? 0.8 - open * 0.38 : 0.9 - open * 0.39;
     robot.scale.setScalar(scale);
+    const base = units.find((unit) => unit.node.name === "01_Chassis");
+    const baseDrop = base ? base.node.position.y - base.anchor.y : 0;
+    floor.position.y =
+      (content.position.y + (-31 + baseDrop) * 0.012) * scale +
+      robot.position.y -
+      0.06;
+    grid.position.y = floor.position.y + 0.005;
+    orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
       ? 17.5 * Math.max(1, host.clientHeight / host.clientWidth / 1.85)
       : 12;
