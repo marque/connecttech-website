@@ -212,8 +212,9 @@ export async function createRobotScene(
   let frame = 0,
     target = 0,
     progress = 0,
+    turntableAngle = 0,
     lastTime = 0,
-    visible = true,
+    visible = !document.hidden,
     dirty = true,
     lastPose = -1;
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -242,6 +243,7 @@ export async function createRobotScene(
   observe.observe(host);
   const onVisibility = () => {
     visible = !document.hidden;
+    lastTime = 0;
     dirty = true;
   };
   const onMotionPreference = () => {
@@ -255,9 +257,16 @@ export async function createRobotScene(
   const render = (time: number) => {
     frame = requestAnimationFrame(render);
     if (!visible) return;
-    const delta = Math.min((time - lastTime) / 1000, 0.05);
+    const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
-    if (!paused())
+    const motionPaused = paused();
+    const autoRotating = !motionPaused && !reduce.matches;
+    if (autoRotating) {
+      // A 40-second turntable reveals every angle even when scrolling stops.
+      turntableAngle =
+        (turntableAngle + (delta * Math.PI * 2) / 40) % (Math.PI * 2);
+    }
+    if (!motionPaused)
       progress = reduce.matches
         ? target
         : THREE.MathUtils.damp(progress, target, 7, delta);
@@ -266,14 +275,19 @@ export async function createRobotScene(
       : smooth(0.1, 0.32, progress) * (1 - smooth(0.55, 0.78, progress));
     // Pausing freezes articulation, but section placement must keep copy readable.
     const shift =
-      reduce.matches || paused()
+      reduce.matches || motionPaused
         ? target > 0.18 && target < 0.5
           ? 1
           : 0
         : smooth(0.12, 0.3, progress) * (1 - smooth(0.47, 0.65, progress));
     const end = smooth(0.78, 0.97, progress);
     const isMobile = mobile();
-    if (!dirty && (paused() || Math.abs(progress - lastPose) < 0.00005)) return;
+    if (
+      !dirty &&
+      !autoRotating &&
+      (motionPaused || Math.abs(progress - lastPose) < 0.00005)
+    )
+      return;
     dirty = false;
     lastPose = progress;
     for (const unit of units) {
@@ -304,11 +318,17 @@ export async function createRobotScene(
         : -0.2 -
             smooth(0, 0.32, progress) * 1.15 +
             smooth(0.42, 0.78, progress) * 2.5 +
-            end * 0.2,
+            end * 0.2 +
+            turntableAngle,
       0,
     );
     robot.position.set(0, isMobile ? -0.4 : 0, 0);
-    const scale = isMobile ? 0.8 - open * 0.38 : 0.9 - open * 0.39;
+    // Reserve room for the long attachment throughout the complete rotation.
+    const desktopFit = Math.min(1, host.clientWidth / host.clientHeight / 1.5);
+    const scale = isMobile
+      ? 0.66 - open * 0.24 - Math.sin(open * Math.PI) * 0.02
+      : (0.73 - smooth(0.12, 0.36, open) * 0.18 - smooth(0.7, 1, open) * 0.04) *
+        desktopFit;
     robot.scale.setScalar(scale);
     const base = units.find((unit) => unit.node.name === "01_Chassis");
     const baseDrop = base ? base.node.position.y - base.anchor.y : 0;
@@ -337,7 +357,7 @@ export async function createRobotScene(
       camera.setViewOffset(
         host.clientWidth,
         host.clientHeight,
-        -host.clientWidth * (0.24 - shift * 0.51),
+        -host.clientWidth * (0.215 - shift * 0.445),
         0,
         host.clientWidth,
         host.clientHeight,

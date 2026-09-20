@@ -23,7 +23,7 @@ The first script builds eleven independently movable groups, merges geometry by 
 
 ## Runtime
 
-`src/lib/robot-scene.ts` provides lazy-loaded Three.js rendering, studio reflections, shadows, desktop ambient occlusion, native-scroll poses and resource cleanup. Phone rendering uses a smaller composition and skips the ambient-occlusion pass. Rendering stops when the pose is still or the document is hidden. Reduced-motion users see an assembled model with section placement changes. The motion button freezes the articulated pose. Section placement still changes discretely while paused to keep the text readable.
+`src/lib/robot-scene.ts` provides lazy-loaded Three.js rendering, studio reflections, shadows, desktop ambient occlusion, native-scroll poses and resource cleanup. Phone rendering uses a smaller composition and skips the ambient-occlusion pass. The whole robot continues a slow 40-second revolution while the page is visible, including when scrolling stops. The turntable pauses with the motion button and stops while the document is hidden. Reduced-motion preferences disable automatic rotation. Reduced-motion users see an assembled model with section placement changes. The motion button freezes the articulated pose. Section placement still changes discretely while paused to keep the text readable.
 
 `src/lib/robot-motion.ts` defines a reversible staged extraction path: withdraw the gear shaft, lift the hub and attachment, clear the outer panels, withdraw the wheel axles, then tilt the separated assemblies around their own centres. The chassis lowers slightly and the shadow floor follows its clearance.
 
