@@ -13,12 +13,12 @@ export default function Home() {
         <Link href="/" className={styles.brand} aria-label="ConnecTech home">
           <Image
             className={styles.brandLogo}
-            src="/images/logo.png"
+            src="/images/brand/connectech-mark.png"
             width={58}
-            height={60}
+            height={58}
             alt=""
             priority
-            sizes="58px"
+            sizes="(max-width: 700px) 35px, 58px"
           />
           <span>
             Connec<span className={styles.brandAccent}>Tech</span>
@@ -153,9 +153,9 @@ export default function Home() {
           <div className={styles.consultName}>
             <Image
               className={styles.consultLogo}
-              src="/images/logo.png"
+              src="/images/brand/connectech-mark.png"
               width={44}
-              height={46}
+              height={44}
               alt=""
               sizes="44px"
             />
@@ -168,14 +168,20 @@ export default function Home() {
             <li>Teamwork</li>
             <li>Ideas & innovation</li>
           </ul>
-          <div className={styles.comingSoon}>
+          <div className={styles.contactPrompt}>
             <span className={styles.liveDot} />
-            <strong>Getting ready to connect</strong>
-            <span>Details coming soon</span>
+            <strong>Have a question? Ask our team.</strong>
           </div>
+          <a
+            className={styles.contactEmail}
+            href="mailto:connectech27757@gmail.com?subject=ConnecTech%20Consult"
+          >
+            <span>connectech27757@gmail.com</span>
+            <span aria-hidden="true">↗</span>
+          </a>
           <p className={styles.contactNote}>
-            Contact details are being confirmed.{" "}
-            <span>consult@example.com</span> is a placeholder.
+            Send us your questions about building, coding, teamwork or getting
+            your FLL team started. Our guidance is free.
           </p>
         </div>
       </section>
@@ -209,11 +215,11 @@ export default function Home() {
           aria-label="ConnecTech home"
         >
           <Image
-            src="/images/logo.png"
-            width={39}
-            height={40}
+            src="/images/brand/connectech-badge.png"
+            width={56}
+            height={56}
             alt=""
-            sizes="39px"
+            sizes="56px"
           />
           <span>
             ConnecTech <span className={styles.brandAccent}>27757</span>

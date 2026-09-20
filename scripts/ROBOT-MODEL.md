@@ -29,7 +29,7 @@ The first script builds eleven independently movable groups, merges geometry by 
 
 `npm run check:robot` uses Node.js 22.18+ (native TypeScript support). The surface check rejects overlapping same-facing, axis-aligned black/yellow faces in the compressed asset. The mesh-BVH check samples 201 poses using the runtime path and checks triangles between all eleven assemblies. Initial shaft/socket contacts may withdraw; new intersections, re-entry after separation and contacts at the fully separated pose fail. This is sampled visual clearance, not continuous collision detection or mechanical validation.
 
-The HTML remains readable before JavaScript loads. A quiet CSS motif covers loading and WebGL failure. `/unearthed` retains the original season site. External campaign and school links are real; the consultation email is visibly a placeholder with no send action.
+The HTML remains readable before JavaScript loads. A quiet CSS motif covers loading and WebGL failure. `/unearthed` retains the original season site. External campaign and school links are real. ConnecTech Consult invites questions through the user-confirmed public team address `connectech27757@gmail.com`, linked with `mailto:`.
 
 ## Review deployment
 
@@ -37,4 +37,4 @@ Use the separately linked `tossww/connectech-bioglow-preview` review project, fo
 
 ## Brand treatment
 
-BIOGLOW reuses the existing `/images/logo.png` chain-link team badge without redrawing or recolouring it. ConnecTech yellow `#f5c518` from the existing global theme is the primary interface accent, with charcoal, warm white and restrained BIOGLOW green. Header, Consult identity and footer retain the real team badge; the season archive keeps its existing styling.
+BIOGLOW uses a cleaned high-resolution version of Steven's latest circular ConnecTech badge. The header and Consult use a simplified chain mark beside live team text; the footer uses the complete badge with CONNECTECH and 27757. See `BRAND-ASSETS.md` for provenance and exact generation prompts. ConnecTech yellow `#f5c518` is the primary interface accent, with charcoal, warm white and restrained BIOGLOW green. The season archive retains the original `/images/logo.png` and its existing styling.
