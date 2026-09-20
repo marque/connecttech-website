@@ -52,7 +52,7 @@ export default function RobotExperience() {
         <div
           ref={mount}
           role="group"
-          aria-label="3D robot. Drag left or right to rotate, or use the left and right arrow keys when focused."
+          aria-label="3D robot. Drag anywhere in this view left or right to rotate, or use the left and right arrow keys when focused."
           tabIndex={status === "ready" ? 0 : -1}
           onKeyDown={(event) => {
             const arrows: Record<string, number> = {
@@ -84,7 +84,7 @@ export default function RobotExperience() {
       </div>
       <div className={styles.controls}>
         <span className={styles.sceneLabel}>
-          <i /> <span>{manual ? "DRAG TO ROTATE · RELEASE TO SPIN" : "DRAG ROBOT TO ROTATE"}</span>
+          <i /> <span>{manual ? "DRAG TO ROTATE · RELEASE TO SPIN" : "DRAG ANYWHERE TO ROTATE"}</span>
         </span>
         {status === "ready" && (
           <button

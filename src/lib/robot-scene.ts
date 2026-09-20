@@ -234,8 +234,6 @@ export async function createRobotScene(
   let manual = false,
     manualYaw = 0;
   let pointer: { id: number; x: number; y: number; moved: boolean; touch: boolean } | null = null;
-  const raycaster = new THREE.Raycaster();
-  const pointerPosition = new THREE.Vector2();
   const automaticYaw = () =>
     reduce.matches ? -0.2 : -0.2 - smooth(0, 0.32, progress) * 1.15 +
       smooth(0.42, 0.78, progress) * 2.5 + smooth(0.78, 0.97, progress) * 0.2;
@@ -265,14 +263,8 @@ export async function createRobotScene(
   };
   const pointerDown = (event: PointerEvent) => {
     if (pointer || !event.isPrimary || event.button !== 0) return;
-    const rect = renderer.domElement.getBoundingClientRect();
-    pointerPosition.set(
-      ((event.clientX - rect.left) / rect.width) * 2 - 1,
-      -((event.clientY - rect.top) / rect.height) * 2 + 1,
-    );
-    raycaster.setFromCamera(pointerPosition, camera);
-    // Only the robot starts a drag; empty space and page links keep normal behavior.
-    if (!raycaster.intersectObject(model, true).length) return;
+    // The whole canvas is a drag surface, including the space between assemblies.
+    // HTML links and controls sit above it and retain their own pointer events.
     pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, touch: event.pointerType === "touch" };
     renderer.domElement.setPointerCapture(event.pointerId);
     host.style.cursor = "grabbing";
@@ -304,7 +296,7 @@ export async function createRobotScene(
     dirty = true;
     if (page)
       target = clamp(
-        window.scrollY / (page.offsetHeight - window.innerHeight),
+        window.scrollY / Math.max(1, page.offsetHeight - window.innerHeight),
         0,
         1,
       );
@@ -348,10 +340,9 @@ export async function createRobotScene(
       turntableAngle =
         (turntableAngle + (delta * Math.PI * 2) / 40) % (Math.PI * 2);
     }
-    if (!motionPaused)
-      progress = reduce.matches
-        ? target
-        : THREE.MathUtils.damp(progress, target, 7, delta);
+    // Scrub directly from scroll position. Time-based damping causes the parts
+    // to chase the scrollbar and keep moving after the user has stopped.
+    if (!motionPaused) progress = target;
     const open = reduce.matches
       ? 0
       : smooth(0.1, 0.32, progress) * (1 - smooth(0.55, 0.78, progress));
