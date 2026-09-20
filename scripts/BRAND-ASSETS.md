@@ -4,7 +4,7 @@ September 20, 2026. Steven supplied a circular badge reference and requested a h
 
 Generated with built-in imagegen, reference-guided editing mode. Both delivered files are 1254 × 1254 RGBA PNGs with transparency outside the badge. These are raster masters with crisp graphic styling, not vector artwork. Keep both originals in `public/images/brand/`:
 
-- `connectech-badge.png`: complete circular badge, CONNECTECH and 27757. Steven selected this full badge for the BIOGLOW header, Consult and footer in his September 20, 5:32 PM screenshot. All three display it rotated 45 degrees clockwise using CSS; the original master is unchanged. UNEARTHED retains its original artwork.
+- `connectech-badge.png`: complete circular badge, CONNECTECH and 27757. Steven selected this full badge for the BIOGLOW header, Consult and footer in his September 20, 5:32 PM screenshot. Steven then clarified that the chain itself should rise approximately 45 degrees to the right. All three use a 25-degree counterclockwise CSS turn, adding to the chain's existing roughly 20-degree rise inside the master. This supersedes the clockwise presentation; the original master is unchanged. UNEARTHED retains its original artwork.
 - `connectech-mark.png`: enlarged chain symbol with simplified vines and no small lettering. Retained as an alternate asset. The selected full badge now appears at 58 px (35 px mobile) in the header, alongside live ConnecTech and team-number text, and at 44 px in Consult.
 
 The source photograph is private reference material and is not part of the website. Colours preserve the supplied yellow, grey, near-black and green identity. Inspect at actual display size before making future changes.

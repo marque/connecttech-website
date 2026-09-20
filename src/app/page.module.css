@@ -67,7 +67,8 @@
 .brandLogo,
 .consultLogo,
 .footerBrand img {
-  transform: rotate(45deg);
+  /* The chain already rises about 20 degrees within the original badge. */
+  transform: rotate(-25deg);
   transform-origin: center;
 }
 .liveDot {

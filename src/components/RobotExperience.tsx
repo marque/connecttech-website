@@ -52,21 +52,20 @@ export default function RobotExperience() {
         <div
           ref={mount}
           role="group"
-          aria-label="3D robot. Drag to rotate, or use the arrow keys when focused."
+          aria-label="3D robot. Drag left or right to rotate, or use the left and right arrow keys when focused."
           tabIndex={status === "ready" ? 0 : -1}
           onKeyDown={(event) => {
-            const arrows: Record<string, [number, number]> = {
-              ArrowLeft: [-24, 0], ArrowRight: [24, 0],
-              ArrowUp: [0, -24], ArrowDown: [0, 24],
+            const arrows: Record<string, number> = {
+              ArrowLeft: -24, ArrowRight: 24,
             };
             const movement = arrows[event.key];
             if (movement) {
               event.preventDefault();
-              scene.current?.rotateBy(...movement);
+              scene.current?.rotateBy(movement);
             }
           }}
           onKeyUp={(event) => {
-            if (["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key))
+            if (["ArrowLeft", "ArrowRight"].includes(event.key))
               scene.current?.endInteraction();
           }}
           onBlur={() => scene.current?.endInteraction()}

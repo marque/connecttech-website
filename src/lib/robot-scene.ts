@@ -10,7 +10,7 @@ import { robotUnitPose } from "./robot-motion";
 export type RobotSceneHandle = {
   dispose: () => void;
   endInteraction: () => void;
-  rotateBy: (x: number, y: number) => void;
+  rotateBy: (x: number) => void;
 };
 
 const emptyHandle: RobotSceneHandle = {
@@ -232,25 +232,20 @@ export async function createRobotScene(
     dirty = true,
     lastPose = -1;
   let manual = false,
-    manualYaw = 0,
-    manualPitch = 0,
-    viewPitch = 0.03;
+    manualYaw = 0;
   let pointer: { id: number; x: number; y: number; moved: boolean; touch: boolean } | null = null;
   const raycaster = new THREE.Raycaster();
   const pointerPosition = new THREE.Vector2();
-  const robotBounds = new THREE.Box3();
   const automaticYaw = () =>
     reduce.matches ? -0.2 : -0.2 - smooth(0, 0.32, progress) * 1.15 +
       smooth(0.42, 0.78, progress) * 2.5 + smooth(0.78, 0.97, progress) * 0.2;
-  const rotateBy = (x: number, y: number) => {
+  const rotateBy = (x: number) => {
     if (!manual) {
       manual = true;
       manualYaw = robot.rotation.y;
-      manualPitch = robot.rotation.x;
       manualChanged(true);
     }
     manualYaw += x * 0.008;
-    manualPitch = clamp(manualPitch + y * 0.006, -0.65, 0.8);
     dirty = true;
   };
   const finishDrag = () => {
@@ -262,7 +257,6 @@ export async function createRobotScene(
     if (manual) {
       // Rebase the turntable at the released pose so rotation resumes without a snap.
       turntableAngle = manualYaw - automaticYaw();
-      viewPitch = manualPitch;
       manual = false;
       manualChanged(false);
     }
@@ -283,7 +277,7 @@ export async function createRobotScene(
     renderer.domElement.setPointerCapture(event.pointerId);
     host.style.cursor = "grabbing";
     host.focus({ preventScroll: true });
-    rotateBy(0, 0);
+    rotateBy(0);
   };
   const pointerMove = (event: PointerEvent) => {
     if (!pointer || pointer.id !== event.pointerId) return;
@@ -292,7 +286,7 @@ export async function createRobotScene(
     // Let a vertical phone gesture scroll without changing the robot angle.
     if (!pointer.moved && pointer.touch && Math.abs(y) > Math.abs(x)) return;
     pointer.moved = true;
-    rotateBy(x, y);
+    rotateBy(x);
     pointer.x = event.clientX;
     pointer.y = event.clientY;
   };
@@ -398,8 +392,9 @@ export async function createRobotScene(
       (unit.guide.material as THREE.LineBasicMaterial).opacity = amount * 0.12;
       unit.guide.visible = amount > 0.01;
     }
+    // Only yaw changes: the robot's up direction stays aligned with world up.
     robot.rotation.set(
-      manual ? manualPitch : viewPitch,
+      0,
       manual ? manualYaw : automaticYaw() + turntableAngle,
       0,
     );
@@ -419,12 +414,6 @@ export async function createRobotScene(
       (content.position.y + (-31 + baseDrop) * 0.012) * scale +
       robot.position.y -
       0.06;
-    if (manual || viewPitch !== 0.03) {
-      // Tilting the model must not push it through the shadow plane.
-      robot.updateWorldMatrix(true, true);
-      robotBounds.setFromObject(model);
-      floor.position.y = Math.min(floor.position.y, robotBounds.min.y - 0.06);
-    }
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
