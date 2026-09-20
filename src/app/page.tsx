@@ -19,7 +19,7 @@ export default function Home() {
             height={58}
             alt=""
             priority
-            sizes="(max-width: 700px) 35px, 58px"
+            sizes="(max-width: 700px) 42px, 58px"
           />
           <span>
             Connec<span className={styles.brandAccent}>Tech</span>

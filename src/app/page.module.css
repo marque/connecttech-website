@@ -519,165 +519,116 @@
 }
 @media (max-width: 700px) {
   .header {
-    height: 106px;
+    height: 134px;
     align-items: flex-start;
-    padding-top: 19px;
-    flex-wrap: wrap;
-    gap: 10px;
+    padding: 16px 6% 0;
     border: 0;
   }
-  .brand {
-    font-size: 19px;
-    gap: 8px;
-  }
-  .brand small {
-    font-size: 6px;
-    margin-top: 5px;
-    letter-spacing: 2px;
-  }
-  .brandLogo {
-    width: 35px;
-    height: 35px;
-  }
-  .headerCta {
-    display: none;
-  }
-  .sideIndex {
-    display: none;
-  }
-  .hero {
-    min-height: 110svh;
+  .brand { font-size: 22px; gap: 10px; }
+  .brand small { font-size: 7px; margin-top: 6px; letter-spacing: 1.5px; }
+  .brandLogo { width: 42px; height: 42px; }
+  .headerCta, .sideIndex { display: none; }
+  .chapter {
+    min-height: 100svh;
     align-items: flex-start;
-    padding: 128px 6% 90px;
+    padding: 64px 6% calc(48svh + 64px);
   }
-  .hero .copy {
+  .hero { padding-top: 156px; }
+  .hero .copy, .mission .copy, .consult .copy, .finaleCopy {
     width: 100%;
     max-width: none;
-  }
-  .eyebrow {
-    font-size: 7px !important;
-    margin-bottom: 18px !important;
-    letter-spacing: 1.1px !important;
-  }
-  .hero h1 {
-    font-size: clamp(32px, 12vw, 84px);
-    line-height: 1.01;
-    letter-spacing: -0.065em;
-    margin-bottom: 18px;
-  }
-  .intro {
-    max-width: 235px;
-    font-size: 11px;
-    line-height: 1.7;
-  }
-  .hero .copy > p:not(.eyebrow) {
-    font-size: 11px;
-    max-width: 250px;
-    line-height: 1.7;
-  }
-  .explore {
-    font-size: 10px;
-    margin-top: 18px;
-  }
-  .explore span {
-    height: 29px;
-    width: 29px;
-  }
-  .heroFooter {
-    bottom: 28px;
-    font-size: 6px;
-    letter-spacing: 0.6px;
-  }
-  .heroFooter > span:last-child {
-    display: none;
-  }
-  .mission,
-  .consult,
-  .finale {
-    min-height: 130svh;
-    padding: 75px 7% 65px;
-    align-items: flex-start;
-  }
-  .mission .copy,
-  .consult .copy {
-    width: 100%;
-    max-width: none;
-  }
-  .mission .copy,
-  .consult .copy,
-  .finaleCopy {
     position: relative;
     isolation: isolate;
   }
-  .mission .copy::before,
-  .consult .copy::before,
-  .finaleCopy::before {
+  .copy::before, .finaleCopy::before {
     content: "";
     position: absolute;
-    inset: -24px -8vw -36px;
+    inset: -24px -7vw -28px;
     z-index: -1;
-    background: linear-gradient(
-      180deg,
-      var(--ink) 0%,
-      var(--ink) 92%,
-      transparent 100%
-    );
+    background: linear-gradient(180deg, var(--ink) 0%, var(--ink) 92%, transparent 100%);
   }
-  .chapter h2,
-  .consult h2 {
-    font-size: 44px;
-    line-height: 1.06;
-    margin-bottom: 21px;
+  .eyebrow {
+    font-size: 9px !important;
+    margin-bottom: 18px !important;
+    letter-spacing: 1px !important;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 12.5vw, 76px);
+    line-height: 1;
+    letter-spacing: -0.065em;
+    margin-bottom: 20px;
   }
   .chapter .copy > p:not(.eyebrow):not(.contactNote) {
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 38ch;
+    color: #bec5bf;
+  }
+  .hero .copy > p:not(.eyebrow) { font-size: 14px; line-height: 1.6; }
+  .explore {
     font-size: 12px;
-    line-height: 1.8;
-    max-width: 325px;
+    min-height: 44px;
+    margin-top: 16px;
+    gap: 16px;
   }
-  .hashtag {
-    font-size: 23px;
-    margin-top: 23px;
+  .explore span { height: 36px; width: 36px; }
+  .heroFooter {
+    bottom: 74px;
+    left: 6%;
+    right: 6%;
+    font-size: 8px;
+    letter-spacing: 0.3px;
   }
-  .statement {
-    margin-top: 23px;
-    padding-top: 15px;
+  .heroFooter > span:last-child { display: none; }
+  .chapter h2, .consult h2 {
+    font-size: clamp(36px, 10.8vw, 62px);
+    line-height: 1.06;
+    margin-bottom: 24px;
   }
-  .statement p {
-    font-size: 9px;
+  .hashtag { min-height: 48px; font-size: 27px; margin-top: 22px; }
+  .statement { margin-top: 22px; padding-top: 18px; }
+  .statement p { font-size: 12px; color: #a8b5aa; }
+  .consultName { margin-top: 26px; font-size: 20px; }
+  .consultName small { font-size: 8px; line-height: 1.6; }
+  .topics { margin: 18px 0 24px; flex-wrap: wrap; row-gap: 10px; font-size: 12px; }
+  .topics li + li:before { margin: 0 8px; }
+  .contactPrompt { font-size: 14px; }
+  .contactEmail {
+    width: 100%;
+    justify-content: space-between;
+    min-height: 56px;
+    gap: 8px;
+    font-size: clamp(16px, 4.6vw, 21px);
   }
-  .consultName {
-    margin-top: 21px;
-    font-size: 17px;
-  }
-  .topics {
-    margin: 15px 0 20px;
-    font-size: 9px;
-  }
-  .consult .contactNote {
-    max-width: 330px;
-  }
-  .finale {
-    min-height: 105svh;
-    padding-top: 90px;
-  }
-  .finale h2 {
-    font-size: 58px;
-  }
-  .finaleCopy > p:not(.eyebrow) {
-    font-size: 12px;
-  }
+  .consult .contactNote { font-size: 14px !important; line-height: 1.7; max-width: 38ch; }
+  .consult .achievement { font-size: 10px; line-height: 1.7; padding: 10px 0; min-height: 44px; }
+  .finale h2 { font-size: clamp(46px, 14vw, 76px); }
+  .finaleCopy > p:not(.eyebrow) { font-size: 15px; }
+  .archiveLink { min-height: 60px; font-size: 14px; }
+  .archiveLink span { font-size: 10px; }
   .footer {
     align-items: flex-start;
     flex-wrap: wrap;
-    font-size: 7px;
-    padding: 22px 6%;
-    gap: 16px;
+    font-size: 10px;
+    padding: 24px 6% calc(90px + env(safe-area-inset-bottom));
+    gap: 18px;
+    background: var(--ink);
   }
-  .footerNote {
-    order: 3;
-    width: 100%;
-    font-size: 6px;
-  }
+  .footer a { min-height: 44px; display: flex; align-items: center; }
+  .footerNote { order: 3; width: 100%; font-size: 9px; }
+}
+@media (max-width: 700px) and (max-height: 740px) {
+  .hero { padding-top: 145px; }
+  .hero .eyebrow { margin-bottom: 12px !important; }
+  .hero h1 { font-size: clamp(34px, 11vw, 48px); margin-bottom: 14px; }
+  .hero .copy > p:not(.eyebrow) { font-size: 13px; }
+  .hero .explore { margin-top: 10px; }
+}
+@media (min-width: 701px) and (max-width: 1050px) and (max-height: 500px) {
+  .hero { padding-top: 132px; }
+  .hero .eyebrow { margin-bottom: 12px !important; }
+  .hero h1 { font-size: 5.8vw; margin-bottom: 16px; }
+  .sideIndex { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .page * {

@@ -54,17 +54,17 @@
     right: 4%;
     transform: translateY(-50%);
   }
-  .bar a { padding: 10px 12px; }
+  .bar a { min-height: 44px; padding: 10px 12px; }
 }
 @media (max-width: 700px) {
   .bar {
-    top: 20px;
+    top: 72px;
+    left: 6%;
+    right: 6%;
+    width: auto;
     transform: none;
-    font-size: 8px;
+    font-size: 10px;
   }
-  .bar a { padding: 9px; gap: 6px; }
-  .year { display: none; }
-}
-@media (max-width: 380px) {
-  .bar { top: 64px; left: 4%; right: auto; }
+  .bar a { flex: 1; justify-content: center; min-height: 44px; padding: 8px; gap: 6px; }
+  .year { font-size: 8px; }
 }

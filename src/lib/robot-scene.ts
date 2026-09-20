@@ -389,13 +389,13 @@ export async function createRobotScene(
       manual ? manualYaw : automaticYaw() + turntableAngle,
       0,
     );
-    robot.position.set(0, isMobile ? -0.4 : 0, 0);
+    robot.position.set(0, 0, 0);
     // Centre the long attachment on the turntable, including its extracted pose.
     content.position.z = 1.1 + open * 0.75;
     // Reserve room for the long attachment throughout the complete rotation.
     const desktopFit = Math.min(1, host.clientWidth / host.clientHeight / 1.5);
     const scale = isMobile
-      ? 0.56 - smooth(0, 0.18, open) * 0.16 - smooth(0.7, 1, open) * 0.04
+      ? 0.62 - smooth(0, 0.18, open) * 0.18 - smooth(0.7, 1, open) * 0.05
       : (0.62 - smooth(0, 0.18, open) * 0.17 - smooth(0.7, 1, open) * 0.05) *
         desktopFit;
     robot.scale.setScalar(scale);
@@ -408,20 +408,13 @@ export async function createRobotScene(
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
-      ? 17.5 * Math.max(1, host.clientHeight / host.clientWidth / 1.85)
+      ? 9.8 * Math.max(1, host.clientHeight / host.clientWidth)
       : 12;
     camera.position.set(distance * 0.6, distance * 0.47, distance * 0.78);
     camera.lookAt(0, 0.15, 0);
     if (isMobile) {
-      // Reserve the upper part of each mobile viewport for readable HTML copy.
-      camera.setViewOffset(
-        host.clientWidth,
-        host.clientHeight,
-        0,
-        -host.clientHeight * 0.28,
-        host.clientWidth,
-        host.clientHeight,
-      );
+      // Mobile has a dedicated lower viewport; frame its centre without a page offset.
+      camera.clearViewOffset();
     } else
       camera.setViewOffset(
         host.clientWidth,
