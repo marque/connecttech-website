@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import type { RobotSceneHandle } from "@/lib/robot-scene";
 import styles from "./RobotExperience.module.css";
 
 export default function RobotExperience() {
@@ -7,6 +8,8 @@ export default function RobotExperience() {
   const [status, setStatus] = useState<"loading" | "ready" | "fallback">(
     "loading",
   );
+  const scene = useRef<RobotSceneHandle | null>(null);
+  const [manual, setManual] = useState(false);
   const [paused, setPaused] = useState(false);
   const pauseRef = useRef(false);
   useEffect(() => {
@@ -15,35 +18,53 @@ export default function RobotExperience() {
   useEffect(() => {
     if (!mount.current) return;
     let disposed = false;
-    let cleanup: (() => void) | undefined;
+    let handle: RobotSceneHandle | undefined;
     import("@/lib/robot-scene")
       .then(async ({ createRobotScene }) => {
         if (disposed || !mount.current) return;
-        cleanup = await createRobotScene(
+        handle = await createRobotScene(
           mount.current,
           () => pauseRef.current,
           (ok) => {
             if (!disposed) setStatus(ok ? "ready" : "fallback");
           },
+          (isManual) => {
+            if (!disposed) setManual(isManual);
+          },
         );
-        if (disposed) cleanup();
+        if (disposed) handle.dispose();
+        else scene.current = handle;
       })
       .catch(() => {
         if (!disposed) setStatus("fallback");
       });
     return () => {
       disposed = true;
-      cleanup?.();
+      handle?.dispose();
+      scene.current = null;
     };
   }, []);
   return (
     <>
       <div
         className={`${styles.stage} ${status === "fallback" ? styles.staticStage : ""}`}
-        aria-hidden="true"
       >
         <div
           ref={mount}
+          role="group"
+          aria-label="3D robot. Drag to rotate, or use the arrow keys when focused."
+          tabIndex={status === "ready" ? 0 : -1}
+          onKeyDown={(event) => {
+            const arrows: Record<string, [number, number]> = {
+              ArrowLeft: [-24, 0], ArrowRight: [24, 0],
+              ArrowUp: [0, -24], ArrowDown: [0, 24],
+            };
+            const movement = arrows[event.key];
+            if (movement) {
+              event.preventDefault();
+              scene.current?.rotateBy(...movement);
+            }
+          }}
           className={`${styles.canvas} ${status === "ready" ? styles.loaded : ""}`}
         />
         {status !== "ready" && (
@@ -59,17 +80,26 @@ export default function RobotExperience() {
       </div>
       <div className={styles.controls}>
         <span className={styles.sceneLabel}>
-          <i /> <span>CONCEPT / 001</span>
+          <i /> <span>{manual ? "MANUAL VIEW" : "DRAG ROBOT TO ROTATE"}</span>
         </span>
         {status === "ready" && (
           <button
-            onClick={() => setPaused((p) => !p)}
-            aria-pressed={paused}
-            aria-label={paused ? "Resume 3D motion" : "Pause 3D motion"}
-            title={paused ? "Resume 3D motion" : "Pause 3D motion"}
+            onClick={() => {
+              if (manual) {
+                scene.current?.resumeSpin();
+                pauseRef.current = false;
+                setPaused(false);
+              } else {
+                pauseRef.current = !paused;
+                setPaused(!paused);
+              }
+            }}
+            aria-pressed={paused || manual}
+            aria-label={manual ? "Resume automatic rotation" : paused ? "Resume 3D motion" : "Pause 3D motion"}
+            title={manual ? "Resume automatic rotation" : paused ? "Resume 3D motion" : "Pause 3D motion"}
           >
-            {paused ? "▶" : "Ⅱ"}
-            <span>{paused ? "RESUME" : "PAUSE"} MOTION</span>
+            {paused || manual ? "▶" : "Ⅱ"}
+            <span>{manual ? "RESUME SPIN" : paused ? "RESUME MOTION" : "PAUSE MOTION"}</span>
           </button>
         )}
       </div>

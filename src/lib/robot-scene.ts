@@ -7,6 +7,18 @@ import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { robotUnitPose } from "./robot-motion";
 
+export type RobotSceneHandle = {
+  dispose: () => void;
+  resumeSpin: () => void;
+  rotateBy: (x: number, y: number) => void;
+};
+
+const emptyHandle: RobotSceneHandle = {
+  dispose: () => {},
+  resumeSpin: () => {},
+  rotateBy: () => {},
+};
+
 type Unit = {
   node: THREE.Object3D;
   explode: [number, number, number];
@@ -24,7 +36,8 @@ export async function createRobotScene(
   host: HTMLDivElement,
   paused: () => boolean,
   ready: (ok: boolean) => void,
-) {
+  manualChanged: (manual: boolean) => void,
+): Promise<RobotSceneHandle> {
   let renderer: THREE.WebGLRenderer;
   try {
     renderer = new THREE.WebGLRenderer({
@@ -34,7 +47,7 @@ export async function createRobotScene(
     });
   } catch {
     ready(false);
-    return () => {};
+    return emptyHandle;
   }
   const mobile = () => window.innerWidth <= 700;
   renderer.setPixelRatio(
@@ -47,6 +60,7 @@ export async function createRobotScene(
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   host.appendChild(renderer.domElement);
+  renderer.domElement.setAttribute("aria-hidden", "true");
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     34,
@@ -186,7 +200,7 @@ export async function createRobotScene(
     renderer.dispose();
     renderer.domElement.remove();
     env.dispose();
-    return () => {};
+    return emptyHandle;
   }
   const renderTarget = new THREE.WebGLRenderTarget(
     host.clientWidth,
@@ -217,6 +231,69 @@ export async function createRobotScene(
     visible = !document.hidden,
     dirty = true,
     lastPose = -1;
+  let manual = false,
+    manualYaw = 0,
+    manualPitch = 0;
+  let pointer: { id: number; x: number; y: number; moved: boolean; touch: boolean } | null = null;
+  const raycaster = new THREE.Raycaster();
+  const pointerPosition = new THREE.Vector2();
+  const robotBounds = new THREE.Box3();
+  const automaticYaw = () =>
+    reduce.matches ? -0.2 : -0.2 - smooth(0, 0.32, progress) * 1.15 +
+      smooth(0.42, 0.78, progress) * 2.5 + smooth(0.78, 0.97, progress) * 0.2;
+  const rotateBy = (x: number, y: number) => {
+    if (!manual) {
+      manual = true;
+      manualYaw = robot.rotation.y;
+      manualPitch = robot.rotation.x;
+      manualChanged(true);
+    }
+    manualYaw += x * 0.008;
+    manualPitch = clamp(manualPitch + y * 0.006, -0.65, 0.8);
+    dirty = true;
+  };
+  const finishDrag = () => {
+    if (pointer && renderer.domElement.hasPointerCapture(pointer.id))
+      renderer.domElement.releasePointerCapture(pointer.id);
+    pointer = null;
+    host.style.cursor = "grab";
+    dirty = true;
+  };
+  const pointerDown = (event: PointerEvent) => {
+    if (pointer || !event.isPrimary || event.button !== 0) return;
+    const rect = renderer.domElement.getBoundingClientRect();
+    pointerPosition.set(
+      ((event.clientX - rect.left) / rect.width) * 2 - 1,
+      -((event.clientY - rect.top) / rect.height) * 2 + 1,
+    );
+    raycaster.setFromCamera(pointerPosition, camera);
+    // Only the robot starts a drag; empty space and page links keep normal behavior.
+    if (!raycaster.intersectObject(model, true).length) return;
+    pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, touch: event.pointerType === "touch" };
+    renderer.domElement.setPointerCapture(event.pointerId);
+    host.style.cursor = "grabbing";
+    host.focus({ preventScroll: true });
+    dirty = true;
+  };
+  const pointerMove = (event: PointerEvent) => {
+    if (!pointer || pointer.id !== event.pointerId) return;
+    const x = event.clientX - pointer.x, y = event.clientY - pointer.y;
+    if (!pointer.moved && Math.hypot(x, y) < 4) return;
+    // Let a vertical phone gesture scroll without accidentally entering manual mode.
+    if (!pointer.moved && pointer.touch && Math.abs(y) > Math.abs(x)) return;
+    pointer.moved = true;
+    rotateBy(x, y);
+    pointer.x = event.clientX;
+    pointer.y = event.clientY;
+  };
+  const pointerEnd = (event: PointerEvent) => {
+    if (pointer?.id === event.pointerId) finishDrag();
+  };
+  renderer.domElement.addEventListener("pointerdown", pointerDown);
+  renderer.domElement.addEventListener("pointermove", pointerMove);
+  renderer.domElement.addEventListener("pointerup", pointerEnd);
+  renderer.domElement.addEventListener("pointercancel", pointerEnd);
+  renderer.domElement.addEventListener("lostpointercapture", pointerEnd);
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const scroll = () => {
     const page = document.getElementById("bioglow");
@@ -243,6 +320,7 @@ export async function createRobotScene(
   observe.observe(host);
   const onVisibility = () => {
     visible = !document.hidden;
+    if (!visible) finishDrag();
     lastTime = 0;
     dirty = true;
   };
@@ -260,7 +338,7 @@ export async function createRobotScene(
     const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
     const motionPaused = paused();
-    const autoRotating = !motionPaused && !reduce.matches;
+    const autoRotating = !motionPaused && !reduce.matches && !manual && !pointer;
     if (autoRotating) {
       // A 40-second turntable reveals every angle even when scrolling stops.
       turntableAngle =
@@ -280,7 +358,6 @@ export async function createRobotScene(
           ? 1
           : 0
         : smooth(0.12, 0.3, progress) * (1 - smooth(0.47, 0.65, progress));
-    const end = smooth(0.78, 0.97, progress);
     const isMobile = mobile();
     if (
       !dirty &&
@@ -312,14 +389,8 @@ export async function createRobotScene(
       unit.guide.visible = amount > 0.01;
     }
     robot.rotation.set(
-      0.03,
-      reduce.matches
-        ? -0.2
-        : -0.2 -
-            smooth(0, 0.32, progress) * 1.15 +
-            smooth(0.42, 0.78, progress) * 2.5 +
-            end * 0.2 +
-            turntableAngle,
+      manual ? manualPitch : 0.03,
+      manual ? manualYaw : automaticYaw() + (reduce.matches ? 0 : turntableAngle),
       0,
     );
     robot.position.set(0, isMobile ? -0.4 : 0, 0);
@@ -338,6 +409,12 @@ export async function createRobotScene(
       (content.position.y + (-31 + baseDrop) * 0.012) * scale +
       robot.position.y -
       0.06;
+    if (manual) {
+      // Tilting the model must not push it through the shadow plane.
+      robot.updateWorldMatrix(true, true);
+      robotBounds.setFromObject(model);
+      floor.position.y = Math.min(floor.position.y, robotBounds.min.y - 0.06);
+    }
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
@@ -378,7 +455,13 @@ export async function createRobotScene(
     ready(false);
   };
   renderer.domElement.addEventListener("webglcontextlost", contextLost);
-  return () => {
+  const dispose = () => {
+    finishDrag();
+    renderer.domElement.removeEventListener("pointerdown", pointerDown);
+    renderer.domElement.removeEventListener("pointermove", pointerMove);
+    renderer.domElement.removeEventListener("pointerup", pointerEnd);
+    renderer.domElement.removeEventListener("pointercancel", pointerEnd);
+    renderer.domElement.removeEventListener("lostpointercapture", pointerEnd);
     cancelAnimationFrame(frame);
     observe.disconnect();
     reduce.removeEventListener("change", onMotionPreference);
@@ -403,5 +486,17 @@ export async function createRobotScene(
     env.dispose();
     renderer.dispose();
     renderer.domElement.remove();
+  };
+  return {
+    dispose,
+    rotateBy,
+    resumeSpin: () => {
+      finishDrag();
+      // Continue from the chosen heading rather than snapping to the old angle.
+      if (manual) turntableAngle = manualYaw - automaticYaw();
+      manual = false;
+      manualChanged(false);
+      dirty = true;
+    },
   };
 }
