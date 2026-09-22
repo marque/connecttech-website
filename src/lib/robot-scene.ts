@@ -37,7 +37,7 @@ export async function createRobotScene(
   paused: () => boolean,
   ready: (ok: boolean) => void,
   manualChanged: (manual: boolean) => void,
-  options?: { pose: number },
+  options?: { scrollLinked: true },
 ): Promise<RobotSceneHandle> {
   let renderer: THREE.WebGLRenderer;
   try {
@@ -295,7 +295,16 @@ export async function createRobotScene(
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const scroll = () => {
     if (options) {
-      target = clamp(options.pose, 0, 1);
+      const bounds = host.getBoundingClientRect();
+      const viewport = window.innerHeight;
+      // One complete, reversible disassembly while this inline scene crosses
+      // the phone viewport. Finger position maps directly to the model pose.
+      target = clamp(
+        (viewport * 0.65 - bounds.top) /
+          (viewport * 0.5 + bounds.height),
+        0,
+        1,
+      );
       dirty = true;
       return;
     }
@@ -331,7 +340,7 @@ export async function createRobotScene(
     dirty = true;
   };
   reduce.addEventListener("change", onMotionPreference);
-  if (!options) window.addEventListener("scroll", scroll, { passive: true });
+  window.addEventListener("scroll", scroll, { passive: true });
   document.addEventListener("visibilitychange", onVisibility);
   scroll();
   progress = target;

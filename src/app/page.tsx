@@ -64,7 +64,7 @@ export default function Home() {
           </a>
         </div>
         <div className={styles.mobileRobot}>
-          <RobotExperience inline pose={0} label="Assembled ConnecTech robot" />
+          <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
         </div>
         <div className={styles.heroFooter}>
           <span>BIOGLOW / 2026–27</span>
@@ -115,7 +115,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.mobileRobot}>
-          <RobotExperience inline pose={0.34} label="ConnecTech robot components separated" />
+          <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
         </div>
       </section>
 
@@ -184,7 +184,7 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.mobileRobot}>
-          <RobotExperience inline pose={0.86} label="Reassembled ConnecTech robot" />
+          <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
         </div>
       </section>
 

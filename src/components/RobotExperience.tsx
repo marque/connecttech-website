@@ -5,11 +5,9 @@ import styles from "./RobotExperience.module.css";
 
 export default function RobotExperience({
   inline = false,
-  pose = 0,
   label = "Explore the robot",
 }: {
   inline?: boolean;
-  pose?: number;
   label?: string;
 }) {
   const mount = useRef<HTMLDivElement>(null);
@@ -51,7 +49,7 @@ export default function RobotExperience({
           (isManual) => {
             if (!disposed) setManual(isManual);
           },
-          inline ? { pose } : undefined,
+          inline ? { scrollLinked: true } : undefined,
         );
         if (disposed) handle.dispose();
         else scene.current = handle;
@@ -64,7 +62,7 @@ export default function RobotExperience({
       handle?.dispose();
       scene.current = null;
     };
-  }, [inline, nearby, pose]);
+  }, [inline, nearby]);
   return (
     <div className={inline ? styles.inlineExperience : styles.desktopExperience}>
       <div
@@ -106,7 +104,7 @@ export default function RobotExperience({
       </div>
       <div className={styles.controls}>
         <span className={styles.sceneLabel}>
-          <i /> <span>{manual ? "DRAG TO ROTATE · RELEASE TO SPIN" : "DRAG ANYWHERE TO ROTATE"}</span>
+          <i /> <span>{manual ? "RELEASE TO SPIN" : inline ? "SCROLL TO SEPARATE / REBUILD" : "DRAG ANYWHERE TO ROTATE"}</span>
         </span>
         {status === "ready" && (
           <button
