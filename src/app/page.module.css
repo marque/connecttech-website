@@ -190,6 +190,10 @@
   align-items: center;
   gap: 10px;
 }
+.mobileCue,
+.mobileRobot {
+  display: none;
+}
 .scrollCue i {
   height: 23px;
   width: 13px;
@@ -529,24 +533,21 @@
   .brandLogo { width: 42px; height: 42px; }
   .headerCta, .sideIndex { display: none; }
   .chapter {
-    min-height: 100svh;
-    align-items: flex-start;
-    padding: 64px 6% calc(48svh + 64px);
+    min-height: 0;
+    display: block;
+    padding: 62px 6% 70px;
   }
   .hero { padding-top: 156px; }
+  .mobileRobot { display: block; width: 100%; margin-top: 24px; }
+  .mobileCue { display: inline; }
+  .desktopCue { display: none; }
   .hero .copy, .mission .copy, .consult .copy, .finaleCopy {
     width: 100%;
     max-width: none;
     position: relative;
     isolation: isolate;
   }
-  .copy::before, .finaleCopy::before {
-    content: "";
-    position: absolute;
-    inset: -24px -7vw -28px;
-    z-index: -1;
-    background: linear-gradient(180deg, var(--ink) 0%, var(--ink) 92%, transparent 100%);
-  }
+  .copy::before, .finaleCopy::before { display: none; }
   .eyebrow {
     font-size: 9px !important;
     margin-bottom: 18px !important;
@@ -573,9 +574,11 @@
   }
   .explore span { height: 36px; width: 36px; }
   .heroFooter {
-    bottom: 74px;
-    left: 6%;
-    right: 6%;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin-top: 22px;
     font-size: 8px;
     letter-spacing: 0.3px;
   }
@@ -610,7 +613,7 @@
     align-items: flex-start;
     flex-wrap: wrap;
     font-size: 10px;
-    padding: 24px 6% calc(90px + env(safe-area-inset-bottom));
+    padding: 24px 6% calc(28px + env(safe-area-inset-bottom));
     gap: 18px;
     background: var(--ink);
   }

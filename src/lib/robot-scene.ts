@@ -37,6 +37,7 @@ export async function createRobotScene(
   paused: () => boolean,
   ready: (ok: boolean) => void,
   manualChanged: (manual: boolean) => void,
+  options?: { pose: number },
 ): Promise<RobotSceneHandle> {
   let renderer: THREE.WebGLRenderer;
   try {
@@ -198,6 +199,7 @@ export async function createRobotScene(
   } catch {
     ready(false);
     renderer.dispose();
+    renderer.forceContextLoss();
     renderer.domElement.remove();
     env.dispose();
     return emptyHandle;
@@ -268,7 +270,7 @@ export async function createRobotScene(
     pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, touch: event.pointerType === "touch" };
     renderer.domElement.setPointerCapture(event.pointerId);
     host.style.cursor = "grabbing";
-    host.focus({ preventScroll: true });
+    // Pointer users should not receive the keyboard focus outline around the scene.
     rotateBy(0);
   };
   const pointerMove = (event: PointerEvent) => {
@@ -292,6 +294,11 @@ export async function createRobotScene(
   renderer.domElement.addEventListener("lostpointercapture", pointerEnd);
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const scroll = () => {
+    if (options) {
+      target = clamp(options.pose, 0, 1);
+      dirty = true;
+      return;
+    }
     const page = document.getElementById("bioglow");
     dirty = true;
     if (page)
@@ -324,7 +331,7 @@ export async function createRobotScene(
     dirty = true;
   };
   reduce.addEventListener("change", onMotionPreference);
-  window.addEventListener("scroll", scroll, { passive: true });
+  if (!options) window.addEventListener("scroll", scroll, { passive: true });
   document.addEventListener("visibilitychange", onVisibility);
   scroll();
   progress = target;
@@ -408,7 +415,7 @@ export async function createRobotScene(
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
-      ? 9.8 * Math.max(1, host.clientHeight / host.clientWidth)
+      ? 7.7 * Math.max(1, host.clientHeight / host.clientWidth)
       : 12;
     camera.position.set(distance * 0.6, distance * 0.47, distance * 0.78);
     camera.lookAt(0, 0.15, 0);

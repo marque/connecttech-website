@@ -63,10 +63,14 @@ export default function Home() {
             Explore what connects us <span aria-hidden="true">↓</span>
           </a>
         </div>
+        <div className={styles.mobileRobot}>
+          <RobotExperience inline pose={0} label="Assembled ConnecTech robot" />
+        </div>
         <div className={styles.heroFooter}>
           <span>BIOGLOW / 2026–27</span>
           <span className={styles.scrollCue}>
-            <i /> SCROLL TO DISASSEMBLE
+            <i /> <span className={styles.desktopCue}>SCROLL TO DISASSEMBLE</span>
+            <span className={styles.mobileCue}>SCROLL TO EXPLORE</span>
           </span>
           <span>BUILT WITH CURIOSITY.</span>
         </div>
@@ -109,6 +113,9 @@ export default function Home() {
               One extraordinary team.
             </p>
           </div>
+        </div>
+        <div className={styles.mobileRobot}>
+          <RobotExperience inline pose={0.34} label="ConnecTech robot components separated" />
         </div>
       </section>
 
@@ -175,6 +182,9 @@ export default function Home() {
             Send us your questions about building, coding, teamwork or getting
             your FLL team started. Our guidance is free.
           </p>
+        </div>
+        <div className={styles.mobileRobot}>
+          <RobotExperience inline pose={0.86} label="Reassembled ConnecTech robot" />
         </div>
       </section>
 

@@ -5,6 +5,7 @@
   pointer-events: none;
   overflow: hidden;
 }
+.inlineExperience { display: none; }
 .canvas {
   position: absolute;
   inset: 0;
@@ -91,6 +92,8 @@
   border-radius: 50%;
 }
 @media (max-width: 700px) {
+  .desktopExperience { display: none; }
+  .inlineExperience { display: block; }
   .stage {
     top: auto;
     bottom: calc(72px + env(safe-area-inset-bottom));
@@ -98,6 +101,16 @@
     max-height: 358px;
     min-height: 200px;
   }
+  .inlineStage {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: clamp(290px, 82vw, 380px);
+    max-height: none;
+    min-height: 0;
+    background: radial-gradient(ellipse at 50% 63%, #34392a55, transparent 68%);
+  }
+  .inlineStage .canvas:focus-visible { outline: 2px solid #f5c518; outline-offset: -2px; }
   .controls {
     bottom: max(12px, env(safe-area-inset-bottom));
     left: 6%;
@@ -110,6 +123,14 @@
     border: 1px solid #ffffff18;
     border-radius: 10px;
     background: #0c0d0eeb;
+  }
+  .inlineExperience .controls {
+    position: relative;
+    inset: auto;
+    margin-top: 0;
+    padding: 0 4px;
+    border: 0;
+    background: transparent;
   }
   .sceneLabel { color: #c4c7bb; }
   .controls button { min-width: 44px; min-height: 44px; padding: 10px; }
