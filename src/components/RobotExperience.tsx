@@ -17,12 +17,6 @@ export default function RobotExperience({
     "loading",
   );
   const scene = useRef<RobotSceneHandle | null>(null);
-  const [manual, setManual] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const pauseRef = useRef(false);
-  useEffect(() => {
-    pauseRef.current = paused;
-  }, [paused]);
   useEffect(() => {
     if (!stage.current) return;
     const observer = new IntersectionObserver(
@@ -42,12 +36,8 @@ export default function RobotExperience({
         if (disposed || !mount.current) return;
         handle = await createRobotScene(
           mount.current,
-          () => pauseRef.current,
           (ok) => {
             if (!disposed) setStatus(ok ? "ready" : "fallback");
-          },
-          (isManual) => {
-            if (!disposed) setManual(isManual);
           },
           inline ? { scrollLinked: true } : undefined,
         );
@@ -96,29 +86,10 @@ export default function RobotExperience({
             <span className={styles.loadingOrb} />
             <span>
               {status === "loading"
-                ? "ASSEMBLING THE POSSIBILITIES"
-                : "CONNECTION. CURIOSITY. POSSIBILITY."}
+                ? "CONNECTECH ROBOT"
+                : "CONNECTECH 27757"}
             </span>
           </div>
-        )}
-      </div>
-      <div className={styles.controls}>
-        <span className={styles.sceneLabel}>
-          <i /> <span>{manual ? "RELEASE TO SPIN" : inline ? "SCROLL TO SEPARATE / REBUILD" : "DRAG ANYWHERE TO ROTATE"}</span>
-        </span>
-        {status === "ready" && (
-          <button
-            onClick={() => {
-              pauseRef.current = !paused;
-              setPaused(!paused);
-            }}
-            aria-pressed={paused}
-            aria-label={paused ? "Resume 3D motion" : "Pause 3D motion"}
-            title={paused ? "Resume 3D motion" : "Pause 3D motion"}
-          >
-            {paused ? "▶" : "Ⅱ"}
-            <span>{paused ? "RESUME MOTION" : "PAUSE MOTION"}</span>
-          </button>
         )}
       </div>
     </div>

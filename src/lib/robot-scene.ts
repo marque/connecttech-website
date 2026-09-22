@@ -34,9 +34,7 @@ const smooth = (a: number, b: number, x: number) => {
 
 export async function createRobotScene(
   host: HTMLDivElement,
-  paused: () => boolean,
   ready: (ok: boolean) => void,
-  manualChanged: (manual: boolean) => void,
   options?: { scrollLinked: true },
 ): Promise<RobotSceneHandle> {
   let renderer: THREE.WebGLRenderer;
@@ -231,11 +229,12 @@ export async function createRobotScene(
     turntableAngle = 0,
     lastTime = 0,
     visible = !document.hidden,
+    onScreen = true,
     dirty = true,
     lastPose = -1;
   let manual = false,
     manualYaw = 0;
-  let pointer: { id: number; x: number; y: number; moved: boolean; touch: boolean } | null = null;
+  let pointer: { id: number; x: number; y: number; touch: boolean } | null = null;
   const automaticYaw = () =>
     reduce.matches ? -0.2 : -0.2 - smooth(0, 0.32, progress) * 1.15 +
       smooth(0.42, 0.78, progress) * 2.5 + smooth(0.78, 0.97, progress) * 0.2;
@@ -243,7 +242,6 @@ export async function createRobotScene(
     if (!manual) {
       manual = true;
       manualYaw = robot.rotation.y;
-      manualChanged(true);
     }
     manualYaw += x * 0.008;
     dirty = true;
@@ -258,16 +256,14 @@ export async function createRobotScene(
       // Rebase the turntable at the released pose so rotation resumes without a snap.
       turntableAngle = manualYaw - automaticYaw();
       manual = false;
-      manualChanged(false);
     }
     host.style.cursor = "grab";
     dirty = true;
   };
   const pointerDown = (event: PointerEvent) => {
     if (pointer || !event.isPrimary || event.button !== 0) return;
-    // The whole canvas is a drag surface, including the space between assemblies.
-    // HTML links and controls sit above it and retain their own pointer events.
-    pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, moved: false, touch: event.pointerType === "touch" };
+    // The canvas is the drag surface, including space between assemblies.
+    pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, touch: event.pointerType === "touch" };
     renderer.domElement.setPointerCapture(event.pointerId);
     host.style.cursor = "grabbing";
     // Pointer users should not receive the keyboard focus outline around the scene.
@@ -276,11 +272,8 @@ export async function createRobotScene(
   const pointerMove = (event: PointerEvent) => {
     if (!pointer || pointer.id !== event.pointerId) return;
     const x = event.clientX - pointer.x, y = event.clientY - pointer.y;
-    if (!pointer.moved && Math.hypot(x, y) < 4) return;
-    // Let a vertical phone gesture scroll without changing the robot angle.
-    if (!pointer.moved && pointer.touch && Math.abs(y) > Math.abs(x)) return;
-    pointer.moved = true;
-    rotateBy(x);
+    if (pointer.touch && y) window.scrollBy(0, -y);
+    if (x) rotateBy(x);
     pointer.x = event.clientX;
     pointer.y = event.clientY;
   };
@@ -330,6 +323,12 @@ export async function createRobotScene(
   };
   const observe = new ResizeObserver(resize);
   observe.observe(host);
+  const viewObserver = new IntersectionObserver(([entry]) => {
+    onScreen = entry.isIntersecting;
+    lastTime = 0;
+    dirty = true;
+  });
+  viewObserver.observe(host);
   const onVisibility = () => {
     visible = !document.hidden;
     if (!visible) finishDrag();
@@ -346,11 +345,10 @@ export async function createRobotScene(
   progress = target;
   const render = (time: number) => {
     frame = requestAnimationFrame(render);
-    if (!visible) return;
+    if (!visible || !onScreen) return;
     const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
-    const motionPaused = paused();
-    const autoRotating = !motionPaused && !reduce.matches && !manual && !pointer;
+    const autoRotating = !reduce.matches && !manual && !pointer;
     if (autoRotating) {
       // A 40-second turntable reveals every angle even when scrolling stops.
       turntableAngle =
@@ -358,13 +356,12 @@ export async function createRobotScene(
     }
     // Scrub directly from scroll position. Time-based damping causes the parts
     // to chase the scrollbar and keep moving after the user has stopped.
-    if (!motionPaused) progress = target;
+    progress = target;
     const open = reduce.matches
       ? 0
-      : smooth(0.1, 0.32, progress) * (1 - smooth(0.55, 0.78, progress));
-    // Pausing freezes articulation, but section placement must keep copy readable.
+      : smooth(0.1, 0.54, progress) * (1 - smooth(0.55, 0.78, progress));
     const shift =
-      reduce.matches || motionPaused
+      reduce.matches
         ? target > 0.18 && target < 0.5
           ? 1
           : 0
@@ -373,7 +370,7 @@ export async function createRobotScene(
     if (
       !dirty &&
       !autoRotating &&
-      (motionPaused || Math.abs(progress - lastPose) < 0.00005)
+      Math.abs(progress - lastPose) < 0.00005
     )
       return;
     dirty = false;
@@ -463,6 +460,7 @@ export async function createRobotScene(
     renderer.domElement.removeEventListener("lostpointercapture", pointerEnd);
     cancelAnimationFrame(frame);
     observe.disconnect();
+    viewObserver.disconnect();
     reduce.removeEventListener("change", onMotionPreference);
     window.removeEventListener("scroll", scroll);
     document.removeEventListener("visibilitychange", onVisibility);

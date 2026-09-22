@@ -17,7 +17,8 @@
   width: 100%;
   height: 100%;
   pointer-events: auto;
-  touch-action: pan-y pinch-zoom;
+  /* Keep touch pointer capture during diagonal drags; the scene scrolls the page. */
+  touch-action: pinch-zoom;
 }
 .canvas {
   cursor: grab;
@@ -52,45 +53,6 @@
     0 0 100px #f5c5180c,
     inset 0 0 70px #f5c51812;
 }
-.controls {
-  position: fixed;
-  right: 5%;
-  bottom: 78px;
-  z-index: 4;
-  font:
-    7px var(--font-geist-mono),
-    monospace;
-  letter-spacing: 0.8px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  color: #9b9889;
-}
-.controls button {
-  display: flex;
-  gap: 7px;
-  align-items: center;
-  cursor: pointer;
-  background: #0c0d0eaa;
-  border: 1px solid #ffffff22;
-  padding: 9px 10px;
-  border-radius: 3px;
-  color: #b5b1a3;
-}
-.controls button:hover {
-  border-color: #f5c51880;
-}
-.sceneLabel {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-}
-.sceneLabel i {
-  width: 3px;
-  height: 3px;
-  background: #f5c518;
-  border-radius: 50%;
-}
 @media (max-width: 700px) {
   .desktopExperience { display: none; }
   .inlineExperience { display: block; }
@@ -111,30 +73,6 @@
     background: radial-gradient(ellipse at 50% 63%, #34392a55, transparent 68%);
   }
   .inlineStage .canvas:focus-visible { outline: 2px solid #f5c518; outline-offset: -2px; }
-  .controls {
-    bottom: max(12px, env(safe-area-inset-bottom));
-    left: 6%;
-    right: 6%;
-    justify-content: space-between;
-    gap: 8px;
-    font-size: 9px;
-    letter-spacing: 0.3px;
-    padding: 6px 8px 6px 12px;
-    border: 1px solid #ffffff18;
-    border-radius: 10px;
-    background: #0c0d0eeb;
-  }
-  .inlineExperience .controls {
-    position: relative;
-    inset: auto;
-    margin-top: 0;
-    padding: 0 4px;
-    border: 0;
-    background: transparent;
-  }
-  .sceneLabel { color: #c4c7bb; }
-  .controls button { min-width: 44px; min-height: 44px; padding: 10px; }
-  .controls button span { display: none; }
   .loading {
     left: 50%;
     transform: translateX(-50%);
@@ -151,11 +89,6 @@
   .canvas {
     transition: none;
   }
-}
-
-@media (min-width: 701px) and (max-width: 1050px) and (max-height: 500px) {
-  .controls { bottom: max(12px, env(safe-area-inset-bottom)); font-size: 9px; }
-  .controls button { min-height: 44px; min-width: 44px; }
 }
 
 .staticStage {

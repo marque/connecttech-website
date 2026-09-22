@@ -228,11 +228,6 @@ export default function Home() {
             <small>BAYVIEW GLEN / TORONTO</small>
           </span>
         </Link>
-        <span className={styles.footerNote}>Photo-inspired robot concept</span>
-        <a href="/models/credits.txt" target="_blank" rel="noreferrer">
-          3D credits ↗
-          <span className={styles.srOnly}> (opens in a new tab)</span>
-        </a>
       </footer>
     </main>
   );

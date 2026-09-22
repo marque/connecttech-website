@@ -444,7 +444,6 @@
   letter-spacing: 1px;
   color: #aaa99b;
 }
-.footerNote,
 .muted {
   color: #768176;
 }
@@ -618,7 +617,6 @@
     background: var(--ink);
   }
   .footer a { min-height: 44px; display: flex; align-items: center; }
-  .footerNote { order: 3; width: 100%; font-size: 9px; }
 }
 @media (max-width: 700px) and (max-height: 740px) {
   .hero { padding-top: 145px; }
