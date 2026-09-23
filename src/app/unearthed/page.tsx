@@ -515,7 +515,7 @@ export default function Home() {
               <span className="text-sm text-gray-500">#27757</span>
             </a>
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-8">
               <a href="#innovation" className="text-gray-600 hover:text-yellow-500 transition">Innovation</a>
               <a href="#robot" className="text-gray-600 hover:text-yellow-500 transition">Robot</a>
               <a href="#core-values" className="text-gray-600 hover:text-yellow-500 transition">Core Values</a>
@@ -525,13 +525,13 @@ export default function Home() {
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full font-medium transition">Survey</a>
             </div>
             {/* Mobile Survey Button */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <a href="https://docs.google.com/forms/d/e/1FAIpQLSfL6Az6NUfGtIhQCmnqRxvvD1POkf6kp_vzjO9Nm2ZvA98IbA/viewform?usp=send_form" target="_blank" rel="noopener noreferrer" className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded-full font-medium text-sm transition">Survey</a>
             </div>
           </div>
         </div>
         {/* Mobile Navigation Links */}
-        <div className="md:hidden border-t border-gray-100 bg-white/95">
+        <div className="lg:hidden border-t border-gray-100 bg-white/95">
           <div className="flex overflow-x-auto gap-4 px-4 py-2 text-sm">
             <a href="#innovation" className="text-gray-600 whitespace-nowrap">Innovation</a>
             <a href="#robot" className="text-gray-600 whitespace-nowrap">Robot</a>
