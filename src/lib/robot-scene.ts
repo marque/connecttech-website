@@ -451,13 +451,18 @@ export async function createRobotScene(
       turntableAngle =
         (turntableAngle + (delta * Math.PI * 2) / 100) % (Math.PI * 2);
     }
-    // Scrub directly from scroll position. Time-based damping causes the parts
-    // to chase the scrollbar and keep moving after the user has stopped.
-    progress = target;
+    // Follow trackpad and wheel steps quickly without snapping between poses.
+    // Reduced-motion devices stay tied directly to the scrollbar.
+    if (reduce.matches || delta === 0) progress = target;
+    else {
+      progress += (target - progress) * (1 - Math.exp(-delta / 0.07));
+      if (Math.abs(target - progress) < 0.001) progress = target;
+    }
     // Scrolling controls the disassembly even when automatic motion is reduced.
-    const open = smooth(0.1, 0.54, progress) *
-      (1 - smooth(0.55, 0.78, progress));
-    const shift = smooth(0.12, 0.3, progress) *
+    const unfolding = clamp(progress / 0.42, 0, 1);
+    const open = unfolding * (1.2 - 0.2 * unfolding) *
+      (1 - smooth(0.52, 0.78, progress));
+    const shift = smooth(0, 0.3, progress) *
       (1 - smooth(0.47, 0.65, progress));
     const consultArrival = smooth(0.72, 0.83, progress);
     const isMobile = mobile();
