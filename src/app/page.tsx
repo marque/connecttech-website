@@ -74,35 +74,36 @@ export default function Home() {
       </section>
 
       <section id="consult" className={`${styles.chapter} ${styles.consult}`} aria-labelledby="consult-title" data-chapter="03">
-        <div className={styles.consultVisual} aria-hidden="true">
-          <div className={styles.consultVisualTrack} />
-          <div className={`${styles.consultCard} ${styles.consultCardBuild}`}>
-            <span className={styles.consultIcon}>
-              <svg viewBox="0 0 64 64" fill="none"><path d="m32 8 22 12v24L32 56 10 44V20L32 8Z"/><path d="m10 20 22 12 22-12M32 32v24M22 26l22-12"/></svg>
-            </span>
-          </div>
-          <div className={`${styles.consultCard} ${styles.consultCardTeam}`}>
-            <span className={styles.consultIcon}>
-              <svg viewBox="0 0 64 64" fill="none"><circle cx="22" cy="21" r="8"/><circle cx="43" cy="23" r="7"/><path d="M6 52c0-10 6-17 16-17s16 7 16 17M38 38c9-2 20 4 20 14"/></svg>
-            </span>
-          </div>
-          <div className={`${styles.consultCard} ${styles.consultCardIdea}`}>
-            <span className={styles.consultIcon}>
-              <svg viewBox="0 0 64 64" fill="none"><path d="M22 41c0-5-8-10-8-20a18 18 0 0 1 36 0c0 10-8 15-8 20H22ZM23 48h18M26 55h12M32 9v13m-8-4 8 8 8-8"/></svg>
-            </span>
-          </div>
+        <div className={styles.consultGallery} role="region" aria-label="Three ways ConnecTech Consult can help" tabIndex={0}>
+          <article className={styles.consultFeature}>
+            <div className={styles.consultMedia}>
+              <Image src="/images/consult-build.png" fill sizes="(max-width: 700px) 78vw, (max-width: 1200px) 29vw, 400px" alt="Illustration of coding tools and loose robotics parts on a workbench" />
+            </div>
+            <h3>Build and code</h3>
+            <p>Talk through robot design, programming and testing questions.</p>
+          </article>
+          <article className={styles.consultFeature}>
+            <div className={styles.consultMedia}>
+              <Image src="/images/consult-team.png" fill sizes="(max-width: 700px) 78vw, (max-width: 1200px) 29vw, 400px" alt="Illustrative image of hands working together with robotics parts" />
+            </div>
+            <h3>Work as a team</h3>
+            <p>Find ways to plan, share roles and learn from each test.</p>
+          </article>
+          <article className={styles.consultFeature}>
+            <div className={styles.consultMedia}>
+              <Image src="/images/consult-idea.png" fill sizes="(max-width: 700px) 78vw, (max-width: 1200px) 29vw, 400px" alt="Concept illustration moving from a sketch to a physical form" />
+              <span className={styles.consultIdeaLight} aria-hidden="true" />
+            </div>
+            <h3>Develop an idea</h3>
+            <p>Shape and present your innovation project with confidence.</p>
+          </article>
         </div>
-        <div className={styles.copy}>
+        <div className={`${styles.copy} ${styles.consultCopy}`}>
           <h2 id="consult-title">ConnecTech Consult</h2>
           <p className={styles.lead}>
             Starting a FIRST LEGO League team? We share what we have learned
             with new teams, free of charge.
           </p>
-          <ul className={styles.topics}>
-            <li><strong>Build and code</strong><span>Questions about your robot and programs</span></li>
-            <li><strong>Work as a team</strong><span>Ways to plan, test and learn together</span></li>
-            <li><strong>Develop an idea</strong><span>Support for the innovation project</span></li>
-          </ul>
           <a className={styles.achievement} href="https://www.bayviewglen.ca/the-glen-spring-26-robotics/" target="_blank" rel="noreferrer">
             Our 2025–26 Ontario Provincial Championship <ArrowIcon />
             <span className={styles.srOnly}> (school report, opens in a new tab)</span>

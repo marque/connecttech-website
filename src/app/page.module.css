@@ -127,84 +127,72 @@
 .consultAction:hover { text-decoration-color: currentColor; }
 .consult {
   flex-direction: column;
-  gap: clamp(48px, 7svh, 78px);
+  align-items: center;
+  gap: clamp(48px, 6svh, 72px);
   min-height: 0;
-  padding-top: clamp(48px, 8svh, 100px);
-  padding-bottom: clamp(84px, 10svh, 140px);
+  padding-top: clamp(56px, 8svh, 100px);
+  padding-bottom: clamp(88px, 11svh, 144px);
+  background: #f3f4f1;
+  color: #172019;
 }
-.consult .copy { width: min(100%, 900px); }
-.consultVisual {
+.consult .copy { width: min(100%, 1280px); }
+.consultGallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  width: min(100%, 1280px);
+  pointer-events: auto;
+}
+.consultGallery:focus-visible { outline: 2px solid #172019; outline-offset: 5px; }
+.consultFeature { min-width: 0; }
+.consultMedia {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: min(100%, 1000px);
-  min-height: 270px;
-  padding: 44px clamp(20px, 5vw, 64px);
-  border-radius: 28px;
-  background: radial-gradient(ellipse at 70% 40%, #253326 0%, #172119 48%, #111814 100%);
-  box-shadow: inset 0 0 0 1px #ffffff17;
+  aspect-ratio: 4 / 4.65;
   overflow: hidden;
-}
-.consultVisualTrack {
-  position: absolute;
-  top: 50%;
-  right: 14%;
-  left: 14%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #f5c518 24%, #f5c518 75%, transparent);
-  transform: translateY(-50%);
-}
-.consultCard {
-  position: relative;
-  display: grid;
-  place-items: center;
-  align-items: center;
-  width: clamp(104px, 12vw, 144px);
-  aspect-ratio: 1;
-  padding: 20px;
-  border: 1px solid #f5c5184d;
   border-radius: 26px;
-  background: #29352aec;
-  box-shadow: 0 16px 36px #0000004d, inset 0 0 24px #f5c51812;
-  color: var(--text);
-  animation: consultFloat 6s ease-in-out infinite;
+  background: #e7e9e5;
 }
-.consultCardTeam { animation-delay: -2s; }
-.consultCardIdea { animation-delay: -4s; }
-.consultIcon {
-  display: grid;
-  place-items: center;
-  width: 76px;
-  height: 76px;
-  color: var(--yellow);
+.consultMedia img { object-fit: cover; }
+.consultIdeaLight {
+  position: absolute;
+  inset: -30%;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 38%, #ffffff3d 50%, transparent 62%);
+  transform: translateX(-70%);
+  animation: consultLight 9s ease-in-out infinite;
 }
-.consultIcon svg { width: 56px; height: 56px; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-@keyframes consultFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-7px); }
+@keyframes consultLight {
+  0%, 20% { transform: translateX(-70%); }
+  55%, 100% { transform: translateX(70%); }
 }
-.topics {
-  display: grid;
-  gap: 0;
-  max-width: 800px;
-  margin: 36px 0 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid var(--line);
+.consultFeature h3 {
+  margin: 19px 0 7px;
+  font-size: clamp(19px, 1.65vw, 24px);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
 }
-.topics li {
-  display: grid;
-  grid-template-columns: minmax(120px, 0.8fr) 1.2fr;
-  gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
-  font-size: 16px;
+.consultFeature p {
+  max-width: 32ch;
+  margin: 0;
+  color: #566058;
+  font-size: clamp(16px, 1.25vw, 18px);
   line-height: 1.45;
 }
-.topics strong { color: var(--text); font-weight: 600; }
-.topics span { color: var(--secondary); }
-.achievement { margin-top: 22px; }
+.consultCopy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(32px, 6vw, 100px);
+  align-items: start;
+}
+.consultCopy h2 { grid-row: 1 / 4; }
+.consultCopy .lead {
+  max-width: 40ch;
+  margin: 0;
+  color: #4e5b51;
+}
+.consult .achievement { margin-top: 22px; color: #344c3a; text-decoration-color: #344c3a69; }
+.consult .achievement:hover { text-decoration-color: currentColor; }
 .consultAction {
   display: flex;
   width: fit-content;
@@ -215,7 +203,8 @@
   padding: 0 20px;
   text-decoration: none;
 }
-.consultAction:hover { background: #ffda4c; }
+.consult .consultAction:hover { background: #ffda4c; }
+.consult .consultAction:focus-visible { outline-color: #172019; }
 .finale { min-height: 88svh; }
 .finale .copy { width: min(54%, 760px); }
 .contactLinks {
@@ -290,7 +279,7 @@
   .copy, .finale .copy { width: 53%; }
   .hero .copy { width: min(100%, 1000px); }
   .mission { padding-right: 0; padding-left: 0; }
-  .consult .copy { width: min(100%, 900px); }
+  .consult .copy { width: min(100%, 1280px); }
   .chapter h2 { font-size: clamp(42px, 5.6vw, 62px); }
   .hero h1 { font-size: clamp(54px, 7vw, 78px); }
   .kickoff p { font-size: 16px; }
@@ -321,15 +310,27 @@
   .mission { padding: 0 0 44px; }
   .campaignBanner { padding: 24px 6%; }
   .missionBody { width: auto; margin: 0 6%; padding-top: 44px; }
-  .consult { display: flex; gap: 44px; padding: 32px 6% 80px; }
+  .consult { display: flex; gap: 44px; padding: 44px 6% 80px; }
   .consult .copy { width: 100%; }
-  .consultVisual { width: 100%; min-height: 212px; padding: 25px 14px; border-radius: 22px; }
-  .consultCard { width: clamp(70px, 20vw, 86px); padding: 10px; border-radius: 19px; }
-  .consultIcon { width: 48px; height: 48px; }
-  .consultIcon svg { width: 36px; height: 36px; }
-  .topics { margin-top: 26px; }
-  .topics li { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; font-size: 16px; }
-  .achievement { margin-top: 20px; }
+  .consultGallery {
+    display: flex;
+    gap: 16px;
+    width: calc(100% + 6vw);
+    margin-right: -6vw;
+    padding: 0 6vw 15px 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: #adb6a9 transparent;
+    scrollbar-width: thin;
+  }
+  .consultFeature { flex: 0 0 min(78vw, 320px); scroll-snap-align: start; }
+  .consultMedia { border-radius: 20px; }
+  .consultFeature h3 { margin-top: 16px; font-size: 21px; }
+  .consultFeature p { font-size: 16px; }
+  .consultCopy { display: block; }
+  .consultCopy .lead { margin-top: 20px; }
+  .consult .achievement { margin-top: 22px; }
   .consultAction { margin-top: 14px; }
   .finale { padding-bottom: 110px; }
   .contactLinks { margin-top: 30px; }
@@ -346,5 +347,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .page * { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-  .consultCard { animation: none; }
+  .consultIdeaLight { animation: none; }
 }
