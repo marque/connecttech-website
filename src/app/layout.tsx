@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "ConnecTech #27757 | BIOGLOW 2026–27",
   description:
-    "Small bricks. Bigger possibilities. Meet ConnecTech, Bayview Glen's FIRST LEGO League team, and discover BIOGLOW, FIRSTLikeAGirl and ConnecTech Consult.",
+    "Meet ConnecTech, Bayview Glen's FIRST LEGO League team 27757. Learn about #FIRSTLikeAGirl, ConnecTech Consult and our BIOGLOW season.",
   keywords: [
     "BIOGLOW",
     "biodiversity",

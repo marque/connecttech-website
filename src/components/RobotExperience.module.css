@@ -5,6 +5,7 @@
   pointer-events: none;
   overflow: hidden;
 }
+.desktopExperience .stage { left: 44%; }
 .inlineExperience { display: none; }
 .canvas {
   position: absolute;

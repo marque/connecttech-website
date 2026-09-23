@@ -9,7 +9,6 @@ export default function SeasonNav({
   return (
     <nav className={styles.bar} aria-label="Explore our seasons">
       <Link href="/" aria-current={active === "bioglow" ? "page" : undefined}>
-        <span className={styles.dot} aria-hidden="true" />
         BIOGLOW <span className={styles.year}>26/27</span>
       </Link>
       <Link
@@ -17,7 +16,6 @@ export default function SeasonNav({
         aria-current={active === "unearthed" ? "page" : undefined}
       >
         UNEARTHED <span className={styles.year}>25/26</span>
-        <span aria-hidden="true">↗</span>
       </Link>
     </nav>
   );
