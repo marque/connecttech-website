@@ -109,7 +109,7 @@ export default function Home() {
             </div>
             <Image
               className={styles.consultMark}
-              src="/images/brand/connectech-mark.png"
+              src="/images/brand/connectech-badge.png"
               width={180}
               height={180}
               alt=""
