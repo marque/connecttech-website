@@ -49,8 +49,10 @@ export async function createRobotScene(
     return emptyHandle;
   }
   const mobile = () => window.innerWidth <= 700;
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let effectsEnabled = !mobile() && !reduce.matches;
   renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio, mobile() ? 1.5 : 1.75),
+    Math.min(window.devicePixelRatio, mobile() ? 1.25 : effectsEnabled ? 1.5 : 1),
   );
   renderer.setSize(host.clientWidth, host.clientHeight);
   renderer.setClearColor(0x0c0d0e, 0);
@@ -101,7 +103,7 @@ export async function createRobotScene(
   key.position.set(-3, 7, 5);
   scene.add(key);
   key.castShadow = true;
-  key.shadow.mapSize.set(2048, 2048);
+  key.shadow.mapSize.set(1024, 1024);
   key.shadow.camera.left = -7;
   key.shadow.camera.right = 7;
   key.shadow.camera.top = 7;
@@ -208,27 +210,50 @@ export async function createRobotScene(
     env.dispose();
     return emptyHandle;
   }
-  const renderTarget = new THREE.WebGLRenderTarget(
-    host.clientWidth,
-    host.clientHeight,
-    { type: THREE.HalfFloatType, samples: 4 },
-  );
-  const composer = new EffectComposer(renderer, renderTarget);
-  composer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
-  composer.addPass(new RenderPass(scene, camera));
-  const ao = new GTAOPass(scene, camera, host.clientWidth, host.clientHeight);
-  ao.updateGtaoMaterial({
-    radius: 0.28,
-    thickness: 1,
-    distanceExponent: 1.4,
-    distanceFallOff: 0.8,
-    scale: 1,
-    samples: 12,
-  });
-  ao.blendIntensity = 0.7;
-  composer.addPass(ao);
-  const output = new OutputPass();
-  composer.addPass(output);
+  let renderTarget: THREE.WebGLRenderTarget | null = null;
+  let composer: EffectComposer | null = null;
+  let ao: GTAOPass | null = null;
+  let output: OutputPass | null = null;
+  const releaseEffects = () => {
+    ao?.dispose();
+    output?.dispose();
+    composer?.dispose();
+    if (!composer) renderTarget?.dispose();
+    renderTarget = null;
+    composer = null;
+    ao = null;
+    output = null;
+  };
+  if (effectsEnabled) {
+    try {
+      renderTarget = new THREE.WebGLRenderTarget(
+        host.clientWidth,
+        host.clientHeight,
+        { type: THREE.HalfFloatType, samples: 2 },
+      );
+      composer = new EffectComposer(renderer, renderTarget);
+      composer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+      composer.addPass(new RenderPass(scene, camera));
+      ao = new GTAOPass(scene, camera, host.clientWidth, host.clientHeight);
+      ao.updateGtaoMaterial({
+        radius: 0.28,
+        thickness: 1,
+        distanceExponent: 1.4,
+        distanceFallOff: 0.8,
+        scale: 1,
+        samples: 6,
+      });
+      ao.blendIntensity = 0.7;
+      composer.addPass(ao);
+      output = new OutputPass();
+      composer.addPass(output);
+    } catch (error) {
+      console.warn("Robot postprocessing unavailable; using basic rendering.", error);
+      releaseEffects();
+      effectsEnabled = false;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+    }
+  }
   let frame = 0,
     target = 0,
     progress = 0,
@@ -238,6 +263,8 @@ export async function createRobotScene(
     onScreen = true,
     dirty = true,
     lastPose = -1;
+  let measuredFrames = 0,
+    slowFrames = 0;
   let manual = false,
     manualYaw = 0;
   let pointer: { id: number; x: number } | null = null;
@@ -340,7 +367,6 @@ export async function createRobotScene(
   renderer.domElement.addEventListener("touchmove", touchMove, { passive: false });
   renderer.domElement.addEventListener("touchend", touchEnd);
   renderer.domElement.addEventListener("touchcancel", touchEnd);
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const scroll = () => {
     if (options) {
       const bounds = host.getBoundingClientRect();
@@ -371,10 +397,16 @@ export async function createRobotScene(
     camera.updateProjectionMatrix();
     renderer.setSize(host.clientWidth, host.clientHeight);
     renderer.setPixelRatio(
-      Math.min(window.devicePixelRatio, mobile() ? 1.5 : 1.75),
+      Math.min(window.devicePixelRatio, mobile() ? 1.25 : effectsEnabled ? 1.5 : 1),
     );
-    composer.setSize(host.clientWidth, host.clientHeight);
+    composer?.setSize(host.clientWidth, host.clientHeight);
     scroll();
+  };
+  const disableEffects = () => {
+    if (!effectsEnabled) return;
+    effectsEnabled = false;
+    releaseEffects();
+    resize();
   };
   const observe = new ResizeObserver(resize);
   observe.observe(host);
@@ -391,6 +423,7 @@ export async function createRobotScene(
     dirty = true;
   };
   const onMotionPreference = () => {
+    if (reduce.matches) disableEffects();
     dirty = true;
   };
   reduce.addEventListener("change", onMotionPreference);
@@ -403,6 +436,15 @@ export async function createRobotScene(
     if (!visible || !onScreen) return;
     const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
+    if (effectsEnabled && delta > 0) {
+      measuredFrames += 1;
+      if (delta > 0.03) slowFrames += 1;
+      if (measuredFrames >= 30) {
+        if (slowFrames >= 12) disableEffects();
+        measuredFrames = 0;
+        slowFrames = 0;
+      }
+    }
     const autoRotating = !reduce.matches && !manual && !pointer;
     if (autoRotating) {
       // At 40% of the original speed, a revolution now takes 100 seconds.
@@ -412,15 +454,11 @@ export async function createRobotScene(
     // Scrub directly from scroll position. Time-based damping causes the parts
     // to chase the scrollbar and keep moving after the user has stopped.
     progress = target;
-    const open = reduce.matches
-      ? 0
-      : smooth(0.1, 0.54, progress) * (1 - smooth(0.55, 0.78, progress));
-    const shift =
-      reduce.matches
-        ? target > 0.18 && target < 0.5
-          ? 1
-          : 0
-        : smooth(0.12, 0.3, progress) * (1 - smooth(0.47, 0.65, progress));
+    // Scrolling controls the disassembly even when automatic motion is reduced.
+    const open = smooth(0.1, 0.54, progress) *
+      (1 - smooth(0.55, 0.78, progress));
+    const shift = smooth(0.12, 0.3, progress) *
+      (1 - smooth(0.47, 0.65, progress));
     const consultArrival = smooth(0.72, 0.83, progress);
     const isMobile = mobile();
     if (
@@ -432,10 +470,9 @@ export async function createRobotScene(
     dirty = false;
     lastPose = progress;
     for (const unit of units) {
-      const amount = reduce.matches ? 0 : open;
       const pose = robotUnitPose(
         unit.node.name,
-        amount,
+        open,
         unit.explode,
         unit.turn,
       );
@@ -452,8 +489,8 @@ export async function createRobotScene(
         unit.node.position.z,
       );
       points.needsUpdate = true;
-      (unit.guide.material as THREE.LineBasicMaterial).opacity = amount * 0.12;
-      unit.guide.visible = amount > 0.01;
+      (unit.guide.material as THREE.LineBasicMaterial).opacity = open * 0.12;
+      unit.guide.visible = open > 0.01;
     }
     // Only yaw changes: the robot's up direction stays aligned with world up.
     robot.rotation.set(
@@ -495,8 +532,16 @@ export async function createRobotScene(
     orbit.position.x = robot.position.x;
     orbit.scale.setScalar(scale);
     orbit.visible = !isMobile;
-    if (isMobile) renderer.render(scene, camera);
-    else composer.render();
+    if (isMobile || !effectsEnabled) renderer.render(scene, camera);
+    else if (composer) {
+      try {
+        composer.render();
+      } catch (error) {
+        console.warn("Robot postprocessing unavailable; using basic rendering.", error);
+        disableEffects();
+        renderer.render(scene, camera);
+      }
+    }
   };
   frame = requestAnimationFrame(render);
   ready(true);
@@ -536,9 +581,7 @@ export async function createRobotScene(
     });
     geometries.forEach((g) => g.dispose());
     materials.forEach((m) => m.dispose());
-    ao.dispose();
-    output.dispose();
-    composer.dispose();
+    releaseEffects();
     env.dispose();
     renderer.dispose();
     renderer.domElement.remove();
