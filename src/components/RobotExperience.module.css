@@ -12,11 +12,10 @@
   inset: auto;
   width: 100%;
   height: clamp(330px, 38vw, 560px);
-  background: radial-gradient(ellipse at 50% 65%, #34392a44, transparent 68%);
+  background: transparent;
 }
 .heroExperience .inlineStage {
   height: clamp(280px, 42svh, 440px);
-  background: radial-gradient(ellipse at 50% 58%, #36413788 0%, #222b2388 46%, transparent 76%);
 }
 .inlineStage .loading { left: 50%; transform: translateX(-50%); }
 .canvas {

@@ -34,7 +34,7 @@
 .copy { width: min(48%, 690px); }
 .hero {
   display: block;
-  min-height: 150svh;
+  min-height: 120svh;
   padding: 0;
 }
 .heroContent {
@@ -72,15 +72,37 @@
   letter-spacing: 0.004em;
 }
 .mobileRobot { display: block; width: 46%; }
-.mission { min-height: 105svh; }
+.mission, .consult { justify-content: space-between; gap: clamp(28px, 5vw, 80px); }
+.mission { min-height: 96svh; }
 .mission .copy { width: min(52%, 720px); }
 .mission h2 { overflow-wrap: anywhere; }
-.campaignFirst {
-  background: linear-gradient(112deg, #ff4851 0 48%, #4ba8f2 52% 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
+.campaignTitle span:nth-child(1) { color: var(--text); }
+.campaignTitle span:nth-child(2) { color: #eb4c50; }
+.campaignTitle span:nth-child(3) { color: #adb1b5; }
+.campaignTitle span:nth-child(4) { color: #5484ca; }
+.campaignVisual {
+  display: grid;
+  place-items: center;
+  width: min(44%, 690px);
+  min-width: 0;
+  padding: clamp(20px, 3vw, 48px);
+  border-radius: 22px;
+  background: radial-gradient(ellipse at 50% 48%, #2b3650 0%, #17202c 58%, #121915 100%);
+  box-shadow: inset 0 0 0 1px #ffffff14, 0 32px 72px #00000038;
+  text-decoration: none;
+  pointer-events: auto;
 }
+.campaignBoard {
+  display: block;
+  width: 100%;
+  padding: clamp(14px, 2vw, 30px);
+  background: #f9f9f6;
+  box-shadow: 0 18px 38px #0000004d;
+  transform: rotate(-3deg);
+  transition: transform 350ms ease;
+}
+.campaignVisual:hover .campaignBoard { transform: rotate(0deg) scale(1.025); }
+.campaignBoard img { display: block; width: 100%; height: auto; }
 .kickoff {
   max-width: 610px;
   margin-top: 36px;
@@ -117,7 +139,62 @@
 .consultAction svg { width: 18px; height: 18px; flex: none; }
 .achievement:hover,
 .consultAction:hover { text-decoration-color: currentColor; }
-.consult { min-height: 115svh; }
+.consult { min-height: 105svh; }
+.consultVisual {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 22px;
+  width: min(43%, 560px);
+  min-height: 480px;
+  padding: 48px clamp(20px, 3vw, 50px);
+  border-radius: 28px;
+  background: radial-gradient(ellipse at 70% 40%, #253326 0%, #172119 48%, #111814 100%);
+  box-shadow: inset 0 0 0 1px #ffffff17, 0 32px 72px #00000038;
+  overflow: hidden;
+}
+.consultVisualTrack {
+  position: absolute;
+  top: 18%;
+  bottom: 18%;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(transparent, #f5c518aa 24%, #f5c518aa 75%, transparent);
+  transform: translateX(-50%);
+}
+.consultCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  min-height: 104px;
+  padding: 20px 24px;
+  border: 1px solid #ffffff2d;
+  border-radius: 18px;
+  background: #202a21ec;
+  box-shadow: 0 16px 36px #0000004d;
+  color: var(--text);
+  font-size: clamp(16px, 1.3vw, 21px);
+  font-weight: 610;
+  animation: consultFloat 6s ease-in-out infinite;
+}
+.consultCardTeam { margin-left: 9%; animation-delay: -2s; }
+.consultCardIdea { margin-right: 9%; animation-delay: -4s; }
+.consultIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 62px;
+  height: 62px;
+  border-radius: 15px;
+  background: #f5c51819;
+  color: var(--yellow);
+}
+.consultIcon svg { width: 38px; height: 38px; stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes consultFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
 .topics {
   display: grid;
   gap: 0;
@@ -234,7 +311,7 @@
     padding: 40px 6% 24px;
     scroll-margin-top: 118px;
   }
-  .hero { min-height: 145svh; padding: 0; }
+  .hero { min-height: 120svh; padding: 0; }
   .heroContent {
     top: 118px;
     height: calc(100svh - 118px);
@@ -251,6 +328,13 @@
   .kickoff p { font-size: 16px; }
   .mobileRobot { width: 100%; margin-top: 20px; }
   .heroRobot { margin-top: 0; }
+  .mission, .consult { padding-top: 62px; padding-bottom: 48px; }
+  .campaignVisual { width: 100%; margin-top: 38px; padding: clamp(20px, 6vw, 36px); }
+  .campaignBoard { padding: clamp(12px, 3.5vw, 22px); }
+  .consultVisual { width: 100%; min-height: 350px; margin-top: 38px; padding: 34px 28px; gap: 16px; }
+  .consultCard { min-height: 80px; padding: 12px 16px; gap: 15px; font-size: 16px; }
+  .consultIcon { width: 50px; height: 50px; }
+  .consultIcon svg { width: 31px; height: 31px; }
   .topics { margin-top: 26px; }
   .topics li { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; font-size: 16px; }
   .achievement { margin-top: 20px; }
@@ -269,4 +353,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .page * { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  .consultCard { animation: none; }
 }

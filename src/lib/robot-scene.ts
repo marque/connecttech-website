@@ -342,7 +342,10 @@ export async function createRobotScene(
         if (section) {
           const bounds = section.getBoundingClientRect();
           const stickyTop = mobile() ? 118 : 88;
-          const travel = Math.max(1, bounds.height - window.innerHeight + stickyTop);
+          // Finish opening while the hero copy is pinned. Continued scrolling
+          // releases the copy and then brings the parts back together.
+          const pinnedTravel = Math.max(1, bounds.height - window.innerHeight + stickyTop);
+          const travel = pinnedTravel + window.innerHeight * 0.35;
           target = clamp((stickyTop - bounds.top) / travel, 0, 1);
           dirty = true;
           return;
@@ -419,7 +422,9 @@ export async function createRobotScene(
     progress = target;
     const open = reduce.matches
       ? 0
-      : smooth(0.1, 0.54, progress) * (1 - smooth(0.55, 0.78, progress));
+      : options?.variant === "hero"
+        ? smooth(0, 0.46, progress) * (1 - smooth(0.52, 0.88, progress))
+        : smooth(0.1, 0.54, progress) * (1 - smooth(0.55, 0.78, progress));
     const shift =
       reduce.matches
         ? target > 0.18 && target < 0.5
@@ -483,7 +488,7 @@ export async function createRobotScene(
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
-      ? 7.7 * Math.max(1, host.clientHeight / host.clientWidth)
+      ? 9.7 * Math.max(1, host.clientHeight / host.clientWidth)
       : options ? 9 : 12;
     camera.position.set(distance * 0.6, distance * 0.47, distance * 0.78);
     camera.lookAt(0, options?.variant === "hero" && !isMobile ? 0.3 : 0.15, 0);
