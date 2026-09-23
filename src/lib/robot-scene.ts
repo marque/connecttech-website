@@ -234,7 +234,14 @@ export async function createRobotScene(
     lastPose = -1;
   let manual = false,
     manualYaw = 0;
-  let pointer: { id: number; x: number; y: number; touch: boolean } | null = null;
+  let pointer: { id: number; x: number } | null = null;
+  let touch: {
+    id: number;
+    startX: number;
+    startY: number;
+    lastX: number;
+    mode: "pending" | "rotate" | "scroll";
+  } | null = null;
   const automaticYaw = () =>
     reduce.matches ? -0.2 : -0.2 - smooth(0, 0.32, progress) * 1.15 +
       smooth(0.42, 0.78, progress) * 2.5 + smooth(0.78, 0.97, progress) * 0.2;
@@ -261,9 +268,9 @@ export async function createRobotScene(
     dirty = true;
   };
   const pointerDown = (event: PointerEvent) => {
-    if (pointer || !event.isPrimary || event.button !== 0) return;
+    if (event.pointerType === "touch" || pointer || !event.isPrimary || event.button !== 0) return;
     // The canvas is the drag surface, including space between assemblies.
-    pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, touch: event.pointerType === "touch" };
+    pointer = { id: event.pointerId, x: event.clientX };
     renderer.domElement.setPointerCapture(event.pointerId);
     host.style.cursor = "grabbing";
     // Pointer users should not receive the keyboard focus outline around the scene.
@@ -271,11 +278,9 @@ export async function createRobotScene(
   };
   const pointerMove = (event: PointerEvent) => {
     if (!pointer || pointer.id !== event.pointerId) return;
-    const x = event.clientX - pointer.x, y = event.clientY - pointer.y;
-    if (pointer.touch && y) window.scrollBy(0, -y);
+    const x = event.clientX - pointer.x;
     if (x) rotateBy(x);
     pointer.x = event.clientX;
-    pointer.y = event.clientY;
   };
   const pointerEnd = (event: PointerEvent) => {
     if (pointer?.id === event.pointerId) finishDrag();
@@ -285,6 +290,50 @@ export async function createRobotScene(
   renderer.domElement.addEventListener("pointerup", pointerEnd);
   renderer.domElement.addEventListener("pointercancel", pointerEnd);
   renderer.domElement.addEventListener("lostpointercapture", pointerEnd);
+  const findTouch = (items: TouchList, id: number) =>
+    Array.from(items).find((item) => item.identifier === id);
+  const touchStart = (event: TouchEvent) => {
+    if (event.touches.length !== 1) {
+      touch = null;
+      if (manual) finishDrag();
+      return;
+    }
+    const finger = event.touches[0];
+    touch = {
+      id: finger.identifier,
+      startX: finger.clientX,
+      startY: finger.clientY,
+      lastX: finger.clientX,
+      mode: "pending",
+    };
+  };
+  const touchMove = (event: TouchEvent) => {
+    if (!touch) return;
+    const finger = findTouch(event.touches, touch.id);
+    if (!finger) return;
+    if (touch.mode === "pending") {
+      const x = finger.clientX - touch.startX;
+      const y = finger.clientY - touch.startY;
+      if (Math.hypot(x, y) < 4) return;
+      // A vertical gesture remains the browser's native page scroll.
+      touch.mode = Math.abs(x) > Math.abs(y) ? "rotate" : "scroll";
+      if (touch.mode === "rotate") rotateBy(0);
+    }
+    if (touch.mode === "rotate") {
+      event.preventDefault();
+      rotateBy(finger.clientX - touch.lastX);
+    }
+    touch.lastX = finger.clientX;
+  };
+  const touchEnd = (event: TouchEvent) => {
+    if (!touch || !findTouch(event.changedTouches, touch.id)) return;
+    if (touch.mode === "rotate") finishDrag();
+    touch = null;
+  };
+  renderer.domElement.addEventListener("touchstart", touchStart, { passive: true });
+  renderer.domElement.addEventListener("touchmove", touchMove, { passive: false });
+  renderer.domElement.addEventListener("touchend", touchEnd);
+  renderer.domElement.addEventListener("touchcancel", touchEnd);
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const scroll = () => {
     if (options) {
@@ -458,6 +507,10 @@ export async function createRobotScene(
     renderer.domElement.removeEventListener("pointerup", pointerEnd);
     renderer.domElement.removeEventListener("pointercancel", pointerEnd);
     renderer.domElement.removeEventListener("lostpointercapture", pointerEnd);
+    renderer.domElement.removeEventListener("touchstart", touchStart);
+    renderer.domElement.removeEventListener("touchmove", touchMove);
+    renderer.domElement.removeEventListener("touchend", touchEnd);
+    renderer.domElement.removeEventListener("touchcancel", touchEnd);
     cancelAnimationFrame(frame);
     observe.disconnect();
     viewObserver.disconnect();
