@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import SeasonNav from "@/components/SeasonNav";
 import { useState, useEffect, useCallback, useRef } from "react";
+import brandStyles from "../page.module.css";
 
 interface Fireball {
   id: number;
@@ -483,14 +485,26 @@ export default function Home() {
       `}</style>
       {/* Navigation */}
       <div className="fixed top-0 left-0 right-0 z-50 h-[104px] max-[700px]:h-[134px] bg-[#0c0d0e] border-b border-[#f5c51830] shadow-[inset_0_2px_#f5c518]">
-        <Image
-          src="/images/logo.png"
-          alt="Original ConnecTech team logo"
-          width={64}
-          height={64}
-          loading="eager"
-          className="absolute left-[5%] top-1/2 -translate-y-1/2 w-16 h-16 rounded-md object-contain max-[700px]:left-[6%] max-[700px]:top-[14px] max-[700px]:translate-y-0 max-[700px]:w-11 max-[700px]:h-11"
-        />
+        <Link
+          href="/"
+          className={`${brandStyles.brand} absolute left-[5%] top-1/2 -translate-y-1/2 text-[#f5f3ec] max-[700px]:left-[6%] max-[700px]:top-[14px] max-[700px]:translate-y-0`}
+          style={{ fontFamily: "var(--font-geist-sans)" }}
+          aria-label="ConnecTech home"
+        >
+          <Image
+            className={brandStyles.brandLogo}
+            src="/images/brand/connectech-badge.png"
+            width={58}
+            height={58}
+            alt=""
+            priority
+            sizes="(max-width: 700px) 42px, 58px"
+          />
+          <span>
+            Connec<span className={brandStyles.brandAccent} style={{ color: "#f5c518" }}>Tech</span>
+            <small>27757 / BAYVIEW GLEN</small>
+          </span>
+        </Link>
         <SeasonNav active="unearthed" />
       </div>
       <nav className="fixed top-[104px] max-[700px]:top-[134px] left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
