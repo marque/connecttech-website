@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:robot": "node scripts/check-robot-surfaces.mjs && node scripts/check-robot-motion.mjs"
+    "check:robot": "node scripts/check-robot-surfaces.mjs public/models/latest/connectech-latest.glb && node scripts/check-robot-motion.mjs public/models/latest/connectech-latest.glb"
   },
   "dependencies": {
     "next": "^16.3.5",

@@ -5,7 +5,7 @@ import { ALL_EXTENSIONS } from "@gltf-transform/extensions";
 import { MeshoptDecoder } from "meshoptimizer";
 import * as THREE from "three";
 import { MeshBVH } from "three-mesh-bvh";
-import { robotUnitPose } from "../src/lib/robot-motion.ts";
+import { robotSpread, robotUnitPose } from "../src/lib/robot-motion.ts";
 import assert from "node:assert/strict";
 
 await MeshoptDecoder.ready;
@@ -70,7 +70,7 @@ for (let step = 0; step <= steps; step++) {
     );
     unit.matrix
       .compose(
-        unit.anchor.clone().add(new THREE.Vector3(...offset)),
+        unit.anchor.clone().add(new THREE.Vector3(...offset).multiplyScalar(robotSpread(unit.name))),
         new THREE.Quaternion().setFromEuler(new THREE.Euler(...rotation)),
         new THREE.Vector3(1, 1, 1),
       )

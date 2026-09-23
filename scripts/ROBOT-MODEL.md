@@ -1,5 +1,9 @@
 # Robot visual proof
 
+V3 uses the reviewed September 23 model at `public/models/latest/connectech-latest.glb`, with its LDraw attribution in `public/models/latest/credits.txt`. Its 11 assemblies use the matching pose rules in `src/lib/robot-motion.ts`; `npm run check:robot` checks this installed model. The automatic turntable now makes one revolution in 100 seconds, 60% slower than the earlier 40-second turntable. Scroll-linked disassembly and direct drag rotation remain tied to the user's input.
+
+The notes below describe the earlier attachment-equipped concept model, retained for reference.
+
 The rendered robot is an original concept inspired by ConnecTech's supplied photographs. It is not an exact reconstruction, mechanically validated assembly or competition-ready design. The photographs themselves are not included in the website.
 
 The September 20 revision follows the attachment-equipped robot in the original photos 3–6 and the four additional underside/front/cage photos. The striped base is enclosed by a separate open attachment cage. The white hub sits within the black top fairings; four motors, recessed drive wheels, two white ball supports in azure housings, a supported gear train, axle bushes, a keyed input shaft, a rack-and-pinion arm and a yellow side fork are now represented. Electrical plugs/cables connect the hub area to the motor core. The precise hidden mounting and bevel-drive arrangement remain inferred. The hub supplies electrical power; motors drive the mechanical axles and gears.

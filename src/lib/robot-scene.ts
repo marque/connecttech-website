@@ -5,7 +5,7 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
-import { robotUnitPose } from "./robot-motion";
+import { robotSpread, robotUnitPose } from "./robot-motion";
 
 export type RobotSceneHandle = {
   dispose: () => void;
@@ -154,7 +154,7 @@ export async function createRobotScene(
   const loader = new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
   let model: THREE.Group;
   try {
-    model = (await loader.loadAsync("/models/connectech-concept.glb")).scene;
+    model = (await loader.loadAsync("/models/latest/connectech-latest.glb")).scene;
     model.traverse((o) => {
       if (o instanceof THREE.Mesh) {
         o.castShadow = true;
@@ -399,9 +399,9 @@ export async function createRobotScene(
     lastTime = time;
     const autoRotating = !reduce.matches && !manual && !pointer;
     if (autoRotating) {
-      // A 40-second turntable reveals every angle even when scrolling stops.
+      // At 40% of the original speed, a revolution now takes 100 seconds.
       turntableAngle =
-        (turntableAngle + (delta * Math.PI * 2) / 40) % (Math.PI * 2);
+        (turntableAngle + (delta * Math.PI * 2) / 100) % (Math.PI * 2);
     }
     // Scrub directly from scroll position. Time-based damping causes the parts
     // to chase the scrollbar and keep moving after the user has stopped.
@@ -415,6 +415,7 @@ export async function createRobotScene(
           ? 1
           : 0
         : smooth(0.12, 0.3, progress) * (1 - smooth(0.47, 0.65, progress));
+    const consultArrival = smooth(0.72, 0.83, progress);
     const isMobile = mobile();
     if (
       !dirty &&
@@ -432,7 +433,10 @@ export async function createRobotScene(
         unit.explode,
         unit.turn,
       );
-      unit.node.position.set(...pose.offset).add(unit.anchor);
+      unit.node.position
+        .set(...pose.offset)
+        .multiplyScalar(robotSpread(unit.node.name))
+        .add(unit.anchor);
       unit.node.rotation.set(...pose.rotation);
       const points = unit.guide.geometry.attributes.position;
       points.setXYZ(
@@ -452,14 +456,12 @@ export async function createRobotScene(
       0,
     );
     robot.position.set(0, 0, 0);
-    // Centre the long attachment on the turntable, including its extracted pose.
-    content.position.z = 1.1 + open * 0.75;
-    // Reserve room for the long attachment throughout the complete rotation.
+    // Keep the new model centred as its assemblies separate.
+    content.position.z = 1.1;
     const desktopFit = Math.min(1, host.clientWidth / host.clientHeight / 1.5);
-    const scale = isMobile
-      ? 0.62 - smooth(0, 0.18, open) * 0.18 - smooth(0.7, 1, open) * 0.05
-      : (0.62 - smooth(0, 0.18, open) * 0.17 - smooth(0.7, 1, open) * 0.05) *
-        desktopFit;
+    // Give the Consult copy its full column as the fixed robot moves right.
+    const scale = (0.85 - open * 0.48) *
+      (isMobile ? 1 : desktopFit * (1 - consultArrival * 0.25));
     robot.scale.setScalar(scale);
     const base = units.find((unit) => unit.node.name === "01_Chassis");
     const baseDrop = base ? base.node.position.y - base.anchor.y : 0;
@@ -481,7 +483,7 @@ export async function createRobotScene(
       camera.setViewOffset(
         host.clientWidth,
         host.clientHeight,
-        -host.clientWidth * (0.215 - shift * 0.445),
+        -host.clientWidth * (0.215 - shift * 0.445 + consultArrival * 0.07),
         0,
         host.clientWidth,
         host.clientHeight,
