@@ -15,7 +15,7 @@
   background: radial-gradient(ellipse at 50% 65%, #34392a44, transparent 68%);
 }
 .heroExperience .inlineStage {
-  height: clamp(280px, 42svh, 460px);
+  height: clamp(280px, 42svh, 440px);
   background: radial-gradient(ellipse at 50% 58%, #36413788 0%, #222b2388 46%, transparent 76%);
 }
 .inlineStage .loading { left: 50%; transform: translateX(-50%); }
@@ -76,6 +76,7 @@
     min-height: 200px;
   }
   .inlineStage {
+    inset: auto;
     height: clamp(290px, 82vw, 380px);
   }
   .heroExperience .inlineStage { height: clamp(280px, 42svh, 410px); }

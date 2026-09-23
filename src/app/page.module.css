@@ -34,7 +34,7 @@
 .copy { width: min(48%, 690px); }
 .hero {
   display: block;
-  min-height: 180svh;
+  min-height: 150svh;
   padding: 0;
 }
 .heroContent {
@@ -231,10 +231,10 @@
   .chapter {
     display: block;
     min-height: 0;
-    padding: 80px 6% 72px;
+    padding: 40px 6% 24px;
     scroll-margin-top: 118px;
   }
-  .hero { min-height: 180svh; }
+  .hero { min-height: 145svh; padding: 0; }
   .heroContent {
     top: 118px;
     height: calc(100svh - 118px);
@@ -249,7 +249,7 @@
   .lead { margin-top: 24px; font-size: 18px; line-height: 1.55; }
   .kickoff { margin-top: 26px; padding-top: 24px; }
   .kickoff p { font-size: 16px; }
-  .mobileRobot { width: 100%; margin-top: 30px; }
+  .mobileRobot { width: 100%; margin-top: 20px; }
   .heroRobot { margin-top: 0; }
   .topics { margin-top: 26px; }
   .topics li { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; font-size: 16px; }

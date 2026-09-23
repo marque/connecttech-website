@@ -5,7 +5,7 @@ import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { GTAOPass } from "three/addons/postprocessing/GTAOPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
-import { robotUnitPose } from "./robot-motion";
+import { robotSpread, robotUnitPose } from "./robot-motion";
 
 export type RobotSceneHandle = {
   dispose: () => void;
@@ -443,7 +443,12 @@ export async function createRobotScene(
         unit.explode,
         unit.turn,
       );
-      unit.node.position.set(...pose.offset).add(unit.anchor);
+      // Keep the assembled and separated views in one camera frame instead of
+      // shrinking the entire robot while its parts move apart.
+      unit.node.position
+        .set(...pose.offset)
+        .multiplyScalar(robotSpread(unit.node.name))
+        .add(unit.anchor);
       unit.node.rotation.set(...pose.rotation);
       const points = unit.guide.geometry.attributes.position;
       points.setXYZ(
@@ -463,15 +468,12 @@ export async function createRobotScene(
       0,
     );
     robot.position.set(0, 0, 0);
-    // Centre the long attachment on the turntable, including its extracted pose.
-    content.position.z = 1.1 + open * 0.75;
-    // Reserve room for the long attachment throughout the complete rotation.
+    // Keep the robot centred as the assemblies move.
+    content.position.z = 1.1;
+    // Hold one visual scale throughout disassembly and reassembly.
     const desktopFit = Math.min(1, host.clientWidth / host.clientHeight / 1.5);
-    const scale = isMobile
-      ? 0.62 - smooth(0, 0.18, open) * 0.18 - smooth(0.7, 1, open) * 0.05
-      : (0.62 - smooth(0, 0.18, open) * 0.17 - smooth(0.7, 1, open) * 0.05) *
-        desktopFit;
-    robot.scale.setScalar(scale * (options?.variant === "hero" && !isMobile ? 1.35 : 1));
+    const scale = 0.55 * (isMobile ? 1 : desktopFit);
+    robot.scale.setScalar(scale);
     const base = units.find((unit) => unit.node.name === "01_Chassis");
     const baseDrop = base ? base.node.position.y - base.anchor.y : 0;
     floor.position.y =
@@ -481,10 +483,10 @@ export async function createRobotScene(
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
-      ? (options?.variant === "hero" ? 6.8 : 7.7) * Math.max(1, host.clientHeight / host.clientWidth)
+      ? 7.7 * Math.max(1, host.clientHeight / host.clientWidth)
       : options ? 9 : 12;
     camera.position.set(distance * 0.6, distance * 0.47, distance * 0.78);
-    camera.lookAt(0, 0.15, 0);
+    camera.lookAt(0, options?.variant === "hero" && !isMobile ? 0.3 : 0.15, 0);
     if (isMobile || options) {
       // Inline product frames are centred on their own canvas.
       camera.clearViewOffset();

@@ -1,5 +1,9 @@
 type Triple = readonly [number, number, number];
 
+/** Keep the hub clear of the attachment while tightening other movements. */
+export const robotSpread = (name: string) =>
+  name === "06_SPIKE_hub" || name === "10_Attachment" ? 1 : 0.8;
+
 const smooth = (from: number, to: number, progress: number) => {
   const t = Math.max(0, Math.min(1, (progress - from) / (to - from)));
   return t * t * (3 - 2 * t);
