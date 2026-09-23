@@ -5,6 +5,9 @@
   pointer-events: none;
   overflow: hidden;
 }
+.stage:has(.canvas[data-dragging]) {
+  z-index: 7;
+}
 .inlineExperience { display: none; }
 .canvas {
   position: absolute;
