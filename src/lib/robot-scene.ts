@@ -35,7 +35,7 @@ const smooth = (a: number, b: number, x: number) => {
 export async function createRobotScene(
   host: HTMLDivElement,
   ready: (ok: boolean) => void,
-  options?: { scrollLinked: true },
+  options?: { scrollLinked: true; variant: "hero" | "chapter" },
 ): Promise<RobotSceneHandle> {
   let renderer: THREE.WebGLRenderer;
   try {
@@ -337,6 +337,17 @@ export async function createRobotScene(
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const scroll = () => {
     if (options) {
+      if (options.variant === "hero") {
+        const section = host.closest("section");
+        if (section) {
+          const bounds = section.getBoundingClientRect();
+          const stickyTop = mobile() ? 118 : 88;
+          const travel = Math.max(1, bounds.height - window.innerHeight + stickyTop);
+          target = clamp((stickyTop - bounds.top) / travel, 0, 1);
+          dirty = true;
+          return;
+        }
+      }
       const bounds = host.getBoundingClientRect();
       const viewport = window.innerHeight;
       // One complete, reversible disassembly while this inline scene crosses
@@ -460,7 +471,7 @@ export async function createRobotScene(
       ? 0.62 - smooth(0, 0.18, open) * 0.18 - smooth(0.7, 1, open) * 0.05
       : (0.62 - smooth(0, 0.18, open) * 0.17 - smooth(0.7, 1, open) * 0.05) *
         desktopFit;
-    robot.scale.setScalar(scale);
+    robot.scale.setScalar(scale * (options?.variant === "hero" && !isMobile ? 1.35 : 1));
     const base = units.find((unit) => unit.node.name === "01_Chassis");
     const baseDrop = base ? base.node.position.y - base.anchor.y : 0;
     floor.position.y =
@@ -470,12 +481,12 @@ export async function createRobotScene(
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
-      ? 7.7 * Math.max(1, host.clientHeight / host.clientWidth)
-      : 12;
+      ? (options?.variant === "hero" ? 6.8 : 7.7) * Math.max(1, host.clientHeight / host.clientWidth)
+      : options ? 9 : 12;
     camera.position.set(distance * 0.6, distance * 0.47, distance * 0.78);
     camera.lookAt(0, 0.15, 0);
-    if (isMobile) {
-      // Mobile has a dedicated lower viewport; frame its centre without a page offset.
+    if (isMobile || options) {
+      // Inline product frames are centred on their own canvas.
       camera.clearViewOffset();
     } else
       camera.setViewOffset(
@@ -488,8 +499,9 @@ export async function createRobotScene(
       );
     orbit.position.x = robot.position.x;
     orbit.scale.setScalar(scale);
-    orbit.visible = !isMobile;
-    if (isMobile) renderer.render(scene, camera);
+    orbit.visible = !isMobile && !options;
+    grid.visible = !options;
+    if (isMobile || options) renderer.render(scene, camera);
     else composer.render();
   };
   frame = requestAnimationFrame(render);

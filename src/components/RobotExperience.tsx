@@ -5,9 +5,11 @@ import styles from "./RobotExperience.module.css";
 
 export default function RobotExperience({
   inline = false,
+  hero = false,
   label = "Explore the robot",
 }: {
   inline?: boolean;
+  hero?: boolean;
   label?: string;
 }) {
   const mount = useRef<HTMLDivElement>(null);
@@ -39,7 +41,7 @@ export default function RobotExperience({
           (ok) => {
             if (!disposed) setStatus(ok ? "ready" : "fallback");
           },
-          inline ? { scrollLinked: true } : undefined,
+          inline ? { scrollLinked: true, variant: hero ? "hero" : "chapter" } : undefined,
         );
         if (disposed) handle.dispose();
         else scene.current = handle;
@@ -52,9 +54,9 @@ export default function RobotExperience({
       handle?.dispose();
       scene.current = null;
     };
-  }, [inline, nearby]);
+  }, [hero, inline, nearby]);
   return (
-    <div className={inline ? styles.inlineExperience : styles.desktopExperience}>
+    <div className={inline ? `${styles.inlineExperience} ${hero ? styles.heroExperience : ""}` : styles.desktopExperience}>
       <div
         ref={stage}
         className={`${styles.stage} ${inline ? styles.inlineStage : ""} ${status === "fallback" ? styles.staticStage : ""}`}

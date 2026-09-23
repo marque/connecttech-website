@@ -32,7 +32,24 @@
 }
 .chapter a { pointer-events: auto; }
 .copy { width: min(48%, 690px); }
-.hero { min-height: calc(100svh - 88px); }
+.hero {
+  display: block;
+  min-height: 180svh;
+  padding: 0;
+}
+.heroContent {
+  position: sticky;
+  top: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(16px, 3vh, 32px);
+  height: calc(100svh - 88px);
+  padding: 16px clamp(24px, 8vw, 128px) 50px;
+}
+.hero .copy { width: min(100%, 1000px); margin: 0 auto; text-align: center; }
+.hero .lead { margin-right: auto; margin-left: auto; }
+.hero .heroRobot { width: min(100%, 1280px); margin: 0 auto; }
 .hero h1,
 .chapter h2 {
   margin: 0;
@@ -54,7 +71,7 @@
   line-height: 1.55;
   letter-spacing: 0.004em;
 }
-.mobileRobot { display: none; }
+.mobileRobot { display: block; width: 46%; }
 .mission { min-height: 105svh; }
 .mission .copy { width: min(52%, 720px); }
 .mission h2 { overflow-wrap: anywhere; }
@@ -199,6 +216,7 @@
 @media (max-width: 1050px) {
   .chapter { padding-right: 5%; padding-left: 5%; }
   .copy, .mission .copy, .finale .copy { width: 53%; }
+  .hero .copy { width: min(100%, 1000px); }
   .chapter h2 { font-size: clamp(42px, 5.6vw, 62px); }
   .hero h1 { font-size: clamp(54px, 7vw, 78px); }
   .kickoff p { font-size: 16px; }
@@ -210,14 +228,23 @@
     padding: 80px 6% 72px;
     scroll-margin-top: 118px;
   }
-  .hero { padding-top: 76px; }
+  .hero { min-height: 180svh; }
+  .heroContent {
+    top: 118px;
+    height: calc(100svh - 118px);
+    padding: 8px 6% 38px;
+    gap: 12px;
+  }
   .copy, .mission .copy, .finale .copy { width: 100%; max-width: none; }
   .hero h1 { font-size: clamp(44px, 11.5vw, 66px); }
+  .hero .copy { text-align: center; }
+  .hero .lead { margin-right: auto; margin-left: auto; }
   .chapter h2 { font-size: clamp(39px, 10vw, 58px); }
   .lead { margin-top: 24px; font-size: 18px; line-height: 1.55; }
   .kickoff { margin-top: 26px; padding-top: 24px; }
   .kickoff p { font-size: 16px; }
-  .mobileRobot { display: block; width: 100%; margin-top: 30px; }
+  .mobileRobot { width: 100%; margin-top: 30px; }
+  .heroRobot { margin-top: 0; }
   .topics { margin-top: 26px; }
   .topics li { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; font-size: 16px; }
   .achievement { margin-top: 20px; }

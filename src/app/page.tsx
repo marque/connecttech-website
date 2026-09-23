@@ -35,18 +35,19 @@ export default function Home() {
     <main className={styles.page} id="bioglow">
       <a className={styles.skip} href="#introduction">Skip to content</a>
       <SiteHeader active="bioglow" />
-      <RobotExperience />
 
       <section id="introduction" className={`${styles.chapter} ${styles.hero}`} aria-labelledby="hero-title" data-chapter="01">
-        <div className={styles.copy}>
-          <h1 id="hero-title">Meet <span>ConnecTech.</span></h1>
-          <p className={styles.lead}>
-            We are Bayview Glen&apos;s FIRST LEGO League team 27757 in Toronto.
-            We design, build and program robots together.
-          </p>
-        </div>
-        <div className={styles.mobileRobot}>
-          <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
+        <div className={styles.heroContent}>
+          <div className={`${styles.mobileRobot} ${styles.heroRobot}`}>
+            <RobotExperience inline hero label="ConnecTech robot that separates and rebuilds as you scroll" />
+          </div>
+          <div className={styles.copy}>
+            <h1 id="hero-title">Meet <span>ConnecTech.</span></h1>
+            <p className={styles.lead}>
+              We are Bayview Glen&apos;s FIRST LEGO League team 27757 in Toronto.
+              We design, build and program robots together.
+            </p>
+          </div>
         </div>
       </section>
 
