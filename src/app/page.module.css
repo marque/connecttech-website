@@ -75,6 +75,12 @@
 .mission { min-height: 105svh; }
 .mission .copy { width: min(52%, 720px); }
 .mission h2 { overflow-wrap: anywhere; }
+.campaignFirst {
+  background: linear-gradient(112deg, #ff4851 0 48%, #4ba8f2 52% 100%);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 .kickoff {
   max-width: 610px;
   margin-top: 36px;

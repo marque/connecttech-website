@@ -53,16 +53,16 @@ export default function Home() {
 
       <section id="first-like-a-girl" className={`${styles.chapter} ${styles.mission}`} aria-labelledby="mission-title" data-chapter="02">
         <div className={styles.copy}>
-          <h2 id="mission-title">#FIRSTLikeAGirl</h2>
+          <h2 id="mission-title"><span className={styles.campaignFirst}>#FIRST</span>LikeAGirl</h2>
           <p className={styles.lead}>
-            #FIRSTLikeAGirl celebrates girls and women in FIRST and helps more girls
-            see themselves in robotics. ConnecTech is bringing that message to the
-            BIOGLOW kickoff through two afternoon workshops.
+            #FIRSTLikeAGirl celebrates girls and women in FIRST and encourages more girls
+            to see themselves in robotics. ConnecTech is sharing that message through
+            two workshops at the FIRST LEGO League Sunday kickoff.
           </p>
           <div className={styles.kickoff}>
-            <h3>Join us at the Sunday kickoff</h3>
-            <p><time dateTime="2026-09-27">September 27, 2026</time> · 8:30 AM–4:00 PM</p>
-            <p>#FIRSTLikeAGirl workshops: 1:10–2:00 PM and 2:10–3:00 PM</p>
+            <h3>Join our workshop at the FLL Sunday kickoff</h3>
+            <p><time dateTime="2026-09-27">Sunday, September 27, 2026</time> · Kickoff hours: 8:30 AM–4:00 PM</p>
+            <p>Workshop sessions: 1:10–2:00 PM or 2:10–3:00 PM</p>
             <p>Bayview Glen School · 85 Moatfield Drive, North York</p>
           </div>
         </div>
