@@ -55,30 +55,28 @@
   letter-spacing: 0.004em;
 }
 .mobileRobot { display: none; }
-.mission { min-height: 125svh; }
+.mission { min-height: 105svh; }
 .mission .copy { width: min(52%, 720px); }
 .mission h2 { overflow-wrap: anywhere; }
-.missionDetails {
-  display: grid;
-  gap: 16px;
-  max-width: 61ch;
-  margin-top: 32px;
-  padding-top: 28px;
+.kickoff {
+  max-width: 610px;
+  margin-top: 36px;
+  padding: 26px 0 0;
   border-top: 1px solid var(--line);
 }
-.missionDetails p {
-  margin: 0;
+.kickoff h3 {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: clamp(23px, 2.2vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.kickoff p {
+  margin: 0 0 8px;
   color: var(--secondary);
   font-size: 17px;
-  line-height: 1.65;
+  line-height: 1.5;
 }
-.linkRow {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px 28px;
-  margin-top: 32px;
-}
-.linkRow a,
 .achievement,
 .consultAction {
   display: inline-flex;
@@ -92,10 +90,8 @@
   text-decoration-color: #f5c51875;
   text-underline-offset: 5px;
 }
-.linkRow svg,
 .achievement svg,
 .consultAction svg { width: 18px; height: 18px; flex: none; }
-.linkRow a:hover,
 .achievement:hover,
 .consultAction:hover { text-decoration-color: currentColor; }
 .consult { min-height: 115svh; }
@@ -205,7 +201,7 @@
   .copy, .mission .copy, .finale .copy { width: 53%; }
   .chapter h2 { font-size: clamp(42px, 5.6vw, 62px); }
   .hero h1 { font-size: clamp(54px, 7vw, 78px); }
-  .missionDetails p { font-size: 16px; }
+  .kickoff p { font-size: 16px; }
 }
 @media (max-width: 700px) {
   .chapter {
@@ -219,9 +215,8 @@
   .hero h1 { font-size: clamp(44px, 11.5vw, 66px); }
   .chapter h2 { font-size: clamp(39px, 10vw, 58px); }
   .lead { margin-top: 24px; font-size: 18px; line-height: 1.55; }
-  .missionDetails { margin-top: 26px; padding-top: 24px; gap: 15px; }
-  .missionDetails p { font-size: 16px; line-height: 1.6; }
-  .linkRow { margin-top: 25px; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .kickoff { margin-top: 26px; padding-top: 24px; }
+  .kickoff p { font-size: 16px; }
   .mobileRobot { display: block; width: 100%; margin-top: 30px; }
   .topics { margin-top: 26px; }
   .topics li { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; font-size: 16px; }

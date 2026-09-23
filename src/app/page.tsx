@@ -54,29 +54,15 @@ export default function Home() {
         <div className={styles.copy}>
           <h2 id="mission-title">#FIRSTLikeAGirl</h2>
           <p className={styles.lead}>
-            Girls belong in every part of STEM. #FIRSTLikeAGirl shares stories
-            from girls and women in FIRST so more young people can see what is possible for them.
+            #FIRSTLikeAGirl celebrates girls and women in FIRST and helps more girls
+            see themselves in robotics. ConnecTech is bringing that message to the
+            BIOGLOW kickoff through two afternoon workshops.
           </p>
-          <div className={styles.missionDetails}>
-            <p>
-              The campaign began with 4-H Exploding Bacon Robotics, FIRST Robotics Competition
-              Team 1902. It brings role models into view and encourages girls to join,
-              stay in and lead within the FIRST community.
-            </p>
-            <p>
-              Teams can take part by sharing their own stories, making campaign boards or
-              buttons, and encouraging girls to try robotics. ConnecTech supports that mission.
-            </p>
-          </div>
-          <div className={styles.linkRow}>
-            <a href="https://firstlikeagirl.com/our-story/" target="_blank" rel="noreferrer">
-              Read the campaign story <ArrowIcon />
-              <span className={styles.srOnly}> (opens in a new tab)</span>
-            </a>
-            <a href="https://firstlikeagirl.com/make-your-own/" target="_blank" rel="noreferrer">
-              Get involved <ArrowIcon />
-              <span className={styles.srOnly}> (opens in a new tab)</span>
-            </a>
+          <div className={styles.kickoff}>
+            <h3>Join us at the Sunday kickoff</h3>
+            <p><time dateTime="2026-09-27">September 27, 2026</time> · 8:30 AM–4:00 PM</p>
+            <p>#FIRSTLikeAGirl workshops: 1:10–2:00 PM and 2:10–3:00 PM</p>
+            <p>Bayview Glen School · 85 Moatfield Drive, North York</p>
           </div>
         </div>
         <div className={styles.mobileRobot}>
