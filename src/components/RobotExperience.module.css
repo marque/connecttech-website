@@ -15,7 +15,7 @@
   background: transparent;
 }
 .heroExperience .inlineStage {
-  height: clamp(280px, 42svh, 440px);
+  height: clamp(360px, 50svh, 500px);
 }
 .inlineStage .loading { left: 50%; transform: translateX(-50%); }
 .canvas {
@@ -77,8 +77,10 @@
   .inlineStage {
     inset: auto;
     height: clamp(290px, 82vw, 380px);
+    max-height: none;
+    min-height: 0;
   }
-  .heroExperience .inlineStage { height: clamp(280px, 42svh, 410px); }
+  .heroExperience .inlineStage { height: clamp(320px, 48svh, 430px); }
   .inlineStage .canvas:focus-visible { outline: 2px solid #f5c518; outline-offset: -2px; }
   .loading {
     left: 50%;

@@ -34,22 +34,20 @@
 .copy { width: min(48%, 690px); }
 .hero {
   display: block;
-  min-height: 120svh;
+  min-height: 0;
   padding: 0;
 }
 .heroContent {
-  position: sticky;
-  top: 88px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: clamp(16px, 3vh, 32px);
-  height: calc(100svh - 88px);
-  padding: 16px clamp(24px, 8vw, 128px) 50px;
+  gap: clamp(24px, 3vh, 38px);
+  min-height: calc(100svh - 88px);
+  padding: clamp(44px, 6svh, 84px) clamp(24px, 8vw, 128px) 76px;
 }
 .hero .copy { width: min(100%, 1000px); margin: 0 auto; text-align: center; }
-.hero .lead { margin-right: auto; margin-left: auto; }
-.hero .heroRobot { width: min(100%, 1280px); margin: 0 auto; }
+.hero .lead { margin: 24px auto 0; }
+.hero .heroRobot { flex: none; width: min(100%, 1280px); margin: -16px auto 0; }
 .hero h1,
 .chapter h2 {
   margin: 0;
@@ -60,7 +58,7 @@
 }
 .hero h1 { font-size: clamp(58px, 6.4vw, 96px); }
 .chapter h2 { font-size: clamp(46px, 5vw, 74px); }
-.hero h1 span,
+.hero h1 span { color: var(--yellow); }
 .finale h2 span { display: block; color: var(--yellow); }
 .lead {
   max-width: 48ch;
@@ -71,38 +69,26 @@
   line-height: 1.55;
   letter-spacing: 0.004em;
 }
-.mobileRobot { display: block; width: 46%; }
-.mission, .consult { justify-content: space-between; gap: clamp(28px, 5vw, 80px); }
-.mission { min-height: 96svh; }
-.mission .copy { width: min(52%, 720px); }
-.mission h2 { overflow-wrap: anywhere; }
-.campaignTitle span:nth-child(1) { color: var(--text); }
-.campaignTitle span:nth-child(2) { color: #eb4c50; }
-.campaignTitle span:nth-child(3) { color: #adb1b5; }
-.campaignTitle span:nth-child(4) { color: #5484ca; }
-.campaignVisual {
+.mission {
+  display: block;
+  min-height: 0;
+  padding: 0 0 clamp(72px, 10svh, 130px);
+}
+.campaignBanner {
   display: grid;
   place-items: center;
-  width: min(44%, 690px);
-  min-width: 0;
-  padding: clamp(20px, 3vw, 48px);
-  border-radius: 22px;
-  background: radial-gradient(ellipse at 50% 48%, #2b3650 0%, #17202c 58%, #121915 100%);
-  box-shadow: inset 0 0 0 1px #ffffff14, 0 32px 72px #00000038;
-  text-decoration: none;
+  width: 100%;
+  padding: 34px clamp(24px, 8vw, 128px);
+  background: #f8f8f5;
+}
+.campaignBanner a {
+  display: block;
+  width: min(100%, 820px);
   pointer-events: auto;
 }
-.campaignBoard {
-  display: block;
-  width: 100%;
-  padding: clamp(14px, 2vw, 30px);
-  background: #f9f9f6;
-  box-shadow: 0 18px 38px #0000004d;
-  transform: rotate(-3deg);
-  transition: transform 350ms ease;
-}
-.campaignVisual:hover .campaignBoard { transform: rotate(0deg) scale(1.025); }
-.campaignBoard img { display: block; width: 100%; height: auto; }
+.campaignBanner img { display: block; width: 100%; height: auto; }
+.missionBody { width: min(calc(100% - 48px), 800px); margin: 0 auto; padding-top: clamp(52px, 8svh, 88px); }
+.missionBody .lead { max-width: 65ch; margin-top: 0; }
 .kickoff {
   max-width: 610px;
   margin-top: 36px;
@@ -139,58 +125,61 @@
 .consultAction svg { width: 18px; height: 18px; flex: none; }
 .achievement:hover,
 .consultAction:hover { text-decoration-color: currentColor; }
-.consult { min-height: 105svh; }
+.consult {
+  flex-direction: column;
+  gap: clamp(48px, 7svh, 78px);
+  min-height: 0;
+  padding-top: clamp(48px, 8svh, 100px);
+  padding-bottom: clamp(84px, 10svh, 140px);
+}
+.consult .copy { width: min(100%, 900px); }
 .consultVisual {
   position: relative;
-  display: grid;
-  align-content: center;
-  gap: 22px;
-  width: min(43%, 560px);
-  min-height: 480px;
-  padding: 48px clamp(20px, 3vw, 50px);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: min(100%, 1000px);
+  min-height: 270px;
+  padding: 44px clamp(20px, 5vw, 64px);
   border-radius: 28px;
   background: radial-gradient(ellipse at 70% 40%, #253326 0%, #172119 48%, #111814 100%);
-  box-shadow: inset 0 0 0 1px #ffffff17, 0 32px 72px #00000038;
+  box-shadow: inset 0 0 0 1px #ffffff17;
   overflow: hidden;
 }
 .consultVisualTrack {
   position: absolute;
-  top: 18%;
-  bottom: 18%;
-  left: 50%;
-  width: 2px;
-  background: linear-gradient(transparent, #f5c518aa 24%, #f5c518aa 75%, transparent);
-  transform: translateX(-50%);
+  top: 50%;
+  right: 14%;
+  left: 14%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f5c518 24%, #f5c518 75%, transparent);
+  transform: translateY(-50%);
 }
 .consultCard {
   position: relative;
-  display: flex;
+  display: grid;
+  place-items: center;
   align-items: center;
-  gap: 22px;
-  min-height: 104px;
-  padding: 20px 24px;
-  border: 1px solid #ffffff2d;
-  border-radius: 18px;
-  background: #202a21ec;
-  box-shadow: 0 16px 36px #0000004d;
+  width: clamp(104px, 12vw, 144px);
+  aspect-ratio: 1;
+  padding: 20px;
+  border: 1px solid #f5c5184d;
+  border-radius: 26px;
+  background: #29352aec;
+  box-shadow: 0 16px 36px #0000004d, inset 0 0 24px #f5c51812;
   color: var(--text);
-  font-size: clamp(16px, 1.3vw, 21px);
-  font-weight: 610;
   animation: consultFloat 6s ease-in-out infinite;
 }
-.consultCardTeam { margin-left: 9%; animation-delay: -2s; }
-.consultCardIdea { margin-right: 9%; animation-delay: -4s; }
+.consultCardTeam { animation-delay: -2s; }
+.consultCardIdea { animation-delay: -4s; }
 .consultIcon {
   display: grid;
   place-items: center;
-  flex: none;
-  width: 62px;
-  height: 62px;
-  border-radius: 15px;
-  background: #f5c51819;
+  width: 76px;
+  height: 76px;
   color: var(--yellow);
 }
-.consultIcon svg { width: 38px; height: 38px; stroke: currentColor; stroke-width: 2.8; stroke-linecap: round; stroke-linejoin: round; }
+.consultIcon svg { width: 56px; height: 56px; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 @keyframes consultFloat {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-7px); }
@@ -198,7 +187,7 @@
 .topics {
   display: grid;
   gap: 0;
-  max-width: 580px;
+  max-width: 800px;
   margin: 36px 0 0;
   padding: 0;
   list-style: none;
@@ -298,8 +287,10 @@
 }
 @media (max-width: 1050px) {
   .chapter { padding-right: 5%; padding-left: 5%; }
-  .copy, .mission .copy, .finale .copy { width: 53%; }
+  .copy, .finale .copy { width: 53%; }
   .hero .copy { width: min(100%, 1000px); }
+  .mission { padding-right: 0; padding-left: 0; }
+  .consult .copy { width: min(100%, 900px); }
   .chapter h2 { font-size: clamp(42px, 5.6vw, 62px); }
   .hero h1 { font-size: clamp(54px, 7vw, 78px); }
   .kickoff p { font-size: 16px; }
@@ -311,30 +302,31 @@
     padding: 40px 6% 24px;
     scroll-margin-top: 118px;
   }
-  .hero { min-height: 120svh; padding: 0; }
+  .hero { min-height: 0; padding: 0; }
   .heroContent {
-    top: 118px;
-    height: calc(100svh - 118px);
-    padding: 8px 6% 38px;
-    gap: 12px;
+    min-height: calc(100svh - 118px);
+    padding: 36px 6% 46px;
+    gap: 18px;
   }
-  .copy, .mission .copy, .finale .copy { width: 100%; max-width: none; }
+  .copy, .finale .copy { width: 100%; max-width: none; }
   .hero h1 { font-size: clamp(44px, 11.5vw, 66px); }
+  .hero h1 span { display: block; }
   .hero .copy { text-align: center; }
-  .hero .lead { margin-right: auto; margin-left: auto; }
+  .hero .lead { margin: 24px auto 0; }
   .chapter h2 { font-size: clamp(39px, 10vw, 58px); }
   .lead { margin-top: 24px; font-size: 18px; line-height: 1.55; }
   .kickoff { margin-top: 26px; padding-top: 24px; }
   .kickoff p { font-size: 16px; }
-  .mobileRobot { width: 100%; margin-top: 20px; }
-  .heroRobot { margin-top: 0; }
-  .mission, .consult { padding-top: 62px; padding-bottom: 48px; }
-  .campaignVisual { width: 100%; margin-top: 38px; padding: clamp(20px, 6vw, 36px); }
-  .campaignBoard { padding: clamp(12px, 3.5vw, 22px); }
-  .consultVisual { width: 100%; min-height: 350px; margin-top: 38px; padding: 34px 28px; gap: 16px; }
-  .consultCard { min-height: 80px; padding: 12px 16px; gap: 15px; font-size: 16px; }
-  .consultIcon { width: 50px; height: 50px; }
-  .consultIcon svg { width: 31px; height: 31px; }
+  .hero .heroRobot { width: calc(100% + 12vw); margin: -16px -6vw 0; }
+  .mission { padding: 0 0 44px; }
+  .campaignBanner { padding: 24px 6%; }
+  .missionBody { width: auto; margin: 0 6%; padding-top: 44px; }
+  .consult { display: flex; gap: 44px; padding: 32px 6% 80px; }
+  .consult .copy { width: 100%; }
+  .consultVisual { width: 100%; min-height: 212px; padding: 25px 14px; border-radius: 22px; }
+  .consultCard { width: clamp(70px, 20vw, 86px); padding: 10px; border-radius: 19px; }
+  .consultIcon { width: 48px; height: 48px; }
+  .consultIcon svg { width: 36px; height: 36px; }
   .topics { margin-top: 26px; }
   .topics li { grid-template-columns: 1fr; gap: 4px; padding: 14px 0; font-size: 16px; }
   .achievement { margin-top: 20px; }
@@ -348,6 +340,7 @@
 }
 @media (max-width: 360px) {
   .chapter { padding-left: 5%; padding-right: 5%; }
+  .hero, .mission { padding-left: 0; padding-right: 0; }
   .hero h1 { font-size: 42px; }
   .chapter h2 { font-size: 37px; }
 }

@@ -39,9 +39,6 @@ export default function Home() {
 
       <section id="introduction" className={`${styles.chapter} ${styles.hero}`} aria-labelledby="hero-title" data-chapter="01">
         <div className={styles.heroContent}>
-          <div className={`${styles.mobileRobot} ${styles.heroRobot}`}>
-            <RobotExperience inline hero label="ConnecTech robot that separates and rebuilds as you scroll" />
-          </div>
           <div className={styles.copy}>
             <h1 id="hero-title">Meet <span>ConnecTech.</span></h1>
             <p className={styles.lead}>
@@ -49,12 +46,19 @@ export default function Home() {
               We design, build and program robots together.
             </p>
           </div>
+          <div className={styles.heroRobot}>
+            <RobotExperience inline hero label="ConnecTech robot that separates and rebuilds as you scroll" />
+          </div>
         </div>
       </section>
 
       <section id="first-like-a-girl" className={`${styles.chapter} ${styles.mission}`} aria-labelledby="mission-title" data-chapter="02">
-        <div className={styles.copy}>
-          <h2 id="mission-title" className={styles.campaignTitle}><span>#FIRST</span><span>Like</span><span>A</span><span>Girl</span></h2>
+        <h2 id="mission-title" className={styles.campaignBanner} aria-label="#FIRSTLikeAGirl">
+          <a href="https://firstlikeagirl.com/boards/" target="_blank" rel="noreferrer" aria-label="FIRST Like a Girl event artwork (opens in a new tab)">
+            <Image src="/images/firstlikeagirl-mark.png" width={1200} height={153} alt="Official #FIRSTLikeAGirl campaign mark" sizes="(max-width: 700px) 88vw, 800px" />
+          </a>
+        </h2>
+        <div className={styles.missionBody}>
           <p className={styles.lead}>
             #FIRSTLikeAGirl celebrates girls and women in FIRST and encourages more girls
             to see themselves in robotics. ConnecTech is sharing that message through
@@ -67,14 +71,27 @@ export default function Home() {
             <p>Bayview Glen School · 85 Moatfield Drive, North York</p>
           </div>
         </div>
-        <a className={styles.campaignVisual} href="https://firstlikeagirl.com/boards/" target="_blank" rel="noreferrer" aria-label="See official FIRST Like a Girl event artwork (opens in a new tab)">
-          <span className={styles.campaignBoard}>
-            <Image src="/images/firstlikeagirl-mark.png" width={1200} height={153} alt="Official #FIRSTLikeAGirl campaign mark" sizes="(max-width: 700px) 88vw, 42vw" />
-          </span>
-        </a>
       </section>
 
       <section id="consult" className={`${styles.chapter} ${styles.consult}`} aria-labelledby="consult-title" data-chapter="03">
+        <div className={styles.consultVisual} aria-hidden="true">
+          <div className={styles.consultVisualTrack} />
+          <div className={`${styles.consultCard} ${styles.consultCardBuild}`}>
+            <span className={styles.consultIcon}>
+              <svg viewBox="0 0 64 64" fill="none"><path d="m32 8 22 12v24L32 56 10 44V20L32 8Z"/><path d="m10 20 22 12 22-12M32 32v24M22 26l22-12"/></svg>
+            </span>
+          </div>
+          <div className={`${styles.consultCard} ${styles.consultCardTeam}`}>
+            <span className={styles.consultIcon}>
+              <svg viewBox="0 0 64 64" fill="none"><circle cx="22" cy="21" r="8"/><circle cx="43" cy="23" r="7"/><path d="M6 52c0-10 6-17 16-17s16 7 16 17M38 38c9-2 20 4 20 14"/></svg>
+            </span>
+          </div>
+          <div className={`${styles.consultCard} ${styles.consultCardIdea}`}>
+            <span className={styles.consultIcon}>
+              <svg viewBox="0 0 64 64" fill="none"><path d="M22 41c0-5-8-10-8-20a18 18 0 0 1 36 0c0 10-8 15-8 20H22ZM23 48h18M26 55h12M32 9v13m-8-4 8 8 8-8"/></svg>
+            </span>
+          </div>
+        </div>
         <div className={styles.copy}>
           <h2 id="consult-title">ConnecTech Consult</h2>
           <p className={styles.lead}>
@@ -91,27 +108,6 @@ export default function Home() {
             <span className={styles.srOnly}> (school report, opens in a new tab)</span>
           </a>
           <a className={styles.consultAction} href="#stay-tuned">Contact ConnecTech <ArrowIcon /></a>
-        </div>
-        <div className={styles.consultVisual} aria-hidden="true">
-          <div className={styles.consultVisualTrack} />
-          <div className={`${styles.consultCard} ${styles.consultCardBuild}`}>
-            <span className={styles.consultIcon}>
-              <svg viewBox="0 0 64 64" fill="none"><path d="m32 8 22 12v24L32 56 10 44V20L32 8Z"/><path d="m10 20 22 12 22-12M32 32v24M22 26l22-12"/></svg>
-            </span>
-            <span>Build and code</span>
-          </div>
-          <div className={`${styles.consultCard} ${styles.consultCardTeam}`}>
-            <span className={styles.consultIcon}>
-              <svg viewBox="0 0 64 64" fill="none"><circle cx="22" cy="21" r="8"/><circle cx="43" cy="23" r="7"/><path d="M6 52c0-10 6-17 16-17s16 7 16 17M38 38c9-2 20 4 20 14"/></svg>
-            </span>
-            <span>Work as a team</span>
-          </div>
-          <div className={`${styles.consultCard} ${styles.consultCardIdea}`}>
-            <span className={styles.consultIcon}>
-              <svg viewBox="0 0 64 64" fill="none"><path d="M22 41c0-5-8-10-8-20a18 18 0 0 1 36 0c0 10-8 15-8 20H22ZM23 48h18M26 55h12M32 9v13m-8-4 8 8 8-8"/></svg>
-            </span>
-            <span>Develop an idea</span>
-          </div>
         </div>
       </section>
 

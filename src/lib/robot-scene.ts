@@ -101,7 +101,7 @@ export async function createRobotScene(
   key.position.set(-3, 7, 5);
   scene.add(key);
   key.castShadow = true;
-  key.shadow.mapSize.set(2048, 2048);
+  key.shadow.mapSize.set(mobile() ? 1024 : 2048, mobile() ? 1024 : 2048);
   key.shadow.camera.left = -7;
   key.shadow.camera.right = 7;
   key.shadow.camera.top = 7;
@@ -202,27 +202,34 @@ export async function createRobotScene(
     env.dispose();
     return emptyHandle;
   }
-  const renderTarget = new THREE.WebGLRenderTarget(
-    host.clientWidth,
-    host.clientHeight,
-    { type: THREE.HalfFloatType, samples: 4 },
-  );
-  const composer = new EffectComposer(renderer, renderTarget);
-  composer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
-  composer.addPass(new RenderPass(scene, camera));
-  const ao = new GTAOPass(scene, camera, host.clientWidth, host.clientHeight);
-  ao.updateGtaoMaterial({
-    radius: 0.28,
-    thickness: 1,
-    distanceExponent: 1.4,
-    distanceFallOff: 0.8,
-    scale: 1,
-    samples: 12,
-  });
-  ao.blendIntensity = 0.7;
-  composer.addPass(ao);
-  const output = new OutputPass();
-  composer.addPass(output);
+  // The in-flow hero renders directly. Only the legacy fixed desktop variant
+  // needs the more expensive postprocessing targets and passes.
+  let composer: EffectComposer | null = null;
+  let ao: GTAOPass | null = null;
+  let output: OutputPass | null = null;
+  if (!options) {
+    const renderTarget = new THREE.WebGLRenderTarget(
+      host.clientWidth,
+      host.clientHeight,
+      { type: THREE.HalfFloatType, samples: 4 },
+    );
+    composer = new EffectComposer(renderer, renderTarget);
+    composer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
+    composer.addPass(new RenderPass(scene, camera));
+    ao = new GTAOPass(scene, camera, host.clientWidth, host.clientHeight);
+    ao.updateGtaoMaterial({
+      radius: 0.28,
+      thickness: 1,
+      distanceExponent: 1.4,
+      distanceFallOff: 0.8,
+      scale: 1,
+      samples: 12,
+    });
+    ao.blendIntensity = 0.7;
+    composer.addPass(ao);
+    output = new OutputPass();
+    composer.addPass(output);
+  }
   let frame = 0,
     target = 0,
     progress = 0,
@@ -341,12 +348,14 @@ export async function createRobotScene(
         const section = host.closest("section");
         if (section) {
           const bounds = section.getBoundingClientRect();
-          const stickyTop = mobile() ? 118 : 88;
-          // Finish opening while the hero copy is pinned. Continued scrolling
-          // releases the copy and then brings the parts back together.
-          const pinnedTravel = Math.max(1, bounds.height - window.innerHeight + stickyTop);
-          const travel = pinnedTravel + window.innerHeight * 0.35;
-          target = clamp((stickyTop - bounds.top) / travel, 0, 1);
+          const sectionTop = mobile() ? 118 : 88;
+          // The copy and model stay in normal page flow. A scroll-linked pose
+          // opens and closes while the model crosses the viewport.
+          target = clamp(
+            (sectionTop - bounds.top) / (window.innerHeight * 0.45),
+            0,
+            1,
+          );
           dirty = true;
           return;
         }
@@ -381,7 +390,7 @@ export async function createRobotScene(
     renderer.setPixelRatio(
       Math.min(window.devicePixelRatio, mobile() ? 1.5 : 1.75),
     );
-    composer.setSize(host.clientWidth, host.clientHeight);
+    composer?.setSize(host.clientWidth, host.clientHeight);
     scroll();
   };
   const observe = new ResizeObserver(resize);
@@ -423,7 +432,7 @@ export async function createRobotScene(
     const open = reduce.matches
       ? 0
       : options?.variant === "hero"
-        ? smooth(0, 0.46, progress) * (1 - smooth(0.52, 0.88, progress))
+        ? smooth(0, 0.46, progress) * (1 - smooth(0.5, 0.78, progress))
         : smooth(0.1, 0.54, progress) * (1 - smooth(0.55, 0.78, progress));
     const shift =
       reduce.matches
@@ -488,10 +497,15 @@ export async function createRobotScene(
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
     const distance = isMobile
-      ? 9.7 * Math.max(1, host.clientHeight / host.clientWidth)
-      : options ? 9 : 12;
+      ? (window.innerWidth <= 360 ? 10.2 : 10) * Math.max(1, host.clientHeight / host.clientWidth)
+      : options ? 9.5 : 12;
     camera.position.set(distance * 0.6, distance * 0.47, distance * 0.78);
-    camera.lookAt(0, options?.variant === "hero" && !isMobile ? 0.3 : 0.15, 0);
+    const heroCameraAim = isMobile ? 0.15 : 0.3;
+    camera.lookAt(
+      0,
+      options?.variant === "hero" ? heroCameraAim - (1 - open) * 0.75 : 0.15,
+      0,
+    );
     if (isMobile || options) {
       // Inline product frames are centred on their own canvas.
       camera.clearViewOffset();
@@ -509,7 +523,7 @@ export async function createRobotScene(
     orbit.visible = !isMobile && !options;
     grid.visible = !options;
     if (isMobile || options) renderer.render(scene, camera);
-    else composer.render();
+    else composer?.render();
   };
   frame = requestAnimationFrame(render);
   ready(true);
@@ -549,9 +563,9 @@ export async function createRobotScene(
     });
     geometries.forEach((g) => g.dispose());
     materials.forEach((m) => m.dispose());
-    ao.dispose();
-    output.dispose();
-    composer.dispose();
+    ao?.dispose();
+    output?.dispose();
+    composer?.dispose();
     env.dispose();
     renderer.dispose();
     renderer.domElement.remove();
