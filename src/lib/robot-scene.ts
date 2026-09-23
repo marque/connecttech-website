@@ -193,6 +193,12 @@ export async function createRobotScene(
         });
       }
     }
+    // Put the assembled model's footprint on the yaw axis so it spins in place.
+    const modelCenter = new THREE.Box3()
+      .setFromObject(model)
+      .getCenter(new THREE.Vector3());
+    content.position.x = -modelCenter.x * content.scale.x;
+    content.position.z = -modelCenter.z * content.scale.z;
     content.add(model);
   } catch {
     ready(false);
@@ -233,8 +239,7 @@ export async function createRobotScene(
     dirty = true,
     lastPose = -1;
   let manual = false,
-    manualYaw = 0,
-    dragFocus = 0;
+    manualYaw = 0;
   let pointer: { id: number; x: number } | null = null;
   let touch: {
     id: number;
@@ -250,7 +255,6 @@ export async function createRobotScene(
     if (!manual) {
       manual = true;
       manualYaw = robot.rotation.y;
-      host.dataset.dragging = "true";
     }
     manualYaw += x * 0.008;
     dirty = true;
@@ -266,7 +270,6 @@ export async function createRobotScene(
       turntableAngle = manualYaw - automaticYaw();
       manual = false;
     }
-    delete host.dataset.dragging;
     host.style.cursor = "grab";
     dirty = true;
   };
@@ -400,12 +403,6 @@ export async function createRobotScene(
     if (!visible || !onScreen) return;
     const delta = lastTime ? Math.min((time - lastTime) / 1000, 0.05) : 0;
     lastTime = time;
-    const focusTarget = manual ? 1 : 0;
-    dragFocus = reduce.matches
-      ? focusTarget
-      : THREE.MathUtils.damp(dragFocus, focusTarget, 12, delta);
-    if (Math.abs(dragFocus - focusTarget) < 0.001) dragFocus = focusTarget;
-    const focusMoving = dragFocus !== focusTarget;
     const autoRotating = !reduce.matches && !manual && !pointer;
     if (autoRotating) {
       // At 40% of the original speed, a revolution now takes 100 seconds.
@@ -429,7 +426,6 @@ export async function createRobotScene(
     if (
       !dirty &&
       !autoRotating &&
-      !focusMoving &&
       Math.abs(progress - lastPose) < 0.00005
     )
       return;
@@ -466,8 +462,6 @@ export async function createRobotScene(
       0,
     );
     robot.position.set(0, 0, 0);
-    // The new model's geometry is centred near z=0; rotate about that centre.
-    content.position.z = 0;
     const desktopFit = Math.min(1, host.clientWidth / host.clientHeight / 1.5);
     // Give the Consult copy its full column as the fixed robot moves right.
     const scale = (0.85 - open * 0.48) *
@@ -493,9 +487,7 @@ export async function createRobotScene(
       camera.setViewOffset(
         host.clientWidth,
         host.clientHeight,
-        -host.clientWidth *
-          (0.215 - shift * 0.445 + consultArrival * 0.07) *
-          (1 - dragFocus),
+        -host.clientWidth * (0.215 - shift * 0.445 + consultArrival * 0.07),
         0,
         host.clientWidth,
         host.clientHeight,
