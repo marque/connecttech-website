@@ -33,11 +33,6 @@ export default function Home() {
       </header>
 
       <RobotExperience />
-      <div className={styles.sideIndex} aria-hidden="true">
-        <span>CONNECTION IS OUR SUPERPOWER</span>
-        <i />
-        <span>BAYVIEW GLEN / TORONTO</span>
-      </div>
 
       <section
         className={`${styles.chapter} ${styles.hero}`}
@@ -45,9 +40,6 @@ export default function Home() {
         data-chapter="01"
       >
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>
-            <span className={styles.liveDot} /> CONNECTECH / A NEW SEASON
-          </p>
           <h1 id="hero-title">
             Small bricks.
             <br />
@@ -59,20 +51,9 @@ export default function Home() {
             We are ConnecTech. A team of curious minds building robots, opening
             doors, and making our next move together.
           </p>
-          <a href="#our-mission" className={styles.explore}>
-            Explore what connects us <span aria-hidden="true">↓</span>
-          </a>
         </div>
         <div className={styles.mobileRobot}>
           <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
-        </div>
-        <div className={styles.heroFooter}>
-          <span>BIOGLOW / 2026–27</span>
-          <span className={styles.scrollCue}>
-            <i /> <span className={styles.desktopCue}>SCROLL TO DISASSEMBLE</span>
-            <span className={styles.mobileCue}>SCROLL TO EXPLORE</span>
-          </span>
-          <span>BUILT WITH CURIOSITY.</span>
         </div>
       </section>
 
@@ -83,9 +64,6 @@ export default function Home() {
         data-chapter="02"
       >
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>
-            <span>01 / OPENING DOORS</span>
-          </p>
           <h2 id="mission-title">
             More minds.
             <br />
@@ -105,14 +83,6 @@ export default function Home() {
             #FIRSTLikeAGirl <span aria-hidden="true">↗</span>
             <span className={styles.srOnly}> (opens in a new tab)</span>
           </a>
-          <div className={styles.statement}>
-            <span aria-hidden="true">＋</span>
-            <p>
-              Different perspectives.
-              <br />
-              One extraordinary team.
-            </p>
-          </div>
         </div>
         <div className={styles.mobileRobot}>
           <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
@@ -126,7 +96,6 @@ export default function Home() {
         data-chapter="03"
       >
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>02 / PASSING IT FORWARD</p>
           <h2 id="consult-title">
             Your first build.
             <br />
@@ -134,8 +103,7 @@ export default function Home() {
           </h2>
           <p>
             Starting a FIRST LEGO League team? We’ll share what we’ve learned,
-            from your first brick to the competition table. Free guidance. A
-            team in your corner.
+            from your first brick to the competition table. Free guidance.
           </p>
           <a
             className={styles.achievement}
@@ -159,7 +127,7 @@ export default function Home() {
               sizes="44px"
             />
             <div>
-              ConnecTech Consult<small>FREE GUIDANCE FOR NEW FLL TEAMS</small>
+              ConnecTech Consult
             </div>
           </div>
           <ul className={styles.topics}>
@@ -167,10 +135,6 @@ export default function Home() {
             <li>Teamwork</li>
             <li>Ideas & innovation</li>
           </ul>
-          <div className={styles.contactPrompt}>
-            <span className={styles.liveDot} />
-            <strong>Have a question? Ask our team.</strong>
-          </div>
           <a
             className={styles.contactEmail}
             href="mailto:connectech27757@gmail.com?subject=ConnecTech%20Consult"
@@ -178,38 +142,12 @@ export default function Home() {
             <span>connectech27757@gmail.com</span>
             <span aria-hidden="true">↗</span>
           </a>
-          <p className={styles.contactNote}>
-            Send us your questions about building, coding, teamwork or getting
-            your FLL team started. Our guidance is free.
-          </p>
         </div>
         <div className={styles.mobileRobot}>
           <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
         </div>
       </section>
 
-      <section
-        className={`${styles.chapter} ${styles.finale}`}
-        aria-labelledby="finale-title"
-        data-chapter="04"
-      >
-        <div className={styles.finaleCopy}>
-          <p className={styles.eyebrow}>THE NEXT CHAPTER / BIOGLOW 2026–27</p>
-          <h2 id="finale-title">
-            Watch us
-            <br />
-            <em>come to life.</em>
-          </h2>
-          <p>
-            A new challenge. A world of possibility.
-            <br />
-            Our BIOGLOW story is just beginning.
-          </p>
-          <Link href="/unearthed" className={styles.archiveLink}>
-            Explore last season <span>UNEARTHED 25/26 ↗</span>
-          </Link>
-        </div>
-      </section>
       <footer className={styles.footer}>
         <Link
           href="/"

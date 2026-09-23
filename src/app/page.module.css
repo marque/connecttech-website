@@ -71,15 +71,6 @@
   transform: rotate(-25deg);
   transform-origin: center;
 }
-.liveDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--brand-yellow);
-  display: inline-block;
-  box-shadow: 0 0 12px #f5c51850;
-  flex-shrink: 0;
-}
 .headerCta {
   font-size: 12px;
   display: flex;
@@ -108,18 +99,6 @@
   width: 45%;
   max-width: 610px;
 }
-.eyebrow {
-  font:
-    9px var(--font-geist-mono),
-    monospace !important;
-  letter-spacing: 1.8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #b7c1b7 !important;
-  margin-bottom: 30px !important;
-  line-height: 1.8 !important;
-}
 .hero {
   min-height: 100svh;
   padding-top: 150px;
@@ -147,90 +126,8 @@
   color: #a2aba5;
   letter-spacing: -0.1px;
 }
-.explore {
-  margin-top: 29px;
-  display: inline-flex;
-  align-items: center;
-  gap: 25px;
-  font-size: 11px;
-  text-decoration: none;
-}
-.explore span {
-  height: 35px;
-  width: 35px;
-  display: grid;
-  place-items: center;
-  border: 1px solid #acb8ad66;
-  border-radius: 50%;
-  font-size: 16px;
-  transition:
-    background 0.2s,
-    color 0.2s;
-}
-.explore:hover span {
-  color: #111;
-  background: var(--brand-yellow);
-}
-.heroFooter {
-  position: absolute;
-  bottom: 28px;
-  left: 5%;
-  right: 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font:
-    8px var(--font-geist-mono),
-    monospace;
-  letter-spacing: 1px;
-  color: #969f99;
-}
-.scrollCue {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.mobileCue,
 .mobileRobot {
   display: none;
-}
-.scrollCue i {
-  height: 23px;
-  width: 13px;
-  border: 1px solid #59645c;
-  border-radius: 10px;
-  position: relative;
-}
-.scrollCue i:before {
-  position: absolute;
-  content: "";
-  top: 5px;
-  left: 5px;
-  width: 1px;
-  height: 5px;
-  background: var(--brand-yellow);
-}
-.sideIndex {
-  position: fixed;
-  top: 35%;
-  left: 26px;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font:
-    7px var(--font-geist-mono),
-    monospace;
-  letter-spacing: 1.7px;
-  color: #74817a;
-  pointer-events: none;
-}
-.sideIndex i {
-  height: 45px;
-  width: 1px;
-  background: #59645c;
 }
 .mission {
   justify-content: flex-end;
@@ -250,7 +147,7 @@
   font-style: normal;
   color: #e6d689;
 }
-.chapter .copy > p:not(.eyebrow):not(.contactNote) {
+.chapter .copy > p {
   font-size: 13px;
   line-height: 1.95;
   color: #a8b2ab;
@@ -268,25 +165,6 @@
 }
 .hashtag span:first-child {
   font-size: 24px;
-}
-.statement {
-  display: flex;
-  gap: 16px;
-  border-top: 1px solid #ffffff22;
-  margin-top: 42px;
-  padding-top: 22px;
-  max-width: 350px;
-}
-.statement > span {
-  color: var(--brand-yellow);
-  font-size: 24px;
-  font-weight: 200;
-}
-.statement p {
-  color: #798a7e;
-  font-size: 10px;
-  line-height: 1.8;
-  margin: 0;
 }
 .consult {
   min-height: 120svh;
@@ -313,15 +191,6 @@
   border-radius: 3px;
   object-fit: contain;
 }
-.consultName small {
-  display: block;
-  letter-spacing: 0.9px;
-  font:
-    7px var(--font-geist-mono),
-    monospace;
-  color: #b1ac91;
-  margin-top: 7px;
-}
 .topics {
   list-style: none;
   display: flex;
@@ -335,18 +204,6 @@
   content: "/";
   margin: 0 13px;
   color: #4c5e51;
-}
-.contactPrompt {
-  border-top: 1px solid #ffffff22;
-  padding-top: 21px;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  flex-wrap: wrap;
-  font-size: 12px;
-}
-.contactPrompt strong {
-  font-weight: 400;
 }
 .contactEmail {
   display: inline-flex;
@@ -367,42 +224,6 @@
 }
 .contactEmail:hover {
   text-decoration-color: currentColor;
-}
-.contactNote {
-  font-size: 12px !important;
-  line-height: 1.8;
-  color: #a8b2ab !important;
-  max-width: 360px;
-  margin-top: 6px;
-}
-.finale {
-  min-height: 100svh;
-  align-items: center;
-  padding-top: 80px;
-}
-.finaleCopy {
-  max-width: 480px;
-}
-.finale h2 {
-  font-size: clamp(55px, 5.8vw, 94px);
-}
-.finaleCopy > p:not(.eyebrow) {
-  font-size: 13px;
-  color: #97a69a;
-  line-height: 1.8;
-}
-.archiveLink {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  font-size: 11px;
-  text-decoration: none;
-  margin-top: 30px;
-}
-.archiveLink span {
-  font: 9px var(--font-geist-mono);
-  letter-spacing: 1px;
-  color: var(--brand-yellow);
 }
 .footer {
   position: relative;
@@ -496,9 +317,6 @@
   .headerCta {
     display: none;
   }
-  .sideIndex {
-    left: 15px;
-  }
   .chapter {
     padding-left: 7%;
     padding-right: 7%;
@@ -511,10 +329,6 @@
   }
   .mission .copy {
     width: 45%;
-  }
-  .eyebrow {
-    font-size: 8px !important;
-    letter-spacing: 1.1px;
   }
   .chapter h2 {
     font-size: 5vw;
@@ -530,7 +344,7 @@
   .brand { font-size: 22px; gap: 10px; }
   .brand small { font-size: 7px; margin-top: 6px; letter-spacing: 1.5px; }
   .brandLogo { width: 42px; height: 42px; }
-  .headerCta, .sideIndex { display: none; }
+  .headerCta { display: none; }
   .chapter {
     min-height: 0;
     display: block;
@@ -538,63 +352,35 @@
   }
   .hero { padding-top: 156px; }
   .mobileRobot { display: block; width: 100%; margin-top: 24px; }
-  .mobileCue { display: inline; }
-  .desktopCue { display: none; }
-  .hero .copy, .mission .copy, .consult .copy, .finaleCopy {
+  .hero .copy, .mission .copy, .consult .copy {
     width: 100%;
     max-width: none;
     position: relative;
     isolation: isolate;
   }
-  .copy::before, .finaleCopy::before { display: none; }
-  .eyebrow {
-    font-size: 9px !important;
-    margin-bottom: 18px !important;
-    letter-spacing: 1px !important;
-  }
+  .copy::before { display: none; }
   .hero h1 {
     font-size: clamp(38px, 12.5vw, 76px);
     line-height: 1;
     letter-spacing: -0.065em;
     margin-bottom: 20px;
   }
-  .chapter .copy > p:not(.eyebrow):not(.contactNote) {
+  .chapter .copy > p {
     font-size: 15px;
     line-height: 1.65;
     max-width: 38ch;
     color: #bec5bf;
   }
-  .hero .copy > p:not(.eyebrow) { font-size: 14px; line-height: 1.6; }
-  .explore {
-    font-size: 12px;
-    min-height: 44px;
-    margin-top: 16px;
-    gap: 16px;
-  }
-  .explore span { height: 36px; width: 36px; }
-  .heroFooter {
-    position: relative;
-    bottom: auto;
-    left: auto;
-    right: auto;
-    margin-top: 22px;
-    font-size: 8px;
-    letter-spacing: 0.3px;
-  }
-  .heroFooter > span:last-child { display: none; }
+  .hero .copy > p { font-size: 14px; line-height: 1.6; }
   .chapter h2, .consult h2 {
     font-size: clamp(36px, 10.8vw, 62px);
     line-height: 1.06;
     margin-bottom: 24px;
   }
   .hashtag { min-height: 48px; font-size: 27px; margin-top: 22px; }
-  .statement { margin-top: 22px; padding-top: 18px; }
-  .statement p { font-size: 12px; color: #a8b5aa; }
   .consultName { margin-top: 26px; font-size: 20px; }
-  .consultName small { font-size: 8px; line-height: 1.6; }
   .topics { margin: 18px 0 24px; flex-wrap: wrap; row-gap: 10px; font-size: 12px; }
   .topics li + li:before { margin: 0 8px; }
-  .contactPrompt { font-size: 14px; }
   .contactEmail {
     width: 100%;
     justify-content: space-between;
@@ -602,12 +388,7 @@
     gap: 8px;
     font-size: clamp(16px, 4.6vw, 21px);
   }
-  .consult .contactNote { font-size: 14px !important; line-height: 1.7; max-width: 38ch; }
   .consult .achievement { font-size: 10px; line-height: 1.7; padding: 10px 0; min-height: 44px; }
-  .finale h2 { font-size: clamp(46px, 14vw, 76px); }
-  .finaleCopy > p:not(.eyebrow) { font-size: 15px; }
-  .archiveLink { min-height: 60px; font-size: 14px; }
-  .archiveLink span { font-size: 10px; }
   .footer {
     align-items: flex-start;
     flex-wrap: wrap;
@@ -620,16 +401,12 @@
 }
 @media (max-width: 700px) and (max-height: 740px) {
   .hero { padding-top: 145px; }
-  .hero .eyebrow { margin-bottom: 12px !important; }
   .hero h1 { font-size: clamp(34px, 11vw, 48px); margin-bottom: 14px; }
-  .hero .copy > p:not(.eyebrow) { font-size: 13px; }
-  .hero .explore { margin-top: 10px; }
+  .hero .copy > p { font-size: 13px; }
 }
 @media (min-width: 701px) and (max-width: 1050px) and (max-height: 500px) {
   .hero { padding-top: 132px; }
-  .hero .eyebrow { margin-bottom: 12px !important; }
   .hero h1 { font-size: 5.8vw; margin-bottom: 16px; }
-  .sideIndex { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .page * {
