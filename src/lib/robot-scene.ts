@@ -276,7 +276,7 @@ export async function createRobotScene(
     mode: "pending" | "rotate" | "scroll";
   } | null = null;
   const automaticYaw = () =>
-    reduce.matches ? -0.2 : -0.2 - smooth(0, 0.32, progress) * 1.15 +
+    -0.2 - smooth(0, 0.32, progress) * 1.15 +
       smooth(0.42, 0.78, progress) * 2.5 + smooth(0.78, 0.97, progress) * 0.2;
   const rotateBy = (x: number) => {
     if (!manual) {
@@ -445,20 +445,19 @@ export async function createRobotScene(
         slowFrames = 0;
       }
     }
-    const autoRotating = !reduce.matches && !manual && !pointer;
+    const autoRotating = !manual && !pointer;
     if (autoRotating) {
       // At 40% of the original speed, a revolution now takes 100 seconds.
       turntableAngle =
         (turntableAngle + (delta * Math.PI * 2) / 100) % (Math.PI * 2);
     }
     // Follow trackpad and wheel steps quickly without snapping between poses.
-    // Reduced-motion devices stay tied directly to the scrollbar.
-    if (reduce.matches || delta === 0) progress = target;
+    if (delta === 0) progress = target;
     else {
       progress += (target - progress) * (1 - Math.exp(-delta / 0.07));
       if (Math.abs(target - progress) < 0.001) progress = target;
     }
-    // Scrolling controls the disassembly even when automatic motion is reduced.
+    // Scrolling controls the disassembly independently of the turntable.
     const unfolding = clamp(progress / 0.42, 0, 1);
     const open = unfolding * (1.2 - 0.2 * unfolding) *
       (1 - smooth(0.52, 0.78, progress));
