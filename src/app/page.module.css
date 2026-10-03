@@ -134,7 +134,7 @@
   min-height: 120svh;
 }
 .mission .copy {
-  width: min(50vw, 620px);
+  width: min(100%, 1120px);
   max-width: none;
 }
 .chapter h2 {
@@ -380,7 +380,7 @@
     width: 47%;
   }
   .mission .copy {
-    width: 50%;
+    width: 100%;
   }
   .chapter h2 {
     font-size: 5vw;
@@ -430,7 +430,13 @@
     margin-bottom: 24px;
   }
   .sectionLabel { margin-bottom: 14px; }
-  .campaignBanner { padding: 18px; margin-bottom: 0; }
+  .campaignBanner {
+    display: flex;
+    align-items: center;
+    min-height: 150px;
+    padding: 18px;
+    margin-bottom: 0;
+  }
   .chapter .copy > .sectionLead {
     max-width: 48ch;
     margin-top: 24px;

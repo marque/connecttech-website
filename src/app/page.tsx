@@ -72,7 +72,7 @@ export default function Home() {
                 width={1200}
                 height={153}
                 alt="Official #FIRSTLikeAGirl campaign mark"
-                sizes="(max-width: 700px) 88vw, (max-width: 1200px) 48vw, 600px"
+                sizes="(max-width: 700px) 88vw, (max-width: 1200px) 86vw, 1120px"
               />
               <span className={styles.srOnly}> (opens in a new tab)</span>
             </a>
