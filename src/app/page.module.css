@@ -39,6 +39,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  color: var(--brand-yellow);
   font-size: 24px;
   letter-spacing: -1.1px;
   font-weight: 750;
@@ -180,26 +181,6 @@
   font-size: clamp(17px, 1.45vw, 20px);
   line-height: 1.55;
   letter-spacing: -0.015em;
-}
-.kickoff {
-  margin-top: 31px;
-  padding: 22px 0 0 19px;
-  border-top: 1px solid #ffffff26;
-  border-left: 3px solid var(--brand-yellow);
-}
-.kickoff h3 {
-  max-width: 26ch;
-  margin: 0 0 15px;
-  font-size: clamp(21px, 1.9vw, 27px);
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.035em;
-}
-.kickoff p {
-  margin: 0 0 8px;
-  color: #c4ccc3;
-  font-size: clamp(14px, 1.15vw, 16px);
-  line-height: 1.5;
 }
 .consult {
   min-height: 125svh;
@@ -456,9 +437,6 @@
     font-size: 17px;
     line-height: 1.55;
   }
-  .kickoff { margin-top: 26px; padding-top: 18px; }
-  .kickoff h3 { font-size: 22px; }
-  .kickoff p { font-size: 14px; }
   .consultBanner { min-height: 144px; padding: 20px 108px 20px 20px; }
   .consultBannerText > span { font-size: 8px; }
   .consultBannerText h2 {

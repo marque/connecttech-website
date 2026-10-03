@@ -22,7 +22,7 @@ export default function Home() {
             sizes="(max-width: 700px) 42px, 58px"
           />
           <span>
-            Connec<span className={styles.brandAccent}>Tech</span>
+            ConnecTech
             <small>27757 / BAYVIEW GLEN</small>
           </span>
         </Link>
@@ -79,18 +79,8 @@ export default function Home() {
           </h2>
           <p className={styles.sectionLead}>
             #FIRSTLikeAGirl celebrates girls and women in FIRST and encourages
-            more girls to see themselves in robotics. ConnecTech is sharing that
-            message through two workshops at the FIRST LEGO League Sunday kickoff.
+            more girls to see themselves in robotics.
           </p>
-          <div className={styles.kickoff}>
-            <h3>Join our workshop at the FLL Sunday kickoff</h3>
-            <p><time dateTime="2026-09-27">Sunday, September 27, 2026</time> · Kickoff hours: 8:30 AM–4:00 PM</p>
-            <p>Workshop sessions: 1:10–2:00 PM or 2:10–3:00 PM</p>
-            <p>Bayview Glen School · 85 Moatfield Drive, North York</p>
-          </div>
-        </div>
-        <div className={styles.mobileRobot}>
-          <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
         </div>
       </section>
 
@@ -162,9 +152,6 @@ export default function Home() {
             <span>Contact ConnecTech</span>
             <span aria-hidden="true">↗</span>
           </a>
-        </div>
-        <div className={styles.mobileRobot}>
-          <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
         </div>
       </section>
 
