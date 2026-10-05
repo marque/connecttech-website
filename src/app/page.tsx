@@ -1,3 +1,4 @@
+import KickoffGallery from "@/components/KickoffGallery";
 import Link from "next/link";
 import Image from "next/image";
 import SeasonNav from "@/components/SeasonNav";
@@ -85,6 +86,8 @@ export default function Home() {
           </p>
         </div>
       </section>
+
+      <KickoffGallery />
 
       <section
         id="consult"
