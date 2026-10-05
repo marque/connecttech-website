@@ -1,0 +1,8 @@
+.panel { width: calc(100% - 48px); max-width: 1280px; margin: 32px auto; padding: 48px; border-radius: 28px; background: #f5c518; color: #000; }
+.panel h1 { text-align: center; font-size: clamp(36px, 5vw, 64px); margin: 0 0 28px; }
+.panel p { font-size: 20px; line-height: 1.8; text-align: center; margin: 0 0 36px; }
+.photos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.photos a { overflow: hidden; border-radius: 16px; }
+.photos img { display: block; width: 100%; height: auto; }
+@media (max-width: 1000px) { .photos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .panel { width: calc(100% - 24px); padding: 28px 20px; border-radius: 22px; } .panel p { font-size: 17px; } .photos { grid-template-columns: 1fr; } }

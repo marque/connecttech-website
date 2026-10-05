@@ -68,3 +68,5 @@
   .bar a { flex: 1; justify-content: center; min-height: 44px; padding: 8px; gap: 6px; }
   .year { font-size: 8px; }
 }
+
+@media (max-width: 700px) { .bar { gap: 0; } .bar a { font-size: 9px; padding: 8px 4px; gap: 4px; } .year { display: none; } }

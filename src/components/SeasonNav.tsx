@@ -4,7 +4,7 @@ import styles from "./SeasonNav.module.css";
 export default function SeasonNav({
   active,
 }: {
-  active: "bioglow" | "unearthed";
+  active: "bioglow" | "unearthed" | "kickoff";
 }) {
   return (
     <nav className={styles.bar} aria-label="Explore our seasons">
@@ -19,6 +19,7 @@ export default function SeasonNav({
         UNEARTHED <span className={styles.year}>25/26</span>
         <span aria-hidden="true">↗</span>
       </Link>
+      <Link href="/fll-kickoff" aria-current={active === "kickoff" ? "page" : undefined}>FLL Kickoff</Link>
     </nav>
   );
 }
