@@ -31,3 +31,9 @@
 @media (max-width: 700px) { .section { width: calc(100% - 24px); margin: 20px auto; padding: 28px 20px; border-radius: 22px; } }
 
 .intro > p:last-child { background: #f5c518; color: #000; border: 1px solid #0003; }
+
+.dots { display: flex; justify-content: center; gap: 4px; margin-top: 16px; }
+.dot { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: 0; background: transparent; cursor: pointer; border-radius: 50%; }
+.dot::after { content: ""; width: 8px; height: 8px; background: #0005; border-radius: 50%; }
+.activeDot::after { background: #000; width: 11px; height: 11px; }
+.dot:focus-visible { outline: 2px solid #000; }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import styles from "./KickoffGallery.module.css";
 
@@ -15,6 +15,10 @@ const photos = [
 
 export default function KickoffGallery() {
   const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIndex((current) => (current + 1) % photos.length), 5000);
+    return () => window.clearTimeout(timer);
+  }, [index]);
   const photo = photos[index];
   const nextPhoto = () => setIndex((current) => (current + 1) % photos.length);
 
@@ -30,7 +34,11 @@ export default function KickoffGallery() {
           <Image src={`/images/kickoff-2026/${photo.file}`} alt={photo.alt} fill sizes="(max-width: 700px) 88vw, 960px" />
           <span className={styles.next} aria-hidden="true">Next photo →</span>
         </button>
-        <p className={styles.counter} aria-live="polite">Photo {index + 1} of {photos.length} · Click the photo to see the next one</p>
+        <div className={styles.dots} aria-label="Choose a workshop photo">
+          {photos.map((item, dot) => (
+            <button key={item.file} type="button" className={`${styles.dot} ${dot === index ? styles.activeDot : ""}`} aria-label={`Show photo ${dot + 1}`} aria-pressed={dot === index} onClick={() => setIndex(dot)} />
+          ))}
+        </div>
       </div>
     </section>
   );
