@@ -33,8 +33,6 @@ export default function Home() {
         </a>
       </header>
 
-      <RobotExperience />
-
       <section
         className={`${styles.chapter} ${styles.hero}`}
         aria-labelledby="hero-title"
@@ -49,8 +47,7 @@ export default function Home() {
             <span className={styles.outline}>possibilities.</span>
           </h1>
           <p className={styles.intro}>
-            We are ConnecTech. A team of curious minds building robots, opening
-            doors, and making our next move together.
+            We are ConnecTech #27757, a FIRST LEGO League team from Bayview Glen School in Toronto. We build and code robots, develop ideas, and share what we learn with other teams.
           </p>
         </div>
         <div className={styles.mobileRobot}>

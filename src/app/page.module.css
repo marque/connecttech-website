@@ -493,3 +493,28 @@
   border-bottom: 1px solid #f5c51840;
   padding-bottom: 6px;
 }
+
+/* A centered introduction and robot, followed by yellow community sections. */
+.page { background: #f5c518; }
+.page::before { display: none; }
+.header { position: relative; background: #101310; }
+.chapter { display: block; min-height: 0; padding: 64px 6%; pointer-events: auto; }
+.hero { background: #101310; text-align: center; padding-top: 64px; }
+.hero .copy { width: 100%; max-width: 900px; margin: 0 auto; }
+.hero h1 { font-size: clamp(42px, 6vw, 80px); }
+.hero .copy > p { max-width: 680px; margin: 24px auto 0; font-size: 18px; line-height: 1.7; color: #c1cabe; }
+.mobileRobot { display: block; width: 100%; max-width: 960px; margin: 32px auto 0; }
+.mission, .consult { background: #f5c518; color: #101310; }
+.mission .copy, .consult .copy { width: 100%; max-width: 1100px; margin: 0 auto; }
+.mission .sectionLabel, .consult .sectionLabel { color: #433600; }
+.mission .campaignBanner { max-width: 850px; margin: 0 auto; border-radius: 20px; }
+.chapter .copy > .sectionLead { max-width: none; padding: 32px; margin: 28px 0 0; border-radius: 20px; background: #fff; color: #263140; font-size: 20px; line-height: 1.7; text-align: center; }
+.consultBanner { border-radius: 20px; }
+.consultTopics { background: #fff; padding: 24px 32px; border-radius: 20px; }
+.consultTopics h3 { color: #172019; }
+.consultTopics p { color: #4e5b51; }
+@media (max-width: 700px) {
+ .hero { padding-top: 40px; }
+ .hero .copy > p { font-size: 16px; }
+ .chapter .copy > .sectionLead { padding: 24px; font-size: 17px; }
+}

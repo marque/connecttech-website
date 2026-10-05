@@ -95,3 +95,16 @@
   position: absolute;
   height: 100svh;
 }
+
+/* Keep the single robot inside the introduction on every screen. */
+.inlineExperience { display: block; }
+.inlineStage, .inlineStage.staticStage {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  height: clamp(320px, 45vw, 520px);
+  max-height: none;
+  min-height: 0;
+  background: radial-gradient(ellipse at 50% 63%, #34392a55, transparent 68%);
+}
+.inlineStage .loading { left: 50%; transform: translateX(-50%); top: 38%; }
