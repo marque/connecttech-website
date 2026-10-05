@@ -553,3 +553,5 @@
 
 .header .brandLogo { width: 82px; height: 82px; }
 @media (max-width: 700px) { .header .brandLogo { width: 62px; height: 62px; } }
+
+@media (max-width: 700px) { .header { height: 150px; } }

@@ -484,7 +484,7 @@ export default function Home() {
         }
       `}</style>
       {/* Navigation */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-[104px] max-[700px]:h-[134px] bg-[#0c0d0e] border-b border-[#f5c51830] shadow-[inset_0_2px_#f5c518]">
+      <div className="fixed top-0 left-0 right-0 z-50 h-[104px] max-[700px]:h-[150px] bg-[#0c0d0e] border-b border-[#f5c51830] shadow-[inset_0_2px_#f5c518]">
         <Link
           href="/"
           className={`${brandStyles.brand} absolute left-[5%] top-1/2 -translate-y-1/2 text-[#f5f3ec] max-[700px]:left-[6%] max-[700px]:top-[14px] max-[700px]:translate-y-0`}
@@ -507,7 +507,7 @@ export default function Home() {
         </Link>
         <SeasonNav active="unearthed" />
       </div>
-      <nav className="fixed top-[104px] max-[700px]:top-[134px] left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
+      <nav className="fixed top-[104px] max-[700px]:top-[150px] left-0 right-0 bg-white/90 backdrop-blur-sm z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <a href="#" className="flex items-center gap-2 hover:opacity-80 transition">
@@ -544,7 +544,7 @@ export default function Home() {
       </nav>
 
       {/* Entry Slide / Hero Section */}
-      <section className="min-h-screen pt-[244px] max-[700px]:pt-[274px] pb-12 flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-100 via-yellow-50 to-amber-50">
+      <section className="min-h-screen pt-[244px] max-[700px]:pt-[290px] pb-12 flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-yellow-100 via-yellow-50 to-amber-50">
         <div className="max-w-5xl mx-auto text-center">
           {/* Team Logo/Badge */}
           <div className="mb-8">
