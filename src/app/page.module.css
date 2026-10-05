@@ -548,10 +548,5 @@
 .mobileRobot { background: #f5c518; border-radius: 28px; padding: 20px; overflow: hidden; }
 @media (max-width: 700px) { .mobileRobot { padding: 8px; border-radius: 22px; } }
 
-/* The introduction and robot share one yellow panel. */
-.hero { width: calc(100% - 48px); max-width: 1280px; margin: 32px auto; border-radius: 28px; background: #f5c518; color: #000; }
-.hero h1, .hero h1 .outline { color: #000; -webkit-text-stroke: 0; }
-.hero .copy > p { color: #000; }
-.hero .mobileRobot { padding: 0; margin-bottom: 0; }
+/* Keep the supplied logos upright. */
 .brandLogo, .footerBrand img { transform: none; }
-@media (max-width: 700px) { .hero { width: calc(100% - 24px); margin: 20px auto; padding: 36px 20px; border-radius: 22px; } }
