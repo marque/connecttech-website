@@ -20,7 +20,7 @@ export default function Home() {
             height={58}
             alt=""
             priority
-            sizes="(max-width: 700px) 42px, 58px"
+            sizes="(max-width: 700px) 62px, 82px"
           />
           <span>
             ConnecTech
