@@ -15,7 +15,7 @@ export default function Home() {
         <Link href="/" className={styles.brand} aria-label="ConnecTech home">
           <Image
             className={styles.brandLogo}
-            src="/images/brand/connectech-badge.png"
+            src="/images/brand/connectech-official.png"
             width={58}
             height={58}
             alt=""
@@ -51,7 +51,7 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.mobileRobot}>
-          <RobotExperience inline label="ConnecTech robot that separates and rebuilds as you scroll" />
+          <RobotExperience inline label="ConnecTech spinning robot" />
         </div>
       </section>
 
@@ -101,7 +101,7 @@ export default function Home() {
             </div>
             <Image
               className={styles.consultMark}
-              src="/images/brand/connectech-badge.png"
+              src="/images/brand/connectech-official.png"
               width={180}
               height={180}
               alt=""
@@ -164,7 +164,7 @@ export default function Home() {
           aria-label="ConnecTech home"
         >
           <Image
-            src="/images/brand/connectech-badge.png"
+            src="/images/brand/connectech-official.png"
             width={56}
             height={56}
             alt=""

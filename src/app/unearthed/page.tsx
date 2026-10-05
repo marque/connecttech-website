@@ -493,7 +493,7 @@ export default function Home() {
         >
           <Image
             className={brandStyles.brandLogo}
-            src="/images/brand/connectech-badge.png"
+            src="/images/brand/connectech-official.png"
             width={58}
             height={58}
             alt=""
