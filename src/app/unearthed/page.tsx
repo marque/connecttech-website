@@ -488,7 +488,7 @@ export default function Home() {
         <Link
           href="/"
           className={`${brandStyles.brand} absolute left-[5%] top-1/2 -translate-y-1/2 text-[#f5f3ec] max-[700px]:left-[6%] max-[700px]:top-[14px] max-[700px]:translate-y-0`}
-          style={{ fontFamily: "var(--font-geist-sans)" }}
+          style={{ fontFamily: "var(--font-geist-sans)", color: "#f5c518" }}
           aria-label="ConnecTech home"
         >
           <Image
