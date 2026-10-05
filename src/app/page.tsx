@@ -1,3 +1,4 @@
+import FllKickoffSection from "@/components/FllKickoffSection";
 import KickoffGallery from "@/components/KickoffGallery";
 import Link from "next/link";
 import Image from "next/image";
@@ -85,6 +86,8 @@ export default function Home() {
       </section>
 
       <KickoffGallery />
+
+      <FllKickoffSection />
 
       <section
         id="consult"
