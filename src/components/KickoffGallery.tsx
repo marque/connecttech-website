@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import styles from "./KickoffGallery.module.css";
 
@@ -11,6 +14,10 @@ const photos = [
 ];
 
 export default function KickoffGallery() {
+  const [index, setIndex] = useState(0);
+  const photo = photos[index];
+  const nextPhoto = () => setIndex((current) => (current + 1) % photos.length);
+
   return (
     <section className={styles.section} aria-labelledby="kickoff-gallery-title">
       <div className={styles.intro}>
@@ -18,12 +25,12 @@ export default function KickoffGallery() {
         <h2 id="kickoff-gallery-title">FIRSTLikeAGirl in action</h2>
         <p>These photos are from the FLL kickoff, where we hosted a workshop about #FIRSTLikeAGirl.</p>
       </div>
-      <div className={styles.grid}>
-        {photos.map((photo) => (
-          <a key={photo.file} href={`/images/kickoff-2026/${photo.file}`} target="_blank" rel="noreferrer" aria-label={`${photo.alt} (opens full photo in a new tab)`} className={styles.photo}>
-            <Image src={`/images/kickoff-2026/${photo.file}`} alt={photo.alt} width={1800} height={photo.file === "photo-booth.webp" ? 2410 : 1200} sizes="(max-width: 700px) 88vw, (max-width: 1100px) 44vw, 28vw" />
-          </a>
-        ))}
+      <div className={styles.slideshow}>
+        <button type="button" className={styles.photo} onClick={nextPhoto} aria-label={`Photo ${index + 1} of ${photos.length}: ${photo.alt}. Show next photo`}>
+          <Image src={`/images/kickoff-2026/${photo.file}`} alt={photo.alt} fill sizes="(max-width: 700px) 88vw, 960px" />
+          <span className={styles.next} aria-hidden="true">Next photo →</span>
+        </button>
+        <p className={styles.counter} aria-live="polite">Photo {index + 1} of {photos.length} · Click the photo to see the next one</p>
       </div>
     </section>
   );
