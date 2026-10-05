@@ -518,3 +518,25 @@
  .hero .copy > p { font-size: 16px; }
  .chapter .copy > .sectionLead { padding: 24px; font-size: 17px; }
 }
+
+/* Rounded yellow panels and solid black cards. */
+.page, .hero, .header, .footer { background: #000; }
+.mission, .consult {
+ width: calc(100% - 48px);
+ max-width: 1280px;
+ margin: 32px auto;
+ padding: 48px;
+ border-radius: 28px;
+ background: #f5c518;
+}
+.mission .campaignBanner, .consultBanner, .consultTopics, .chapter .copy > .sectionLead { background: #000; box-shadow: none; }
+.chapter .copy > .sectionLead { color: #f5f3ec; }
+.consultBannerText h2, .consultBannerText h2 em, .consultTopics h3, .brand, .footerBrand, .brandAccent { color: #f5c518; }
+.consultBannerText > span, .consultTopics p { color: #d0d0d0; }
+.consult .achievement { color: #000; text-decoration-color: #000; }
+.consultAction { background: #000; color: #f5c518; }
+.consultAction:hover { background: #202020; }
+.footerBrand small { color: #c1cabe; }
+@media (max-width: 700px) {
+ .mission, .consult { width: calc(100% - 24px); margin: 20px auto; padding: 28px 20px; border-radius: 22px; }
+}
