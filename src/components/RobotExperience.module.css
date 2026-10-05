@@ -108,3 +108,6 @@
   background: radial-gradient(ellipse at 50% 63%, #34392a55, transparent 68%);
 }
 .inlineStage .loading { left: 50%; transform: translateX(-50%); top: 38%; }
+
+.inlineStage, .inlineStage.staticStage { height: clamp(360px, 55vw, 620px); background: transparent; }
+.inlineStage .loading { color: #000; }

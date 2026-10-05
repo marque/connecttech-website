@@ -35,7 +35,7 @@ const smooth = (a: number, b: number, x: number) => {
 export async function createRobotScene(
   host: HTMLDivElement,
   ready: (ok: boolean) => void,
-  options?: { scrollLinked: true },
+  options?: { scrollLinked?: true; assembled?: true },
 ): Promise<RobotSceneHandle> {
   let renderer: THREE.WebGLRenderer;
   try {
@@ -368,6 +368,7 @@ export async function createRobotScene(
   renderer.domElement.addEventListener("touchend", touchEnd);
   renderer.domElement.addEventListener("touchcancel", touchEnd);
   const scroll = () => {
+    if (options?.assembled) { target = 0; dirty = true; return; }
     if (options) {
       const bounds = host.getBoundingClientRect();
       const viewport = window.innerHeight;
@@ -503,7 +504,7 @@ export async function createRobotScene(
       0,
     );
     robot.position.set(0, 0, 0);
-    const desktopFit = Math.min(1, host.clientWidth / host.clientHeight / 1.5);
+    const desktopFit = options?.assembled ? 1 : Math.min(1, host.clientWidth / host.clientHeight / 1.5);
     // Give the Consult copy its full column as the fixed robot moves right.
     const scale = (0.85 - open * 0.48) *
       (isMobile ? 1 : desktopFit * (1 - consultArrival * 0.25));
@@ -516,12 +517,13 @@ export async function createRobotScene(
       0.06;
     grid.position.y = floor.position.y + 0.005;
     orbit.position.y = floor.position.y + 0.01;
-    const distance = isMobile
+    const distance = (isMobile || options?.assembled)
       ? 7.7 * Math.max(1, host.clientHeight / host.clientWidth)
       : 12;
-    camera.position.set(distance * 0.6, distance * 0.47, distance * 0.78);
+    const fittedDistance = options?.assembled ? 10 * Math.max(1, host.clientHeight / host.clientWidth) : distance;
+    camera.position.set(fittedDistance * 0.6, fittedDistance * 0.47, fittedDistance * 0.78);
     camera.lookAt(0, 0.15, 0);
-    if (isMobile) {
+    if (isMobile || options?.assembled) {
       // Mobile has a dedicated lower viewport; frame its centre without a page offset.
       camera.clearViewOffset();
     } else

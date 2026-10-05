@@ -39,7 +39,7 @@ export default function RobotExperience({
           (ok) => {
             if (!disposed) setStatus(ok ? "ready" : "fallback");
           },
-          inline ? { scrollLinked: true } : undefined,
+          inline ? { assembled: true } : undefined,
         );
         if (disposed) handle.dispose();
         else scene.current = handle;
