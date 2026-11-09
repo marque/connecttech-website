@@ -39,9 +39,6 @@ yarn-error.log*
 # source assets
 /assets/
 
-# Separate VarroaGuard demo checkout
-/varroaguard/
-
 # typescript
 *.tsbuildinfo
 next-env.d.ts
